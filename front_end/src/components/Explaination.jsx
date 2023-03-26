@@ -1,13 +1,15 @@
 import React from 'react'
 
-const Explaination = ({marginTop , marginLeft}) => {
+const Explaination = ({ marginTop, marginLeft,text1,text2 }) => {
   return (
-      <div className={`relative w-[236px] h-[140px] flex flex-col justify-between mt-${marginTop} ml-${marginLeft}`}>
-        <div className="text-center w-[218px] h-[110px]">
-          Efficient lead capturing mechanism
-        </div>
-        <div className="text-center font-sans font-bold">Capture</div>
+    <div className="w-[858px] h-auto">
+    <div className={`relative w-[236px] h-[140px] flex flex-col justify-between`} style={{ marginTop: `${marginTop}`, marginLeft: `${marginLeft}` }}>
+      <div className="text-center w-[218px] h-[110px]">
+        {text1}
       </div>
+      <div className="text-center font-sans font-bold">{text2}</div>
+    </div>
+    </div>
   )
 }
 
