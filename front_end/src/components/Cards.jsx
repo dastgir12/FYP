@@ -1,0 +1,42 @@
+import React from "react";
+import Button from "./Button";
+import ImageWrapper from "./ImageWrapper";
+
+const Cards = ({ heading, reverseRow, text, paragraph, image, l1, l2, l3 }) => {
+  return (
+    <div className="relative w-[1466px] h-[500px] bg-white shadow-lg flex flex-col items-center">
+      <div className=" w-[950px] h-[50px] flex flex-col mb-12">
+        <h2 className="text-3xl font-bold font-sans text-center">{heading}</h2>
+      <div
+        className={`flex ${
+          reverseRow ? "flex-row-reverse" : "flex-row"
+        } w-[950px] h-[407px]`}
+      >
+        <div>
+          <img className=" h-[329px] w-[500px]" src={image} alt="" />
+        </div>
+
+        <div className="flex flex-col  w-[720px] h-[370px] pt-9 font-sans ">
+          <div className="w-[530px] h-[150px]">
+            <h2 className="text-3xl font-bold font-sans">{text}</h2>
+            <p className=" text-1xl mb-4 mt-4 font-sans">{paragraph}</p>
+          </div>
+
+          <div className="w-[720px] h-[118px] pl-7 mt-2">
+            <ul className="list-disc">
+              <li className=" mb-4">{l1}</li>
+              <li className=" mb-4">{l2}</li>
+              <li>{l3}</li>
+            </ul>
+          </div>
+          <div className="mt-4">
+            <Button />
+          </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+export default Cards;

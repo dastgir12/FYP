@@ -1,5 +1,6 @@
 import React from "react";
 import Button from "../../components/Button";
+import Cards from "../../components/Cards";
 import Explaination from "../../components/Explaination";
 import ImageWrapper from "../../components/ImageWrapper";
 const HeroSection = () => {
@@ -83,6 +84,7 @@ const HeroSection = () => {
           </div>
         </div>
       </div>
+
       <div className=" relative flex flex-col items-center w-[1466px] h-[800px] bg-white shadow-lg">
         <div className="mb-3">
           <h2 className="text-3xl font-bold font-sans">
@@ -127,8 +129,35 @@ const HeroSection = () => {
             text2="Track"
           />
         </div>
-        <ImageWrapper />
+          <ImageWrapper />
       </div>
+        <Cards
+                heading = 'Enhance The Efficiency of Sales Team With a Marketing Automation Tool'
+                 image = 'https://naranga.com/wp-content/webp-express/webp-images/uploads/2022/01/e-max-1.jpg.webp'
+                 text = 'Smart Lead Capturing'
+                 paragraph = 'Naranga provides you with automated lead processing. The details of interested franchisees are fetched and maintained in a centralized list. Manage leads the way you want to with the help of flexible lead tracking features.'
+                 l1 = 'Easy to use CRM dashboard'
+                 l2 = 'One-to-one leads assignment'
+                 l3 = 'Lead scoring and automated tracking of leads pipeline'
+
+        />
+        <Cards
+         reverseRow
+         image = 'https://naranga.com/wp-content/webp-express/webp-images/uploads/2021/02/e-max-2.jpg.webp'
+         text = 'From Lead to Franchisee'
+         paragraph = 'Naranga enables lead tracking status in the sales funnel and allows pipeline management. The system caters to all the queued-up leads through personalized follow-up reminders and prioritizes leads through lead scoring techniques.'
+         l1 = 'Scheduled email follow-ups through blast or drip campaigns'
+         l2 = 'Customizable email templates for personalization'
+         l3 = 'Automated workflows and lead prioritization, auto-text replies'
+         />
+        <Cards
+                 image = 'https://naranga.com/wp-content/webp-express/webp-images/uploads/2021/02/e-max-3.jpg.webp'
+                 text = 'Automated Handoff From Sales to Operations'
+                 paragraph = 'Naranga allows you to focus on business growth through efficient pipeline management and automatic task tracking. Save time by investing more on making deals rather than exhausting yourself with data entries.'
+                 l1 = 'Automatic and customized email replies'
+                 l2 = 'Real time alerts on sales and marketing activity, ROI tracking'
+                 l3 = 'Integration between emaximation and ncompass'
+        />
     </>
   );
 };
