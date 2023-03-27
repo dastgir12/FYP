@@ -5,15 +5,15 @@ import ImageWrapper from "./ImageWrapper";
 const Cards = ({ heading, reverseRow, text, paragraph, image, l1, l2, l3 }) => {
   return (
     <div className="relative w-[1466px] h-[500px] bg-white shadow-lg flex flex-col items-center">
-      <div className=" w-[950px] h-[50px] flex flex-col mb-12">
+      <div className=" w-[1100px] h-[50px] flex flex-col mb-12">
         <h2 className="text-3xl font-bold font-sans text-center">{heading}</h2>
       <div
         className={`flex ${
           reverseRow ? "flex-row-reverse" : "flex-row"
-        } w-[950px] h-[407px]`}
+        } w-[1100px]`}
       >
         <div>
-          <img className=" h-[329px] w-[500px]" src={image} alt="" />
+          <img className=" h-[300px] w-[600px]" src={image} alt="" />
         </div>
 
         <div className="flex flex-col  w-[720px] h-[370px] pt-9 font-sans ">

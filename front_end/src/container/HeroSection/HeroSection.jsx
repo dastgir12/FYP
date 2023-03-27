@@ -3,6 +3,7 @@ import Button from "../../components/Button";
 import Cards from "../../components/Cards";
 import Explaination from "../../components/Explaination";
 import ImageWrapper from "../../components/ImageWrapper";
+import ProblemSolving from "../../components/ProblemSolving";
 const HeroSection = () => {
   return (
     <>
@@ -158,6 +159,8 @@ const HeroSection = () => {
                  l2 = 'Real time alerts on sales and marketing activity, ROI tracking'
                  l3 = 'Integration between emaximation and ncompass'
         />
+
+        <ProblemSolving/>
     </>
   );
 };

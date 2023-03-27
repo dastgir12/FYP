@@ -1,5 +1,6 @@
 import React from 'react'
 import Cards from './components/Cards'
+import ProblemSolving from './components/ProblemSolving'
 import Header from './container/Header/Header'
 import HeroSection from './container/HeroSection/HeroSection'
 
@@ -9,6 +10,7 @@ const App = () => {
       <Header />
       <HeroSection/>
       {/* <Cards/> */}
+      {/* <ProblemSolving/> */}
     </div>
   )
 }
