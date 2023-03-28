@@ -2,7 +2,7 @@ import React from "react";
 const ProblemSolving = () => {
   return (
     <div className="relative w-[1466px] h-[850px] bg-white shadow-lg ">
-      <div className="absolute translate-x-[830px] mt-10">
+      <div className="absolute translate-x-[830px] mt-20">
           <img
             src="https://naranga.com/wp-content/themes/naranga/static/img/svg/ring-dark.svg"
             alt=""
@@ -21,11 +21,11 @@ const ProblemSolving = () => {
 
       <div className=" w-[1466px] h-[850px]  flex flex-col items-center">
         <div className=" w-[1100px] mb-2">
-          <h2 className="text-3xl font-bold font-sans text-center p-4">
-            How Naranga Solves Your Problems
+          <h2 className="text-slate-900 text-5xl font-bold font-sans text-center p-4">
+            How GAB Solves Your Problems
           </h2>
         </div>
-        <div className="mb-12">
+        <div className="mb-12 text-2xl">
           <p>Grow your business and ensure brand consistency</p>
         </div>
 

@@ -6,20 +6,22 @@ import ProblemSolving from './components/ProblemSolving'
 import Header from './container/Header/Header'
 import HeroSection from './container/HeroSection/HeroSection'
 import Question from './components/Question'
-import Dropdown from './components/Dropdown'
+import Footer from './components/Footer'
+
 
 const App = () => {
   return (
-    <div className='w-[1466px]'>
-      {/* <Header />
-      <HeroSection/> */}
+    <div>
+      <Header />
+      <HeroSection/>
       {/* <Cards/> */}
       {/* <ProblemSolving/> */}
       {/* <CardSection/> */}
       {/* <CardsWithDots/> */}
       {/* <Number/> */}
-      <Question/>
+      {/* <Question/> */}
       {/* <Dropdown/> */}
+      {/* <Footer/> */}
     </div>
   )
 }
