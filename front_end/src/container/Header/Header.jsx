@@ -57,6 +57,9 @@ const Header = () => {
             <div className="mt-1" onClick={() => navigate('/login')}>
               <Button text="Login" />
             </div>
+            <div className="mt-1 ml-3" onClick={() => navigate('/register')}>
+              <Button text="Register" />
+            </div>
           </div>
         </div>
       </div>
