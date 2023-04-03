@@ -22,7 +22,7 @@ app.use(cors())
 app.use(morgan("tiny"))
 
 //body parser
-app.use(bodyParser.urlencoded({extended:true}))
+app.use(bodyParser.urlencoded({extended:false}))
 app.use(bodyParser.json())
 
 PORT=process.env.PORT 

@@ -1,4 +1,7 @@
 import React, { useEffect } from "react";
+import { toast } from 'react-toastify';
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import axios from "axios";
 import { Form, Input } from "antd";
 import { message } from "antd";
@@ -13,41 +16,68 @@ const Login = () => {
 
   const postForm = async (values) => {
     try {
-      const formData = new FormData();
-      formData.append("email", values.email);
-      formData.append("password", values.password);
+    //   const formData = new FormData();
+    //   formData.append("email", values.email);
+    //   formData.append("password", values.password);
+
+	const formData = {
+		email : values.email,
+		password  : values.password
+	}
       const { status, data } = await axios.post(
-        "http://localhost:3001/v1/user/login",
+        "http://localhost:5000/api/auth",
         formData
       );
       if (status === 200) {
-        console.log("Login Successfull");
-        const user = setCookie("user", data.token);
-        console.log(user);
-        if (user) {
+		toast.success('Login successful!', {
+			position: toast.POSITION.TOP_CENTER,
+			autoClose: 3000,
+			hideProgressBar: true,
+			closeOnClick: true,
+			pauseOnHover: true,
+			draggable: true,
+		  });
+		console.log(data);
+        setCookie("user", data.token);
+        if (data) {
           form.resetFields();
           setTimeout(() => {
+
+			// here i will have to change wher we maove after login
             nav("/");
           }, 1000);
         }
       }
-    } catch (e) {
-      if (e) {
-        const err = e.response.data.error;
-        if (err) {
-          messageApi.open({
-            type: "error",
-            content: err,
-            duration: 3,
-          });
-        }
-      }
+    }catch (e) {
+		if (e) {
+		  const err = e.response.data.error;
+		  if (err) {
+			toast.error(err, {
+			  position: toast.POSITION.TOP_CENTER,
+			  autoClose: 3000,
+			  hideProgressBar: true,
+			  closeOnClick: true,
+			  pauseOnHover: true,
+			  draggable: true,
+			});
+		  } else {
+			toast.error("Invalid input", {
+			  position: toast.POSITION.TOP_CENTER,
+			  autoClose: 3000,
+			  hideProgressBar: true,
+			  closeOnClick: true,
+			  pauseOnHover: true,
+			  draggable: true,
+			});
+		  }
+	  }
       console.log(e);
     }
   };
 
   return (
     <>
+	<ToastContainer />
       <div className="relative mt-14 flex gap-4 w-[1400px] h-screen">
         <div className=" h-screen mr-4 mt-14">
           <img

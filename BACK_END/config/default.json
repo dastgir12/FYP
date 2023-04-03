@@ -1,0 +1,6 @@
+{
+    "mongoURI":"mongodb+srv://dastgir:6uyXGRMaGecOpW6T@cluster0.gevmiwb.mongodb.net/mernStack?retryWrites=true&w=majority",
+    "jwtSecret": "secrettoken",
+    "emailUser":"ghulamdastgir112233@gmail.com",
+    "passwordUser":"rmnsdjrjcqggjpvk"
+} 

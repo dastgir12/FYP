@@ -18,6 +18,28 @@ router.all('/', (req, res, next) => {
 router.post('/', async (req, res) => {
     const { name, company, password, address, phone, email } = req.body
     try {
+
+        // let user= await User.findOne({email});
+        // if(user){
+        //     return res.status(400).json({errors:[{msg:"User already exists"}]});
+        // }
+
+        // user = new User({
+        //     name,
+        //     email, 
+        //     avatar,
+        //     password
+
+        // })
+
+
+        // const hash= await bcrypt.genSalt(10);
+        // user.password= await bcrypt.hash(password,hash);
+
+
+        // const saveUser = await user.save();
+        // res.send('register successfully')
+
         const hashed = await hashedPassword(password)
         const newUserObj = { name, company, password: hashed, address, phone, email }
         const result = await insertUser(newUserObj)

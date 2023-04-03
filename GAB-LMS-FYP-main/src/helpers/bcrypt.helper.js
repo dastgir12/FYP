@@ -1,8 +1,8 @@
 const bcrypt= require('bcrypt')
-// const salt = bcrypt.genSaltSync(10);
+const salt = bcrypt.genSaltSync(10);
 const hashedPassword = plainPassword => {
 return new Promise(resolve=>{
-resolve(bcrypt.hashSync(plainPassword))
+resolve(bcrypt.hashSync(plainPassword , salt))
 })
 }
 

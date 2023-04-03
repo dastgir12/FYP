@@ -1,4 +1,6 @@
 import React from "react";
+import { toast } from 'react-toastify';
+import { ToastContainer } from "react-toastify";
 import { Link } from "react-router-dom";
 import { Form, Input, InputNumber } from "antd";
 import { useNavigate } from "react-router-dom";
@@ -7,36 +9,78 @@ const Register = () => {
   const nav = useNavigate();
   const [form] = Form.useForm();
   const postForm = async (values) => {
-    console.log(values);
-    // form.resetFields();
+    // console.log(values);
+    form.resetFields();
     try {
-      const formData = new FormData();
-      formData.append("email", values.email);
-      formData.append("password", values.password);
-      // formData.append("repassword", values.repassword);
-      formData.append("name", values.name);
-      formData.append("number", values.number);
-      formData.append("address", values.address);
-      formData.append("companyName", values.companyName);
+    //   const formData = new FormData();
+    //   formData.append("email", values.email);
+    //   formData.append("password", values.password);
+    //   // formData.append("repassword", values.repassword);
+    //   formData.append("name", values.name);
+    //   formData.append("number", values.number);
+    //   formData.append("address", values.address);
+    //   formData.append("companyName", values.companyName);
+// console.log();
 
+const formData = {
+  email : values.email,
+  name : values.name,
+  companyName : values.companyName,
+  number : values.number,
+  password : values.password,
+  address : values.address,
+}
 
-      const { data, status } = await axios.post(
-        "http://localhost:3001/v1/user",
+console.log(formData);
+     const {status , data} =  await axios.post(
+        "http://localhost:5000/api/reg",
         formData
       );
-      if (status === 200) {
-        console.log(data);
+      if(status == 200)
+      {
+
+      console.log('register succeessfully');
+      toast.success('Registered successfully!', {
+        position: toast.POSITION.TOP_CENTER,
+        autoClose: 3000,
+        hideProgressBar: true,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        });
       }
     } catch (e) {
-      console.log(e.response.data.message);
-    }
+      if (e) {
+        const err = e.response.data.error;
+        if (err) {
+        toast.error(err, {
+          position: toast.POSITION.TOP_CENTER,
+          autoClose: 3000,
+          hideProgressBar: true,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+        });
+        } else {
+        toast.error("Already Registerd", {
+          position: toast.POSITION.TOP_CENTER,
+          autoClose: 3000,
+          hideProgressBar: true,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+        });
+        }
+      }
+        console.log(e);
+      }
   };
   //// Number Validation
   const numberValidation = async (rule, value) => {
     if (!value) {
       return Promise.reject(new Error("Please Enter Your Phone Number "));
     }
-    console.log(value);
+    // console.log(value);
     const count = value.toString();
 
     if (count.length < 11) {
@@ -45,6 +89,7 @@ const Register = () => {
   };
   return (
     <>
+    <ToastContainer/>
       <div className="relative mt-14 flex gap-4 w-[1400px] h-screen">
         <div className=" h-screen mr-4 mt-14">
           <img
@@ -161,7 +206,7 @@ const Register = () => {
                 className="placeholder:text-slate-700 placeholder:border-slate-700"
                 placeholder="Enter Your Password"
               />
-            {/* </Form.Item> */}
+            </Form.Item>
             {/* <Form.Item
               hasFeedback
               dependencies={["password"]}
@@ -182,7 +227,7 @@ const Register = () => {
               ]}
             >
               <Input.Password placeholder="Confrim Your password" /> */}
-            </Form.Item>
+            {/* </Form.Item> */}
             <Form.Item>
               <div className="flex justify-between items-center">
                 <div className="flex justify-center items-center">
