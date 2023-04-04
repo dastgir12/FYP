@@ -44,7 +44,7 @@ const Login = () => {
           setTimeout(() => {
 
 			// here i will have to change wher we maove after login
-            nav("/");
+            nav("/dashboard");
           }, 1000);
         }
       }
