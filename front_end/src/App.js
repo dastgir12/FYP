@@ -1,8 +1,13 @@
 import React from "react";
-import Home from "./container/Home";
+import Home from "./pages/Home";
 import DashBoardPage from './dashboard/DashBoardPage'
 import Login from "./Form/Login";
 import Register from "./Form/Register";
+import Forgot from "./Form/Forgot";
+import AboutUs from "./pages/AboutUs";
+import ContactUs from "./pages/ContactUs";
+import LeadAdd from "./dashboard/Lead/LeadAdd";
+// import HotelAdd from "./dashboard/hotel/LeadAdd";
 // import DashBoard from './dashboard'
 // import HotelAdd from './dashboard/hotel/HotelAdd'
 import { BrowserRouter, Routes, Route } from "react-router-dom";
@@ -19,10 +24,16 @@ const App = () => {
         <Route path="/" element={<Home />} />
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
+          <Route path="/forgot" element={<Forgot />} />
+          <Route path="/about" element={<AboutUs />} />
+          <Route path="/contact" element={<ContactUs />} />
+
+
+
 
           <Route path="/dashboard" element={<DashBoardPage />}>
             {/* <Route index element={<DashBoard />} /> */}
-            {/* <Route path="/dashboard/hoteladd" element={<HotelAdd />} /> */}
+            <Route path="/dashboard/leadadd" element={<LeadAdd />} />
             {/* <Route
               path="/dashboard/paymentmethod"
               element={<PaymentMethod />}

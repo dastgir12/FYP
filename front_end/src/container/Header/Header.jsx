@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import Button from "../../components/Button";
 import { useNavigate } from "react-router-dom";
 const Header = () => {
@@ -34,30 +35,30 @@ const Header = () => {
             />
           </div>
           <div className="flex items-center mb-8">
-            <div className="ml-10 flex space-x-4">
-              <a
-                href="#"
+            <div className="ml-10 flex space-x-4 mr-2">
+              <Link
+                to="/"
                 className="hover:bg-gray-100 rounded-md px-3 py-2 font-medium text-gray-900"
               >
                 Home
-              </a>
-              <a
-                href="#"
-                className="hover:bg-gray-100 rounded-md px-3 py-2 font-medium text-gray-900"
-              >
-                About
-              </a>
-              <a
-                href="#"
+              </Link>
+              <Link
+                to="/contact"
                 className="hover:bg-gray-100 rounded-md px-3 py-2 font-medium text-gray-900"
               >
                 Contact Us
-              </a>
+              </Link>
+              <Link
+                to="/about"
+                className="hover:bg-gray-100 rounded-md px-3 py-2 font-medium text-gray-900"
+              >
+                About Us
+              </Link>
             </div>
-            <div className="mt-1" onClick={() => navigate('/login')}>
+            <div className="mt-1" onClick={() => navigate("/login")}>
               <Button text="Login" />
             </div>
-            <div className="mt-1 ml-3" onClick={() => navigate('/register')}>
+            <div className="mt-1 ml-3" onClick={() => navigate("/register")}>
               <Button text="Register" />
             </div>
           </div>

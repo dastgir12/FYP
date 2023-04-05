@@ -35,7 +35,7 @@ const HeroSection = () => {
               </p>
             </div>
             <div className=" mb-6">
-              <Button />
+              <Button text='I am Intrested' />
             </div>
           </div>
 

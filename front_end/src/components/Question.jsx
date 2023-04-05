@@ -49,7 +49,7 @@ const Question = () => {
           </Collapse>
         </div>
         <div className="mt-8">
-          <Button />
+          <Button text = 'Quick Demo'/>
         </div>
       </div>
     </div>

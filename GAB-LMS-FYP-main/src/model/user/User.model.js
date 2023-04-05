@@ -10,27 +10,26 @@ const insertUser = userObj => {
 }
 
 const getUserByEmail = (email) => {
-
-
-    return new Promise((resolve, reject) => {
-        if (!email) return console.log('plz register first');
-        try {
-            UserSchema.findOne({ email }, (error, data) => {
-                if (error) {
-                    console.log(error)
-                    reject(error)
-                }
-                resolve(data)
-                console.log(data)
-            }
-            )
-        } catch (error) {
-            console.log(error)
+    if (!email) {
+      console.log('Please provide an email');
+      return Promise.reject('No email provided');
+    }
+    return UserSchema.findOne({ email })
+      .then((data) => {
+        if (!data) {
+          console.log(`User with email ${email} not found`);
+          return Promise.reject('User not found');
         }
-
-    })
-}
-
+        return Promise.resolve(data);
+      })
+      .catch((error) => {
+        console.log(error);
+        return Promise.reject(error);
+      });
+  };
+  
+  
+  
 const getUserById = (_id) => {
     return new Promise((resolve, reject) => {
         if (!_id) return error

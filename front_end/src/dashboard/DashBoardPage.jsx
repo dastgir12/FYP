@@ -26,7 +26,7 @@ const DashBoardPage = () => {
   setOpen(false);
   if (e.key === "/dashboard") setpageTitle("DashBoard");
   if (e.key === "Admin") setpageTitle("Admin");
-  if (e.key === "addLead") setpageTitle("Add Lead");
+  if (e.key === "leadadd") setpageTitle("Add Lead");
   if (e.key === "Leadslist") setpageTitle("List Of Leads");
   if (e.key === "addUser") setpageTitle("Add User");
   if (e.key === "userList") setpageTitle("List of user");
@@ -48,7 +48,7 @@ const DashBoardPage = () => {
    },
   {
    label: "Add Lead",
-   key: "addLead",
+   key: "leadadd",
    icon: <UploadOutlined />,
    style: { fontSize: "15px" },
   },
@@ -78,7 +78,7 @@ const DashBoardPage = () => {
  /////////////////
  return (
   <>
-   <div className="px-3 py-2 mt-3 flex bg-red-400  text-white">
+   <div className="px-3 py-2 mt-3 flex bg-blue-400  text-white">
     <div className="cursor-pointer">
      <AlignLeftOutlined onClick={showDrawer} style={{ fontSize: "20px" }} />
     </div>

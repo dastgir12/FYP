@@ -30,7 +30,7 @@ const Cards = ({ heading, reverseRow, text, paragraph, image, l1, l2, l3 }) => {
               </ul>
             </div>
             <div className="mt-4">
-              <Button />
+              <Button text = 'Tell me more' />
             </div>
           </div>
         </div>

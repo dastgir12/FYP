@@ -1,4 +1,5 @@
 import React, { useEffect } from "react";
+import { Link } from "react-router-dom";
 import { toast } from 'react-toastify';
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -138,12 +139,12 @@ const Login = () => {
                   </button>
                 </div>
                 <div>
-                  <a
-                    href="#!"
-                    class="text-primary transition duration-150 ease-in-out hover:text-primary-600 focus:text-primary-600 active:text-primary-700 dark:text-primary-400 dark:hover:text-primary-500 dark:focus:text-primary-500 dark:active:text-primary-600"
-                  >
-                    Forgot password?
-                  </a>
+                    <Link 
+                    to='/forgot'
+                    className="text-primary transition duration-150 ease-in-out hover:text-primary-600 focus:text-primary-600 active:text-primary-700 dark:text-primary-400 dark:hover:text-primary-500 dark:focus:text-primary-500 dark:active:text-primary-600"
+                    >
+                    Forgot password
+                    </Link>
                 </div>
               </div>
             </Form.Item>
