@@ -39,7 +39,7 @@ console.log(formData);
       if(status == 200)
       {
 
-      console.log('register succeessfully');
+      // console.log('register succeessfully');
       toast.success('Registered successfully!', {
         position: toast.POSITION.TOP_CENTER,
         autoClose: 3000,
@@ -48,6 +48,7 @@ console.log(formData);
         pauseOnHover: true,
         draggable: true,
         });
+
       }
     } catch (e) {
       if (e) {
@@ -241,7 +242,7 @@ console.log(formData);
 
                 <div>
                   <p class="text-sm">
-                    Already have an account?
+                    Already have an account? 
                     <Link
                       to="/login"
                       class="font-medium text-primary-600 hover:underline dark:text-primary-500"

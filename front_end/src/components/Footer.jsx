@@ -5,7 +5,7 @@ import Button from "./Button";
 import { socialMedia, footerLinks } from "../constant";
 const Footer = () => {
   return (
-    <div className=" w-[1466px] h-[700px] flex flex-col bg-slate-100 shadow-lg p-6">
+    <div className=" w-full h-[700px] flex flex-col bg-slate-100 shadow-lg p-6">
       <div className="flex justify-between items-center p-6 border-b-2 border-slate-400">
         <div className="gap-4 p-1">
           <div>

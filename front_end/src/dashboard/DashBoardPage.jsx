@@ -27,7 +27,7 @@ const DashBoardPage = () => {
   if (e.key === "/dashboard") setpageTitle("DashBoard");
   if (e.key === "Admin") setpageTitle("Admin");
   if (e.key === "leadadd") setpageTitle("Add Lead");
-  if (e.key === "Leadslist") setpageTitle("List Of Leads");
+  if (e.key === "Leadlist") setpageTitle("List Of Leads");
   if (e.key === "addUser") setpageTitle("Add User");
   if (e.key === "userList") setpageTitle("List of user");
   if (e.key === "paymentmethod") setpageTitle("Attach Payment Method");
@@ -55,7 +55,7 @@ const DashBoardPage = () => {
 
   {
    label: "Lead List",
-   key: "Leadslist",
+   key: "leadlist",
    icon: <SolutionOutlined />,
    style: { fontSize: "15px" },
   },

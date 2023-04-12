@@ -11,6 +11,7 @@ import LeadAdd from "./dashboard/Lead/LeadAdd";
 // import DashBoard from './dashboard'
 // import HotelAdd from './dashboard/hotel/HotelAdd'
 import { BrowserRouter, Routes, Route } from "react-router-dom";
+import LeadList from "./dashboard/leadlist/LeadList";
 
 
 const App = () => {
@@ -34,6 +35,8 @@ const App = () => {
           <Route path="/dashboard" element={<DashBoardPage />}>
             {/* <Route index element={<DashBoard />} /> */}
             <Route path="/dashboard/leadadd" element={<LeadAdd />} />
+            <Route path="/dashboard/leadlist" element={<LeadList />} />
+
             {/* <Route
               path="/dashboard/paymentmethod"
               element={<PaymentMethod />}

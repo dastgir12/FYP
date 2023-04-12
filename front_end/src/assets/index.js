@@ -1,4 +1,5 @@
 import airbnb from "./airbnb.png";
+import log from './log.png'
 import bill from "./bill.png";
 import binance from "./binance.png";
 import card from "./card.png";
@@ -25,6 +26,7 @@ import people02 from "./people02.png";
 import people03 from "./people03.png";
 
 export {
+  log,
   airbnb,
   bill,
   binance,

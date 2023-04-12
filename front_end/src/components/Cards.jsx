@@ -4,7 +4,7 @@ import ImageWrapper from "./ImageWrapper";
 
 const Cards = ({ heading, reverseRow, text, paragraph, image, l1, l2, l3 }) => {
   return (
-    <div className="relative w-[1466px] h-[500px] bg-white shadow-lg flex flex-col items-center">
+    <div className="relative w-full h-[500px] bg-white shadow-lg flex flex-col items-center">
       <div className=" w-[1100px] h-[50px] flex flex-col mb-12">
         <h2 className="text-3xl font-bold font-sans text-center">{heading}</h2>
         <div

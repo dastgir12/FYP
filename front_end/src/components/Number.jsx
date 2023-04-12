@@ -2,8 +2,8 @@ import React from "react";
 
 const Number = () => {
   return (
-    <div className=" w-[1466px] h-[700px] bg-white shadow-lg flex justify-center">
-      <div className=" w-[1100px] h-[700px] flex flex-col items-center">
+    <div className=" w-full h-[700px] bg-white shadow-lg flex justify-center">
+      <div className=" w-full h-[700px] flex flex-col items-center">
         <div className=" w-[1100px] mb-4">
           <h2 className="text-5xl font-bold font-sans text-center p-4">
             Gab in Number . Feel the Difference

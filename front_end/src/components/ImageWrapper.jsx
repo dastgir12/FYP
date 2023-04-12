@@ -3,7 +3,7 @@ import React from "react";
 const ImageWrapper = ({ width, height }) => {
   return (
     <div className="flex justify-center items-center">
-      <div className="absolute w-[1200px] h-[120px] flex flex-col justify-center items-center">
+      <div className="absolute w-full h-[120px] flex flex-col justify-center items-center">
         <img
           src="https://naranga.com/wp-content/themes/naranga/static/img/svg/line.svg"
           alt=""

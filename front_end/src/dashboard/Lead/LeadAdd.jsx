@@ -22,7 +22,7 @@ function LeadAdd() {
           ]}
         >
           <Input
-            placeholder="John Doe"
+            placeholder="name"
             className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
           />
         </Form.Item>
@@ -41,12 +41,12 @@ function LeadAdd() {
           ]}
         >
           <Input
-            placeholder="john.doe@example.com"
+            placeholder="email"
             className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
           />
         </Form.Item>
       </div>
-
+             
       <div className="mb-4">
         <Form.Item
           name="phone"
@@ -68,7 +68,7 @@ function LeadAdd() {
       <div className="mb-4">
         <Form.Item name="company" label="Company">
           <Input
-            placeholder="Acme Inc."
+            placeholder="company"
             className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
           />
         </Form.Item>

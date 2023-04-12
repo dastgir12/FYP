@@ -10,15 +10,15 @@ import Footer from "../../components/Footer";
 const HeroSection = () => {
   return (
     <>
-      <div className="w-[1466px] relative flex flex-col h-auto ">
+      <div className="w-full relative flex flex-col h-auto ">
         <div className="mb-4">
           <img
             src="https://naranga.com/wp-content/uploads/2021/04/bg-2.jpg"
             alt=""
-            className="w-[1466px] h-[580px]"
+            className="w-full h-[580px]"
           />
         </div>
-        <div className="w-[1466px] h-[550px] absolute">
+        <div className="w-full h-[550px] absolute">
           <div className=" flex flex-col justify-center items-center">
             <div className="text-7xl text-center text-slate-900 font-bold flex items-center justify-center p-4 max-w-[850px] mb-4">
               <h2>
@@ -39,7 +39,7 @@ const HeroSection = () => {
             </div>
           </div>
 
-          <div className="absolute bg-white shadow-md h-[150px] w-[1466px] pt-[18px]">
+          <div className="absolute bg-white shadow-md h-[150px] w-full pt-[18px]">
             <div className="flex flex-col items-center justify-center">
               <div className="mb-2 mt-0 p-3 text-2xl">
                 <p>400+ companies who perform better with GAB</p>
@@ -90,7 +90,7 @@ const HeroSection = () => {
           </div>
         </div>
 
-        <div className=" relative flex flex-col items-center w-[1466px] mt-8 h-[800px] bg-white shadow-lg">
+        <div className=" relative flex flex-col items-center w-full mt-8 h-[800px] bg-white shadow-lg">
           <div className="mb-6 mt-2">
             <h2 className="text-5xl text-slate-900 font-bold font-sans">
               Your Automated Mangement Solution

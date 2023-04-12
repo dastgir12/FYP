@@ -12,7 +12,9 @@ const transporter = nodemailer.createTransport({
 
 
   const send=(info)=>{
+  
     return new Promise(async(resolve,reject)=>{
+      
         try {
             let result = await transporter.sendMail(info);
     

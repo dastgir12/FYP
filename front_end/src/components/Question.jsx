@@ -4,7 +4,7 @@ import { Collapse } from "antd";
 const { Panel } = Collapse;
 const Question = () => {
   return (
-    <div className=" w-[1466px] h-[620px] bg-slate-100 shadow-lg flex justify-center p-6">
+    <div className=" w-full h-[620px] bg-slate-100 shadow-lg flex justify-center p-6">
       <div className=" w-[1100px] h-[900px] flex flex-col items-center gap-3">
         <div className=" w-[1100px] ">
           <h2 className="text-slate-900 text-6xl font-bold font-sans text-center p-4">
