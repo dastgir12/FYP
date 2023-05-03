@@ -25,15 +25,15 @@ const Register = () => {
 const formData = {
   email : values.email,
   name : values.name,
-  companyName : values.companyName,
-  number : values.number,
+  company : values.company,
+  phone : values.phone,
   password : values.password,
   address : values.address,
 }
 
 console.log(formData);
      const {status , data} =  await axios.post(
-        "http://localhost:5000/api/reg",
+        "http://localhost:3001/v1/user",
         formData
       );
       if(status == 200)
@@ -145,7 +145,7 @@ console.log(formData);
             </Form.Item>
 
             <Form.Item
-              name="companyName"
+              name="company"
               rules={[
                 {
                   type: "string",
@@ -176,7 +176,7 @@ console.log(formData);
 
             <Form.Item
               hasFeedback
-              name="number"
+              name="phone"
               rules={[
                 {
                   validator: numberValidation,

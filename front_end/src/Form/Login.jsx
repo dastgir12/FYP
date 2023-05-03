@@ -26,7 +26,7 @@ const Login = () => {
 		password  : values.password
 	}
       const { status, data } = await axios.post(
-        "http://localhost:5000/api/auth",
+        "http://localhost:3001/v1/user/login",
         formData
       );
       if (status === 200) {
