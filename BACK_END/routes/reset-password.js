@@ -14,8 +14,6 @@ const securePassword = async (password) => {
   }
 };
 
-
-
 router.get("/", async (req, res) => {
   try {
     const token = req.query.token;

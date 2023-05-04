@@ -11,71 +11,63 @@ import { useCookies } from "react-cookie";
 
 const Login = () => {
   const nav = useNavigate();
-  const [cookies, setCookie, removeToken] = useCookies(["user"]);
-  const [messageApi, contextHolder] = message.useMessage();
   const [form] = Form.useForm();
-
   const postForm = async (values) => {
-    try {
-    //   const formData = new FormData();
-    //   formData.append("email", values.email);
-    //   formData.append("password", values.password);
-
-	const formData = {
-		email : values.email,
-		password  : values.password
-	}
-      const { status, data } = await axios.post(
+    try{
+    const formData = {
+        email: values.email,
+        password: values.password,
+      };
+ 
+         const {status, data} = await axios.post(
         "http://localhost:3001/v1/user/login",
         formData
       );
+
       if (status === 200) {
-		toast.success('Login successful!', {
-			position: toast.POSITION.TOP_CENTER,
-			autoClose: 3000,
-			hideProgressBar: true,
-			closeOnClick: true,
-			pauseOnHover: true,
-			draggable: true,
-		  });
-		console.log(data);
-        setCookie("user", data.token);
+        toast.success("Login successful!", {
+          position: toast.POSITION.TOP_CENTER,
+          autoClose: 3000,
+          hideProgressBar: true,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+        });
+
         if (data) {
           form.resetFields();
-          setTimeout(() => {
-
-			// here i will have to change wher we maove after login
-            nav("/dashboard");
-          }, 1000);
+        }
+      }}
+    catch (e) {
+      if (e) {
+        const err = e.response.data.error;
+        if (err) {
+          toast.error(err, {
+            position: toast.POSITION.TOP_CENTER,
+            autoClose: 3000,
+            hideProgressBar: true,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+          });
+        } else {
+          toast.error("Invalid input", {
+            position: toast.POSITION.TOP_CENTER,
+            autoClose: 3000,
+            hideProgressBar: true,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+          });
         }
       }
-    }catch (e) {
-		if (e) {
-		  const err = e.response.data.error;
-		  if (err) {
-			toast.error(err, {
-			  position: toast.POSITION.TOP_CENTER,
-			  autoClose: 3000,
-			  hideProgressBar: true,
-			  closeOnClick: true,
-			  pauseOnHover: true,
-			  draggable: true,
-			});
-		  } else {
-			toast.error("Invalid input", {
-			  position: toast.POSITION.TOP_CENTER,
-			  autoClose: 3000,
-			  hideProgressBar: true,
-			  closeOnClick: true,
-			  pauseOnHover: true,
-			  draggable: true,
-			});
-		  }
-	  }
       console.log(e);
+      return; // return early to prevent redirect
     }
-  };
-
+    setTimeout(() => {
+      nav("/dashboard");
+    }, 1000);
+  }
   return (
     <>
 	<ToastContainer />
