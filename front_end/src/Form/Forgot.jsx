@@ -8,7 +8,7 @@ const Forgot = () => {
   const handleSubmit = async (event) => {
     event.preventDefault();
     try {
-      const response = await axios.post("http://localhost:5000/api/forget", { email: email });
+      const response = await axios.post("http://localhost:3001/v1/user/reset-password", { email: email });
       if (response.data.success) {
         setNotification("Email sent. Please check your inbox.");
         setTimeout(() => {
