@@ -1,100 +1,87 @@
-import { Form, Input, Button } from "antd";
-import React from "react";
+import React, { useState } from 'react';
+import axios from 'axios';
 
-function LeadAdd() {
-  const onFinish = (values) => {
-    console.log("Received values of form:", values);
+const LeadAdd = () => {
+  const [leadData, setLeadData] = useState({
+    leadName: '',
+    sender: '',
+    subject: '',
+    wealth: '',
+    experience: '',
+    currentBusinesses: '',
+    mostPreferedBusinesses: '',
+    source: '',
+    assignedTo: '',
+    message: ''
+  });
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      const response = await axios.post('/api/leads', leadData); // Replace with your backend API endpoint URL
+      console.log(response.data);
+      // Handle success response, display a success message, or perform other actions
+    } catch (error) {
+      console.error(error);
+      // Handle error response, display an error message, or perform other actions
+    }
+  };
+
+  const handleChange = (e) => {
+    setLeadData({ ...leadData, [e.target.name]: e.target.value });
   };
 
   return (
-    <Form onFinish={onFinish} className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
-      <h2 className="text-center text-2xl font-bold mb-6">Add Lead Information</h2>
-
-      <div className="mb-4">
-        <Form.Item
-          name="name"
-          label="Name"
-          rules={[
-            {
-              required: true,
-              message: "Please enter your name",
-            },
-          ]}
-        >
-          <Input
-            placeholder="name"
-            className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+    <div className="max-w-md mx-auto mt-8">
+      <form onSubmit={handleSubmit} className="space-y-4">
+        <div>
+          <label htmlFor="leadName" className="block font-medium">Lead Name</label>
+          <input
+            type="text"
+            id="leadName"
+            name="leadName"
+            value={leadData.leadName}
+            onChange={handleChange}
+            className="border border-gray-300 rounded px-4 py-2 w-full"
+            required
           />
-        </Form.Item>
-      </div>
-
-      <div className="mb-4">
-        <Form.Item
-          name="email"
-          label="Email"
-          rules={[
-            {
-              type: "email",
-              required: true,
-              message: "Please enter a valid email address",
-            },
-          ]}
-        >
-          <Input
-            placeholder="email"
-            className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+        </div>
+        <div>
+          <label htmlFor="sender" className="block font-medium">Sender Email</label>
+          <input
+            type="email"
+            id="sender"
+            name="sender"
+            value={leadData.sender}
+            onChange={handleChange}
+            className="border border-gray-300 rounded px-4 py-2 w-full"
+            required
           />
-        </Form.Item>
-      </div>
-             
-      <div className="mb-4">
-        <Form.Item
-          name="phone"
-          label="Phone"
-          rules={[
-            {
-              pattern: /^[0-9]*$/,
-              message: "Please enter a valid phone number",
-            },
-          ]}
-        >
-          <Input
-            placeholder="(123) 456-7890"
-            className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+        </div>
+        <div>
+          <label htmlFor="subject" className="block font-medium">Subject</label>
+          <input
+            type="text"
+            id="subject"
+            name="subject"
+            value={leadData.subject}
+            onChange={handleChange}
+            className="border border-gray-300 rounded px-4 py-2 w-full"
+            required
           />
-        </Form.Item>
-      </div>
-
-      <div className="mb-4">
-        <Form.Item name="company" label="Company">
-          <Input
-            placeholder="company"
-            className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-          />
-        </Form.Item>
-      </div>
-
-      <div className="mb-4">
-        <Form.Item name="message" label="Message">
-          <Input.TextArea
-            rows={4}
-            className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-            placeholder="Enter your message here"
-          />
-        </Form.Item>
-      </div>
-
-      <div className="flex items-center justify-center">
-        <Button
-          type="primary"
-          htmlType="submit"
-          className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
-        >
-          Submit
-        </Button>
-      </div>
-    </Form>
+        </div>
+        {/* Add more input fields for other data properties */}
+        <div>
+          <button
+            type="submit"
+            className="bg-blue-500 text-white rounded px-4 py-2"
+          >
+            Submit
+          </button>
+        </div>
+      </form>
+    </div>
   );
-}
+};
 
 export default LeadAdd;
