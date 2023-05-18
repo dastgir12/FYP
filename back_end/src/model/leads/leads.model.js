@@ -25,6 +25,29 @@ const insertLeads = leadsObj =>{
    
 }
 
+const insertUserLeads = leadsUserObj =>{
+
+    return new Promise((resolve,reject)=>{
+        try {
+            LeadsSchema(leadsUserObj)
+            .save()
+            .then((data)=>{
+                resolve(data)
+                
+            })
+            .catch((error)=>{
+                reject(error)
+            })
+        
+        } catch (error) {
+
+            reject(error)
+            
+        }
+    })
+   
+}
+
 const getLeads = clientId =>{
 
     return new Promise((resolve,reject)=>{
@@ -168,6 +191,7 @@ module.exports={
     getLeadsById,
     updateClientReply,
     updateStatusClose,
-    deleteLead
+    deleteLead,
+    insertUserLeads
     
 }

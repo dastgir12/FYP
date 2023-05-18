@@ -4,6 +4,7 @@ const { createNewLeadValidation, replyLeadMessageValidation } = require("../midd
 const { insertLeads, getLeads, getLeadsById,deleteLead , updateClientReply, updateStatusClose } = require("../model/leads/leads.model");
 const { LeadsSchema } = require("../model/leads/leads.schema");
 const mongoose = require('mongoose');
+const { isAdmin, isLeadManager } = require("../middlewares/userRights.middleware");
 const router = express.Router();
 
 // router.all('/',(req,res,next)=>{
@@ -11,47 +12,121 @@ const router = express.Router();
 
 // })
 
-//create url endpoint
+//create company endpoint
 
+//  router.post('/',userAuthorization , async(req, res) => {
+
+//     try {
+        
+//     //receive new ticket data
+//     const { leadName,sender,subject, wealth,experience, currentBusinesses,mostPreferedBusinesses, source,assignedTo,message } = req.body;
+
+
+//     const userId = req.userId
+//     const assignedToId = mongoose.Types.ObjectId(assignedTo);
+
+//     const leadsObj = {
+//         clientId: userId,
+//         leadName,sender,subject, wealth,experience, currentBusinesses,mostPreferedBusinesses,assignedTo: assignedToId,message,source,
+//         conservation: [
+//             {
+//                 sender,
+//                 message,
+//             }
+//         ]
+//     }
+//     const result = await insertLeads(leadsObj);
+//     console.log(result)
+//     //insert in mongodb
+
+//     if(result._id){
+//         return res.json({ status:"success" ,message: "new lead have been created" })
+
+//     }
+
+//     res.json({ status:"error" ,message: "Unable to create ticket please try again later" })
+        
+//     } catch (error) {
+//  res.json({ status:"error" ,message: error.message })
+        
+//     }
+
+
+// })  
 router.post('/',userAuthorization , async(req, res) => {
 
-    try {
-        
-    //receive new ticket data
-    const { leadName,sender,subject, wealth,experience, currentBusinesses,mostPreferedBusinesses, source,assignedTo,message } = req.body;
+  try {
+      
+  //receive new ticket data
+  const { leadName,sender,subject, wealth,experience, currentBusinesses,mostPreferedBusinesses, source,assignedTo,message } = req.body;
 
 
-    const userId = req.userId
-    const assignedToId = mongoose.Types.ObjectId(assignedTo);
+  const userId = req.userId
+  // const assignedToId = mongoose.Types.ObjectId(assignedTo);
 
-    const leadsObj = {
-        clientId: userId,
-        leadName,sender,subject, wealth,experience, currentBusinesses,mostPreferedBusinesses,assignedTo: assignedToId,message,source,
-        conservation: [
-            {
-                sender,
-                message,
-            }
-        ]
-    }
-    const result = await insertLeads(leadsObj);
-    console.log(result)
-    //insert in mongodb
+  const leadsObj = {
+      clientId: userId,
+      leadName,sender,subject, wealth,experience, currentBusinesses,mostPreferedBusinesses,assignedTo,message,source,
+      conservation: [
+          {
+              sender,
+              message,
+          }
+      ]
+  }
+  const result = await insertLeads(leadsObj);
+  console.log(result)
+  //insert in mongodb
 
-    if(result._id){
-        return res.json({ status:"success" ,message: "new lead have been created" })
+  if(result._id){
+      return res.json({ status:"success" ,message: "new lead have been created" })
 
-    }
+  }
 
-    res.json({ status:"error" ,message: "Unable to create ticket please try again later" })
-        
-    } catch (error) {
- res.json({ status:"error" ,message: error.message })
-        
-    }
+  res.json({ status:"error" ,message: "Unable to create ticket please try again later" })
+      
+  } catch (error) {
+res.json({ status:"error" ,message: error.message })
+      
+  }
 
 
-})  
+})
+
+//company user emdpoint
+router.post('/',userAuthorization , async(req, res) => {
+
+  try {
+      
+  //receive new ticket data
+  const { firstName,LastName,email } = req.body;
+
+
+  const userId = req.userId
+  // const assignedToId = mongoose.Types.ObjectId(assignedTo);
+
+  const leadsUserObj = {
+      clientId: userId,
+      firstName,LastName,email
+  }
+  const result = await insertUserLeads(leadsObj);
+  console.log(result)
+  //insert in mongodb
+
+  if(result._id){
+      return res.json({ status:"success" ,message: "new lead have been created" })
+
+  }
+
+  res.json({ status:"error" ,message: "Unable to create ticket please try again later" })
+      
+  } catch (error) {
+res.json({ status:"error" ,message: error.message })
+      
+  }
+
+
+}) 
 
 
 //get all leads for specific user only
@@ -279,6 +354,5 @@ router.post('/reports', async (req, res) => {
 
   res.status(200).send('Lead reports generated successfully');
 });    
-
 
 module.exports = router

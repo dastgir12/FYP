@@ -25,6 +25,8 @@ const Login = () => {
       );
 
       if (status === 200) {
+        console.log(data); 
+        localStorage.setItem("accessToken", data.accessJWT);
         toast.success("Login successful!", {
           position: toast.POSITION.TOP_CENTER,
           autoClose: 3000,
