@@ -1,9 +1,11 @@
 import React, { useState } from "react";
 import { Menu, Drawer, Button } from "antd";
 import {
- SettingOutlined,
- SolutionOutlined,
+  DashboardOutlined,
+   ContactsOutlined ,
+   SolutionOutlined,
  UploadOutlined,
+ FilterOutlined,
  FundViewOutlined,
  AlignLeftOutlined,
  WalletOutlined
@@ -25,53 +27,65 @@ const DashBoardPage = () => {
  const handleMenuItem = (e) => {
   setOpen(false);
   if (e.key === "/dashboard") setpageTitle("DashBoard");
-  if (e.key === "Admin") setpageTitle("Admin");
-  if (e.key === "leadadd") setpageTitle("Add Lead");
-  if (e.key === "Leadlist") setpageTitle("List Of Leads");
-  if (e.key === "addUser") setpageTitle("Add User");
-  if (e.key === "userList") setpageTitle("List of user");
-  if (e.key === "paymentmethod") setpageTitle("Attach Payment Method");
+  if (e.key === "Staff") setpageTitle("Staff");
+  if (e.key === "Customers") setpageTitle("Customer");
+  if (e.key === "LeadCategory") setpageTitle("Lead Category");
+  if (e.key === "Leads") setpageTitle("Leads");
+  if (e.key === "FollowUP") setpageTitle("Leads Follow-UP");
+  if (e.key === "Deals") setpageTitle("Deals");
+  if (e.key === "Reports") setpageTitle("Reports");
   nav(e.key);
  };
  const adminItems = [
   {
    label: "DashBoard",
    key: "/dashboard",
-   icon: <SettingOutlined />,
+   icon: <DashboardOutlined />,
    style: { fontSize: "15px" },
   },
   {
-    label: "Admin",
-    key: "admin",
-    icon: <WalletOutlined />,
+    label: "Staff",
+    key: "Staff",
+    icon: <ContactsOutlined />,
     style: { fontSize: "15px" },
    },
   {
-   label: "Add Lead",
-   key: "leadadd",
+   label: "Customers",
+   key: "Customers",
    icon: <UploadOutlined />,
    style: { fontSize: "15px" },
   },
 
   {
-   label: "Lead List",
-   key: "leadlist",
+   label: "Lead Category",
+   key: "LeadCategory",
    icon: <SolutionOutlined />,
    style: { fontSize: "15px" },
   },
   {
-    label: "Add User",
-    key: "addUser",
-    icon: <SolutionOutlined />,
+    label: "Leads",
+    key: "Leads",
+    icon: <FilterOutlined />,
     style: { fontSize: "15px" },
    },
   {
-   label: "User List",
-   key: "userlist",
+    label: "Leads Follow-UP",
+    key: "FollowUP",
+    icon: <FilterOutlined />,
+    style: { fontSize: "15px" },
+   },
+  {
+   label: "Deals",
+   key: "Deals",
    icon: <SolutionOutlined />,
    style: { fontSize: "15px" },
   },
-
+  {
+    label: "Reports",
+    key: "Reports",
+    icon: <SolutionOutlined />,
+    style: { fontSize: "15px" },
+   },
  
  ];
 
