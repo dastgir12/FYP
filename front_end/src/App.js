@@ -7,7 +7,9 @@ import AboutUs from "./pages/AboutUs";
 import ContactUs from "./pages/ContactUs";
 import DashBoardPage from './dashboard/DashBoardPage'
 import Staff from "./dashboard/Staff/Staff";
+import AddStaff from "./dashboard/Staff/AddStaff";
 import Customers from "./dashboard/Customers/Customers";
+import AddCustomer from "./dashboard/Customers/AddCustomer";
 import LeadCategory from "./dashboard/Lead Category/LeadCategory";
 import Leads from "./dashboard/Leads/Leads";
 import AddLead from "./dashboard/Leads/AddLead";
@@ -35,7 +37,9 @@ const App = () => {
           <Route path="/dashboard" element={<DashBoardPage />}>
             {/* <Route index element={<DashBoard />} /> */}
             <Route path="/dashboard/Staff" element={<Staff />} />
+            <Route path="/dashboard/Staff/AddStaff" element={<AddStaff/>} />
             <Route path="/dashboard/Customers" element={<Customers />} />
+            <Route path="/dashboard/Customers/AddCustomer" element={<AddCustomer />} />
             <Route path="/dashboard/LeadCategory" element={<LeadCategory />} />
             <Route path="/dashboard/LeadCategory/AddLeadCategory" element={<AddLeadCategory/>} />
             <Route path="/dashboard/Leads" element={<Leads />} />

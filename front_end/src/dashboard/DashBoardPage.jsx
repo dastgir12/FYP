@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { Menu, Drawer, Button } from "antd";
+import Navbar from "../components/Navbar";
 import {
   DashboardOutlined,
    ContactsOutlined ,
@@ -92,6 +93,7 @@ const DashBoardPage = () => {
  /////////////////
  return (
   <>
+  <Navbar/>
    <div className="px-3 py-2 mt-3 flex bg-blue-400  text-white">
     <div className="cursor-pointer">
      <AlignLeftOutlined onClick={showDrawer} style={{ fontSize: "20px" }} />
