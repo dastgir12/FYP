@@ -2,14 +2,14 @@ import React, { useState } from "react";
 import { Menu, Drawer, Button } from "antd";
 import Navbar from "../components/Navbar";
 import {
-  DashboardOutlined,
+   DashboardOutlined,
    ContactsOutlined ,
    SolutionOutlined,
- UploadOutlined,
- FilterOutlined,
- FundViewOutlined,
- AlignLeftOutlined,
- WalletOutlined
+   UploadOutlined,
+   FilterOutlined,
+   FundViewOutlined,
+   AlignLeftOutlined,
+   WalletOutlined
 } from "@ant-design/icons";
 import { useNavigate } from "react-router-dom";
 import { Outlet } from "react-router-dom";
