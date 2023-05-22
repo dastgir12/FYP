@@ -60,15 +60,15 @@ const Customers = () => {
   const handleClicked = ()=>{
     nav('AddCustomer')
   }
-  // const data = [
-  //   {
-  //     key: 1,
-  //     companyName: "ABC Company",
-  //     staffName: "John Doe",
-  //     leadTitle: "New Lead",
-  //     leadSource: "Website",
-  //   },
-  // ];
+  const data = [
+    {
+      key: 1,
+      companyName: "ABC Company",
+      staffName: "John Doe",
+      leadTitle: "New Lead",
+      leadSource: "Website",
+    },
+  ];
 
   return (
     <>
@@ -90,7 +90,7 @@ const Customers = () => {
           <div className="border-[1.5px] mt-7 border-gray-300 w-[95vw] sm:w-[80vw] ">
             <Table
               columns={newCols}
-              dataSource={''}
+              dataSource={data}
               scroll={{ x: 600 }}
               pagination={false}
             />

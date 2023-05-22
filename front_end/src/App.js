@@ -18,6 +18,7 @@ import Deals from "./dashboard/Deals/Deals";
 import Report from "./dashboard/Reportss/Report";
 import AddLeadCategory from "./dashboard/Lead Category/AddLeadCategory";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
+import './App.css'
 // import LeadList from "./dashboard/leadlist/LeadList";
 
 
@@ -34,7 +35,7 @@ const App = () => {
           <Route path="/contact" element={<ContactUs />} />
 
 
-          <Route path="/dashboard" element={<DashBoardPage />}>
+          <Route path="/dasboardpage" element={<DashBoardPage />}>
             {/* <Route index element={<DashBoard />} /> */}
             <Route path="/dashboard/Staff" element={<Staff />} />
             <Route path="/dashboard/Staff/AddStaff" element={<AddStaff/>} />

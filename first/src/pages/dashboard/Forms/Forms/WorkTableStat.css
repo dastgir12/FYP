@@ -1,0 +1,72 @@
+@import 'antd/dist/antd.css';
+
+.App {
+  text-align: center;
+}
+.App-header {
+  /* background-color: #282c34; */
+  min-height: 70vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(12px + 2vmin);
+  color: white;
+}
+.edit-button {
+  background-color: #1890ff; /* Set the background color */
+  color: #fff; /* Set the text color */
+  border-color: #1890ff; /* Set the border color */
+  /* margin-right: 10px; Add some margin between buttons */
+}
+
+.view-button {
+  
+  background-color: #52c41a; /*Set the background color */
+  color: #fff; /* Set the text color */
+  border-color: #52c41a; /* Set the border color */
+}
+
+.delete-button {
+  background-color: #eb0808; /* Set the background color */
+  
+  color: #fff; /* Set the text color */
+  border-color: #eb0808; /* Set the border color */
+}
+
+.ant-modal-header {
+  padding: 16px 24px;
+  color: rgba(252, 249, 249, 0.85);
+  background: #40a9ff;
+  border-bottom: 1px solid #f0f0f0;
+  border-radius: 2px 2px 0 0;
+}
+.ant-modal-body {
+  background-color: #f9fbfc;
+  padding: 24px;
+  font-size: 14px;
+  line-height: 1.5715;
+  word-wrap: break-word;
+}
+.ant-modal-footer {
+  padding: 10px 16px;
+  text-align: center;
+  font-weight: bolder;
+  background: transparent;
+  border-top: 1px solid #f0f0f0;
+  border-radius: 0 0 2px 2px;
+}
+.ant-table-thead > tr > th {
+  color: rgb(253 249 249 / 85%);
+  font-weight: bold;
+  text-align: center;
+  background: #40a9ff;
+}
+.ant-modal-title {
+  margin: 0;
+  color: rgba(247, 243, 243, 0.85);
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 22px;
+  word-wrap: break-word;
+}

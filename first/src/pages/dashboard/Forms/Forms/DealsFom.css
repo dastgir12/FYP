@@ -1,0 +1,48 @@
+
+@import 'antd/dist/antd.css';
+
+.App {
+   margin-top: 90px;
+  text-align: center;
+}
+.App-header {
+  /* background-color: #282c34; */
+  min-height: 40vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(12px + 2vmin);
+  color: white;
+}
+
+.ant-table-thead > tr > th {
+    background-color: #f0f0f0;
+    text-align: center;
+    color: rgba(0, 0, 0, 0.85);
+    font-weight: 700;
+    background: #40a9ff;
+  }
+  
+  /* Custom CSS for the Lead Title column */
+  .ant-table-cell-leadTitle {
+    column-width: 10%; /* Adjust the width as desired */
+  }
+  .ant-table-cell {
+    border: 1px solid #c4bdbd;
+    border-bottom: 1px solid #c4bdbd;
+    
+  }
+  .ant-select:not(.ant-select-customize-input) .ant-select-selector {
+    position: relative;
+    background-color: #40a9ff;
+    border-radius: 8px;
+    color: white;
+}
+.ant-input:placeholder-shown {
+  text-overflow: ellipsis;
+  border-color: black;
+}
+.ant-picker {
+  border-color: black;
+}
