@@ -5,7 +5,11 @@ const { LeadsSchema } = require("./leads.schema");
 
 
 
-
+function generateLeadId() {
+    const prefix = 'S'; // Prefix for staff ID
+    const randomNumber = Math.floor(100 + Math.random() * 900); // Generate a 3-digit random number
+    return `${prefix}${randomNumber}`;
+  }
 
 const insertStaff = staffObj =>{
 
@@ -288,5 +292,6 @@ module.exports={
     generateLeadsReport,
     insertStaff,
     insertCust,
+    generateLeadId,
     insertCat
 }

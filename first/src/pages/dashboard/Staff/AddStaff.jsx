@@ -1,11 +1,38 @@
 import React from "react";
 import { Form, Input, Select } from "antd";
-
+import axios from "axios";
 const { Option } = Select;
 
 const AddStaff = () => {
-  const onFinish = (values) => {
-    console.log("Form values:", values);
+  const [form] = Form.useForm();
+
+  const onFinish = async (values) => {
+    try {
+      const formData = {
+        staffId: values.staffId,
+        staffName: values.staffName,
+        mobileNo: values.mobileNo,
+        email: values.email,        
+        designation: values.designation,
+        department: values.department,
+      };
+
+      const { status, data } = await axios.post(
+        "http://localhost:3001/v1/leads/staff-info",
+        formData
+      );
+      if(status == 200)
+      {
+      console.log(data);
+      }
+      else
+      {
+        console.log('error is here bru');
+      }
+    } catch (e) {
+      console.log(e);
+      return; // return early to prevent redirect
+    }
   };
 
   return (
@@ -19,14 +46,14 @@ const AddStaff = () => {
         </div>
 
         <div className="mt-8 w-auto h-auto bg-white m-4 ">
-          <Form onFinish={onFinish} className="flex flex-col p-4">
+          <Form form={form} onFinish={onFinish} className="flex flex-col p-4">
             <div className="flex justify-center space-x-2">
               <div>
                 <label htmlFor="" className=" font-semibold">
                   Staff ID
                 </label>
                 <div className="w-[550px] ">
-                  <Form.Item name="staffID">
+                  <Form.Item name="staffId">
                     <Input placeholder="enter id" />
                   </Form.Item>
                 </div>
@@ -37,7 +64,7 @@ const AddStaff = () => {
                   Staff name
                 </label>
                 <div className="w-[550px] ">
-                  <Form.Item name="Staff Name">
+                  <Form.Item name="staffName">
                     <Input placeholder="Enter Staff Name" />
                   </Form.Item>
                 </div>
@@ -47,10 +74,10 @@ const AddStaff = () => {
             <div className="flex justify-center space-x-2">
               <div>
                 <label htmlFor="" className=" font-semibold">
-                  Telephone
+                  MobileNo
                 </label>
                 <div className="w-[550px] ">
-                  <Form.Item name="Telephone">
+                  <Form.Item name="mobileNo">
                     <Input placeholder="Enter Telephone number" />
                   </Form.Item>
                 </div>
@@ -58,11 +85,11 @@ const AddStaff = () => {
 
               <div>
                 <label htmlFor="" className=" font-semibold">
-                  Designation
+                  email
                 </label>
                 <div className="w-[550px] ">
-                  <Form.Item name="Designation">
-                    <Input placeholder="Enter Designation" />
+                  <Form.Item name="email">
+                    <Input placeholder="Enter Email" />
                   </Form.Item>
                 </div>
               </div>
@@ -71,10 +98,10 @@ const AddStaff = () => {
             <div className="flex justify-center space-x-2">
               <div>
                 <label htmlFor="" className=" font-semibold">
-                  Department
+                  Designation
                 </label>
                 <div className="w-[550px] ">
-                  <Form.Item name="Department">
+                  <Form.Item name="designation">
                     <Input placeholder="Enter Department" />
                   </Form.Item>
                 </div>
@@ -82,34 +109,23 @@ const AddStaff = () => {
 
               <div>
                 <label htmlFor="" className=" font-semibold">
-                  Category Name
+                  Depatatment Name
                 </label>
                 <div className="w-[550px] ">
-                  <Form.Item name="Category Name">
-                    <Input placeholder="Enter Ctegory Name" />
+                  <Form.Item name="department">
+                    <Input placeholder="Enter Department Name" />
                   </Form.Item>
                 </div>
               </div>
             </div>
 
-            <div className="flex space-x-2">
-              <div className="ml-20 mb-4">
-                <button
-                  type="submit"
-                  className="bg-red-500 text-white hover:bg-red-700 rounded px-4 py-2"
-                >
-                  Close
-                </button>
-              </div>
-
-              <div className="mb-4">
-                <button
-                  type="submit"
-                  className="bg-blue-500 text-white hover:bg-blue-700 rounded px-4 py-2"
-                >
-                  Submit
-                </button>
-              </div>
+            <div className="mb-4">
+              <button
+                type="submit"
+                className="bg-blue-500 text-white hover:bg-blue-700 rounded px-4 py-2"
+              >
+                Submit
+              </button>
             </div>
           </Form>
         </div>

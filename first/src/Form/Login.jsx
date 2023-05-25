@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { Link } from "react-router-dom";
-import { toast } from 'react-toastify';
+import { toast } from "react-toastify";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import axios from "axios";
@@ -11,20 +11,21 @@ import { useNavigate } from "react-router-dom";
 const Login = () => {
   const nav = useNavigate();
   const [form] = Form.useForm();
+
   const postForm = async (values) => {
-    try{
-    const formData = {
+    try {
+      const formData = {
         email: values.email,
         password: values.password,
       };
- 
-         const {status, data} = await axios.post(
+
+      const { status, data } = await axios.post(
         "http://localhost:3001/v1/user/login",
         formData
       );
 
       if (status === 200) {
-        console.log(data); 
+        console.log(data);
         localStorage.setItem("accessToken", data.accessJWT);
         toast.success("Login successful!", {
           position: toast.POSITION.TOP_CENTER,
@@ -38,8 +39,8 @@ const Login = () => {
         if (data) {
           form.resetFields();
         }
-      }}
-    catch (e) {
+      }
+    } catch (e) {
       if (e) {
         const err = e.response.data.error;
         if (err) {
@@ -65,14 +66,14 @@ const Login = () => {
       console.log(e);
       return; // return early to prevent redirect
     }
-    nav('/dashboard')
-  //   setTimeout(() => {
-  //     nav("/dashboard");
-  //   },);
-  }
+    nav("/dashboard");
+    //   setTimeout(() => {
+    //     nav("/dashboard");
+    //   },);
+  };
   return (
     <>
-	<ToastContainer />
+      <ToastContainer />
       <div className="relative mt-14 flex gap-4 w-[1400px] h-screen">
         <div className=" h-screen mr-4 mt-14">
           <img
@@ -82,15 +83,19 @@ const Login = () => {
           />
         </div>
         <div className="h-[450px] gap-y-4  flex flex-col items-center w-[700px] justify-around p-10 ml-6 mt-14">
-		<div>
+          <div>
             <img
               src="https://cdn-icons-png.flaticon.com/512/6681/6681204.png"
               alt=""
               className="w-10 h-10 "
             />
           </div>
-        <div className="text-4xl text-center font-bold ">Login</div>
-          <Form form={form} onFinish={postForm} className="flex flex-col justify-between w-[350px]">
+          <div className="text-4xl text-center font-bold ">Login</div>
+          <Form
+            form={form}
+            onFinish={postForm}
+            className="flex flex-col justify-between w-[350px]"
+          >
             <Form.Item
               name="email"
               hasFeedback
@@ -133,19 +138,19 @@ const Login = () => {
                   </button>
                 </div>
                 <div>
-                    <Link 
-                    to='/forgot'
+                  <Link
+                    to="/forgot"
                     className="text-primary transition duration-150 ease-in-out hover:text-primary-600 focus:text-primary-600 active:text-primary-700 dark:text-primary-400 dark:hover:text-primary-500 dark:focus:text-primary-500 dark:active:text-primary-600"
-                    >
+                  >
                     Forgot password
-                    </Link>
+                  </Link>
                 </div>
               </div>
             </Form.Item>
           </Form>
-		  <div className="flex justify-center text-sm">
-				<p>copyright @ GabLms 2023</p>
-			</div>
+          <div className="flex justify-center text-sm">
+            <p>copyright @ GabLms 2023</p>
+          </div>
         </div>
       </div>
     </>

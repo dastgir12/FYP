@@ -78,12 +78,12 @@ const Staff = () => {
             <div>Home / Staff</div>
           </div>
         </div>
+        <div className="flex flex-col item-center">
 
-        <div className="bg-blue-500 rounded flex justify-center items-centr w-[80px] h-[40px] ml-32 ">
+        <div className="bg-blue-500 rounded flex justify-center items-centr w-[80px] h-[40px] ">
           <button className="text-white" onClick={handleClicked}>Add New</button>
         </div>
 
-        <div className="flex flex-col justify-center items-center">
           <div className="border-[1.5px] mt-7 border-gray-300 w-[95vw] sm:w-[80vw] ">
             <Table
               columns={newCols}

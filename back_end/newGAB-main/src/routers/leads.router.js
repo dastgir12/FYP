@@ -6,6 +6,7 @@ const {
 } = require("../middlewares/formValidation.middleware");
 const {
   insertLeads,
+  generateLeadId,
   getLeads,
   getLeadsById,
   deleteLead,
@@ -31,7 +32,7 @@ const { StaffSchema } = require("../model/leads/Staff.schema");
 const multer = require("multer");
 const path = require("path");
 const leadinfoSchema = require("../model/leads/leadinfo.Schema");
-const leadManger = require("../model/leads/LeadManger");
+const LeadManager = require("../model/leads/LeadManger");
 
 const { UserSchema } = require("../model/user/User.schema");
 
@@ -242,13 +243,9 @@ router.post("/leads-Info", upload.single("attachment"), async (req, res) => {
     staffName,
     otherDetails,
     followUpDate,
-    followUpTime,
-    assignedManager,
-    assignedTo,
-    leadInfoId
-
-
+    followUpTime
   } = req.body;
+
   const validStatusOptions = [
     "Working",
     "Contacted",
@@ -257,7 +254,8 @@ router.post("/leads-Info", upload.single("attachment"), async (req, res) => {
     "Closed",
   ];
   try {
-    const assignedToId = mongoose.Types.ObjectId(assignedManager);
+    const leadInfoId = generateLeadId(); // Generate a unique ID using the uuid package
+
     // Create a new lead instance using the Lead schema
     const lead = new leadinfoSchema({
       companyName,
@@ -270,18 +268,16 @@ router.post("/leads-Info", upload.single("attachment"), async (req, res) => {
       otherDetails,
       followUpDate,
       followUpTime,
-      assignedManager: assignedToId,
-      assignedTo, leadInfoId,
+      leadInfoId:leadInfoId,
       attachment: req.file ? req.file.path : "",
     });
+
     if (status && !validStatusOptions.includes(status)) {
-      return res
-        .status(400)
-        .json({
-          error:
-            "Invalid status option. Please choose one of the valid options.that are 1-Working, 2-Contacted, 3-Qualified, 4-Failed, 5-Closed.",
-        });
+      return res.status(400).json({
+        error: "Invalid status option. Please choose one of the valid options: Working, Contacted, Qualified, Failed, Closed.",
+      });
     }
+
     // Save the lead to the database
     await lead.save();
 
@@ -358,7 +354,7 @@ router.post('/addLeadManager', async (req, res) => {
     } = req.body;
 
     // Create a new LeadManager object
-    const newLeadManager = new LeadMangar({
+    const newLeadManager = new LeadManager({
       leadManagerId,
       leadManagerName,
     });
