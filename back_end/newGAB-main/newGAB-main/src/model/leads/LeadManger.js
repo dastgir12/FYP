@@ -4,6 +4,7 @@ const LeadManagerSchema = new mongoose.Schema({
   leadManagerId: {
     type: String,
     required: true,
+    unique: true
   },
   leadManagerName: {
     type: String,

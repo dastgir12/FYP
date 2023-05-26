@@ -1,4 +1,5 @@
 const express = require("express");
+// const { v4: uuidv4 } = require('uuid');
 const { userAuthorization } = require("../middlewares/auth.middleware");
 const {
   createNewLeadValidation,
@@ -6,7 +7,6 @@ const {
 } = require("../middlewares/formValidation.middleware");
 const {
   insertLeads,
-  generateLeadId,
   getLeads,
   getLeadsById,
   deleteLead,
@@ -17,24 +17,29 @@ const {
   insertStaff,
   insertCust,
   insertCat,
+  generateStaffId,
+  getCust,
+  generateLeadId,
+  generateLeadMId
 } = require("../model/leads/leads.model");
 
-
+const { getStaff }=require("../model/leads/leads.model");
 
 const { LeadsSchema } = require("../model/leads/leads.schema");
-const { LeadCategorySchema } = require("../model/leads/category.Schema");
+const LeadCategorySchema  = require("../model/leads/category.Schema");
 const mongoose = require("mongoose");
 const {
   isAdmin,
   isLeadManager,
 } = require("../middlewares/userRights.middleware");
-const { StaffSchema } = require("../model/leads/Staff.schema");
+const StaffSchema  = require("../model/leads/Staff.schema");
 const multer = require("multer");
 const path = require("path");
 const leadinfoSchema = require("../model/leads/leadinfo.Schema");
 const LeadManager = require("../model/leads/LeadManger");
 
 const { UserSchema } = require("../model/user/User.schema");
+const customerSchema = require("../model/leads/customer.Schema");
 
 const router = express.Router();
 
@@ -115,6 +120,112 @@ router.post("/", userAuthorization, async (req, res) => {
 
 
 
+//post-> get -> edit -> create -> delete
+
+// POST route to save staff  infodata
+router.post('/staff-info', async (req, res) => {
+  try {
+    const {  staffName, mobileNo, email, designation, department } = req.body;
+// Generate a unique staff ID
+const staffId = generateStaffId();
+    // Create a new staff object
+    const staffObj = ({
+      staffId,
+      staffName,
+      mobileNo,
+      email,
+      designation,
+      department
+    });
+
+    // Save the staff object in the database
+    const savedStaff = await insertStaff(staffObj);
+
+    return res.json({ message: 'Staff data saved successfully', staff: savedStaff });
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({ error: 'Internal server error' });
+  }
+});
+
+// get staff->
+router.get('/staff-info', async (req, res) => {
+  try {
+    // Retrieve staff information
+    const staff = await getStaff();
+
+    return res.json({ staff });
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({ error: 'Internal server error' });
+  }
+});
+
+//edit staff 
+router.put('/staff-info/:staffId', async (req, res) => {
+  try {
+    const { staffId } = req.params;
+    const { staffName, mobileNo, email } = req.body;
+
+    // Find the staff by staffId and update the information
+    const updatedStaff = await StaffSchema.findOneAndUpdate(
+      { staffId },
+      { staffName, mobileNo, email },
+      { new: true }
+    );
+
+    if (!updatedStaff) {
+      return res.status(404).json({ error: 'Staff not found' });
+    }
+
+    return res.json({ message: 'Staff information updated successfully', staff: updatedStaff });
+  } catch (error) {
+    console.log('Error in edit staff-info endpoint:', error);
+    res.status(500).json({ error: 'Internal server error' });
+  }
+});
+
+//view staff
+router.get('/staff-info/:staffId', async (req, res) => {
+  try {
+    const { staffId } = req.params;
+
+    // Retrieve staff information for the specified staffId
+    const staff = await StaffSchema.findOne({ staffId });
+
+    if (!staff) {
+      return res.status(404).json({ error: 'Staff not found' });
+    }
+
+    return res.json({ staff });
+  } catch (error) {
+    console.log('Error in view staff-info endpoint:', error);
+    res.status(500).json({ error: 'Internal server error' });
+  }
+});
+
+//delete staff-info endpoint
+router.delete('/staff-info/:staffId', async (req, res) => {
+  try {
+    const { staffId } = req.params;
+
+    // Delete staff information for the specified staffId
+    const deletedStaff = await StaffSchema.findOneAndDelete({ staffId });
+
+    if (!deletedStaff) {
+      return res.status(404).json({ error: 'Staff not found' });
+    }
+
+    return res.json({ message: 'Staff deleted successfully' });
+  } catch (error) {
+    console.log('Error in delete staff-info endpoint:', error);
+    res.status(500).json({ error: 'Internal server error' });
+  }
+});
+
+
+
+//post-> get -> edit -> create -> delete
 //customer info
 router.post("/CustomerInfo", async (req, res) => {
   try {
@@ -169,32 +280,134 @@ router.post("/CustomerInfo", async (req, res) => {
   }
 });
 
-
-//Staff Info
-router.post('/staff-info', async (req, res) => {
+// get customer
+router.get("/CustomerInfo", async (req, res) => {
   try {
-    const { staffId, staffName, mobileNo, email, designation, department } = req.body;
+    const userId = req.userId;
 
-    // Create a new staff object
-    const staffObj = ({
-      staffId,
-      staffName,
-      mobileNo,
-      email,
-      designation,
-      department
+    // Retrieve specific fields from the database
+    const result = await getCust(userId, [
+      "CompanyName",
+      "Telephone",
+      "email",
+      "contactPersonName",
+      "contactPersonMobileNumber",
+    ]);
+
+    if (result) {
+      return res.json({
+        status: "success",
+        data: result,
+      });
+    }
+
+    res.json({
+      status: "error",
+      message: "Unable to retrieve customer information",
     });
-
-    // Save the staff object in the database
-    const savedStaff = await insertStaff(staffObj);
-
-    return res.json({ message: 'Staff data saved successfully', staff: savedStaff });
   } catch (error) {
-    console.log(error);
-    res.status(500).json({ error: 'Internal server error' });
+    res.json({ status: "error", message: error.message });
   }
 });
 
+//edit customer
+router.put("/CustomerInfo/:customerId", async (req, res) => {
+  try {
+    const userId = req.userId;
+    const customerId = req.params.customerId;
+
+    // Retrieve the updated fields from the request body
+    const {
+      CompanyName,
+      Telephone,
+      email,
+      contactPersonName,
+      contactPersonMobileNumber
+    } = req.body;
+
+    // Find the customer document based on the customerId and userId
+    const customer = await customerSchema.findOne({ _id: customerId, clientId: userId });
+
+    if (!customer) {
+      return res.json({
+        status: "error",
+        message: "Customer not found"
+      });
+    }
+
+    // Update the fields with the new values
+    customer.CompanyName = CompanyName;
+    customer.Telephone = Telephone;
+    customer.email = email;
+    customer.contactPersonName = contactPersonName;
+    customer.contactPersonMobileNumber = contactPersonMobileNumber;
+
+    // Save the updated customer document
+    await customer.save();
+
+    return res.json({
+      status: "success",
+      message: "Customer information updated successfully",
+      data: customer
+    });
+  } catch (error) {
+    res.json({ status: "error", message: error.message });
+  }
+});
+
+//view only customer
+router.get("/CustomerInfo/:customerId", async (req, res) => {
+  try {
+    const userId = req.userId;
+    const customerId = req.params.customerId;
+
+    // Find the customer document based on the customerId and userId
+    const customer = await customerSchema.findOne({ _id: customerId, clientId: userId });
+
+    if (!customer) {
+      return res.json({
+        status: "error",
+        message: "Customer not found"
+      });
+    }
+
+    return res.json({
+      status: "success",
+      data: customer
+    });
+  } catch (error) {
+    res.json({ status: "error", message: error.message });
+  }
+});
+
+//delete customer
+router.delete("/CustomerInfo/:customerId", async (req, res) => {
+  try {
+    const userId = req.userId;
+    const customerId = req.params.customerId;
+
+    // Find the customer document based on the customerId and userId
+    const customer = await customerSchema.findOne({ _id: customerId, clientId: userId });
+
+    if (!customer) {
+      return res.status(404).json({
+        status: "error",
+        message: "Customer not found"
+      });
+    }
+
+    // Delete the customer document
+    await customerSchema.deleteOne({ _id: customerId, clientId: userId });
+
+    return res.json({
+      status: "success",
+      message: "Customer deleted successfully"
+    });
+  } catch (error) {
+    console.error("Error deleting customer:", error);
+    res.status(500).json({ error: "Error deleting customer" });
+  }
+});
 
 
 
@@ -227,11 +440,114 @@ router.post("/leadsCategory", async (req, res) => {
   }
 });
 
+//get leadsCategory
+router.get("/leadsCategory", async (req, res) => {
+  try {
+    // Fetch the lead categories with only 'category' and 'status' fields from the database
+    const leadCategories = await LeadCategorySchema.find({}, "category status");
+
+    res.json({
+      status: "success",
+      data: leadCategories,
+    });
+  } catch (error) {
+    console.error("Error fetching lead categories:", error);
+    res.status(500).json({ error: "Error fetching lead categories" });
+  }
+});
+
+//edit lead category
+router.put("/leadsCategory/:categoryId", async (req, res) => {
+  try {
+    const categoryId = req.params.categoryId;
+    const { category, status } = req.body;
+
+    // Find the lead category document based on the categoryId
+    const leadCategory = await LeadCategorySchema.findById(categoryId);
+
+    if (!leadCategory) {
+      return res.status(404).json({
+        status: "error",
+        message: "Lead category not found",
+      });
+    }
+
+    // Update the fields with the new values
+    leadCategory.category = category;
+    leadCategory.status = status;
+
+    // Save the updated lead category document
+    await leadCategory.save();
+
+    return res.json({
+      status: "success",
+      message: "Lead category updated successfully",
+      data: leadCategory,
+    });
+  } catch (error) {
+    console.error("Error updating lead category:", error);
+    res.status(500).json({ error: "Error updating lead category" });
+  }
+});
+
+//view only lead category by id
+router.get("/leadsCategory/:categoryId", async (req, res) => {
+  try {
+    const categoryId = req.params.categoryId;
+
+    // Find the lead category document based on the categoryId
+    const leadCategory = await LeadCategorySchema.findById(categoryId);
+
+    if (!leadCategory) {
+      return res.status(404).json({
+        status: "error",
+        message: "Lead category not found",
+      });
+    }
+
+    return res.json({
+      status: "success",
+      data: leadCategory,
+    });
+  } catch (error) {
+    console.error("Error fetching lead category:", error);
+    res.status(500).json({ error: "Error fetching lead category" });
+  }
+});
+
+//delete lead category
+router.delete("/leadsCategory/:categoryId", async (req, res) => {
+  try {
+    const categoryId = req.params.categoryId;
+
+    // Find the lead category document based on the categoryId
+    const leadCategory = await LeadCategorySchema.findById(categoryId);
+
+    if (!leadCategory) {
+      return res.status(404).json({
+        status: "error",
+        message: "Lead category not found",
+      });
+    }
+
+    // Delete the lead category
+    await leadCategory.remove();
+
+    return res.json({
+      status: "success",
+      message: "Lead category deleted successfully",
+    });
+  } catch (error) {
+    console.error("Error deleting lead category:", error);
+    res.status(500).json({ error: "Error deleting lead category" });
+  }
+});
 
 
 
 //lead info route
 // API route to save lead information
+
 router.post("/leads-Info", upload.single("attachment"), async (req, res) => {
   const {
     companyName,
@@ -253,6 +569,7 @@ router.post("/leads-Info", upload.single("attachment"), async (req, res) => {
     "Failed",
     "Closed",
   ];
+
   try {
     const leadInfoId = generateLeadId(); // Generate a unique ID using the uuid package
 
@@ -287,6 +604,123 @@ router.post("/leads-Info", upload.single("attachment"), async (req, res) => {
     res.status(500).json({ error: "Error saving lead information" });
   }
 });
+
+
+//get leads
+router.get("/leads-Info", async (req, res) => {
+  try {
+    // Fetch specific fields from the lead information
+    const leadFields = await leadinfoSchema.find({}, "companyName staffName leadTitle leadSource");
+
+    res.json({
+      status: "success",
+      data: leadFields,
+    });
+  } catch (error) {
+    console.error("Error fetching lead information:", error);
+    res.status(500).json({ error: "Error fetching lead information" });
+  }
+});
+
+//edit lead
+router.put("/leads-Info/:leadInfoId", upload.single("attachment"), async (req, res) => {
+  const leadInfoId = req.params.leadInfoId;
+  const {
+    companyName,
+    leadTitle,
+    leadSource,
+    staffName
+  } = req.body;
+
+  try {
+    // Find the lead information document based on the leadInfoId
+    
+    const leadInfo = await leadinfoSchema.findById(leadInfoId);
+
+    if (!leadInfo) {
+      return res.status(404).json({
+        status: "error",
+        message: "Lead information not found",
+      });
+    }
+
+    // Update the fields with the new values
+    leadInfo.companyName = companyName;
+    leadInfo.leadTitle = leadTitle;
+    leadInfo.leadSource = leadSource;
+    leadInfo.staffName = staffName;
+
+    // Update the attachment if a new file is provided
+    if (req.file) {
+      leadInfo.attachment = req.file.path;
+    }
+
+    // Save the updated lead information document
+    await leadInfo.save();
+
+    return res.json({
+      status: "success",
+      message: "Lead information updated successfully",
+      data: leadInfo,
+    });
+  } catch (error) {
+    console.error("Error updating lead information:", error);
+    res.status(500).json({ error: "Error updating lead information" });
+  }
+});
+
+//view only lead information
+router.get("/leads-Info/:leadInfoId", async (req, res) => {
+  try {
+    const leadInfoId = req.params.leadInfoId;
+
+    // Find the lead information document based on the leadInfoId
+    const leadInfo = await leadinfoSchema.findById(leadInfoId);
+
+    if (!leadInfo) {
+      return res.status(404).json({
+        status: "error",
+        message: "Lead information not found",
+      });
+    }
+
+    return res.json({
+      status: "success",
+      data: leadInfo,
+    });
+  } catch (error) {
+    console.error("Error fetching lead information:", error);
+    res.status(500).json({ error: "Error fetching lead information" });
+  }
+});
+
+//delete lead information
+router.delete("/leads-Info/:leadInfoId", async (req, res) => {
+  try {
+    const leadInfoId = req.params.leadInfoId;
+
+    // Delete the lead information document based on the leadInfoId
+    const deletedLeadInfo = await leadinfoSchema.findByIdAndDelete(leadInfoId);
+
+    if (!deletedLeadInfo) {
+      return res.status(404).json({
+        status: "error",
+        message: "Lead information not found",
+      });
+    }
+
+    return res.json({
+      status: "success",
+      message: "Lead information deleted successfully",
+    });
+  } catch (error) {
+    console.error("Error deleting lead information:", error);
+    res.status(500).json({ error: "Error deleting lead information" });
+  }
+});
+
+
+
 
 
 
@@ -348,6 +782,7 @@ router.post('/assign-lead', async (req, res) => {
 // Add Lead Manager 
 router.post('/addLeadManager', async (req, res) => {
   try {
+    const leadMId=generateLeadMId();
     const {
       leadManagerId,
       leadManagerName,
@@ -355,7 +790,7 @@ router.post('/addLeadManager', async (req, res) => {
 
     // Create a new LeadManager object
     const newLeadManager = new LeadManager({
-      leadManagerId,
+      leadManagerId:leadMId,
       leadManagerName,
     });
 
@@ -416,6 +851,54 @@ router.put("/:leadId/followup", async (req, res) => {
   } catch (error) {
     console.error("Error updating lead status:", error);
     res.status(500).json({ error: "Error updating lead status" });
+  }
+});
+
+
+//get follow up
+router.get("/:leadId/followup", async (req, res) => {
+  const { leadId } = req.params;
+
+  try {
+    // Find the lead by ID
+    const lead = await leadinfoSchema.findById(leadId);
+
+    if (!lead) {
+      return res.status(404).json({ error: "Lead not found" });
+    }
+
+    // Retrieve additional information from the lead
+    const { companyName, leadTitle, leadSource, status } = lead;
+
+    res.status(200).json({
+      companyName,
+      leadTitle,
+      leadSource,
+      status,
+    });
+  } catch (error) {
+    console.error("Error retrieving lead information:", error);
+    res.status(500).json({ error: "Error retrieving lead information" });
+  }
+});
+
+
+//view only follow up
+router.get("/:leadId/followup", async (req, res) => {
+  const { leadId } = req.params;
+
+  try {
+    // Find the lead by ID
+    const lead = await leadinfoSchema.findById(leadId);
+
+    if (!lead) {
+      return res.status(404).json({ error: "Lead not found" });
+    }
+
+    res.status(200).json({ status: lead.status });
+  } catch (error) {
+    console.error("Error retrieving lead status:", error);
+    res.status(500).json({ error: "Error retrieving lead status" });
   }
 });
 

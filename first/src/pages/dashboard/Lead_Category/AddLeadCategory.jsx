@@ -1,13 +1,44 @@
-import React from "react";
+import React , {useState} from "react";
 import { Form, Input, Select } from "antd";
+import axios from "axios";
 
 const { Option } = Select;
 
 const AddLeadCategory = () => {
-  const onFinish = (values) => {
-    console.log("Form values:", values);
-  };
 
+  const [selectedStatus, setSelectedStatus] = useState('');
+
+  const [form] = Form.useForm();
+
+
+  const handleStatus = (value)=>{
+    console.log('Selected value:', value);
+
+  }
+  const onFinish = async (values) => {
+    try {
+      const formData = {
+        category: values.category,
+        status: values.status,
+      };
+
+      const { status, data } = await axios.post(
+        "http://localhost:3001/v1/leads/leadsCategory",
+        formData
+      );
+      if(status == 200)
+      {
+      console.log(data);
+      }
+      else
+      {
+        console.log('error is here bru');
+      }
+    } catch (e) {
+      console.log(e);
+      return; // return early to prevent redirect
+    }
+  };
   return (
     <>
       <div className="bg-gray-200 h-screen w-full">
@@ -19,14 +50,14 @@ const AddLeadCategory = () => {
         </div>
 
         <div className="mt-8 w-auto h-auto bg-white m-4 ">
-          <Form onFinish={onFinish} className="flex flex-col">
+          <Form form={form} onFinish={onFinish} className="flex flex-col">
             <div className="flex justify-center p-4 space-x-2">
               <div>
                 <label htmlFor="" className=" font-semibold">
                   Category Name
                 </label>
                 <div className="w-[550px] ">
-                  <Form.Item name="Category Name">
+                  <Form.Item name="category">
                     <Input placeholder="Enter Ctegory Name" />
                   </Form.Item>
                 </div>
@@ -37,10 +68,10 @@ const AddLeadCategory = () => {
                   Change Status
                 </label>
                 <div className="w-[550px] ">
-                  <Form.Item name="dropdownField">
-                    <Select placeholder="Select an option">
-                      <Option value="option1">Active</Option>
-                      <Option value="option2">InActive</Option>
+                  <Form.Item name="status">
+                    <Select placeholder="Select an option" onChange={handleStatus} value={selectedStatus}>
+                      <Option value="Active">Active</Option>
+                      <Option value="non Active">non active</Option>
                     </Select>
                   </Form.Item>
                 </div>

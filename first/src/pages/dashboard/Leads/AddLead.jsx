@@ -14,6 +14,26 @@ const AddLead = () => {
   const [form] = Form.useForm();
   const [content, setContent] = useState("");
   const [modalVisible, setModalVisible] = useState(false);
+  const [selectedStatus, setSelectedStatus] = useState("");
+  const [selectedLeadSource, setSelectedLeadSource] = useState("");
+  const [selectedCompanyName, setSelectedCompanyName] = useState("");
+
+
+
+
+
+
+  const handleStatus = (value) => {
+    console.log(value);
+  };
+
+  const handleLeadSource = (value) => {
+    console.log(value);
+  };
+
+  const handleCompanyName = (value) => {
+    console.log(value);
+  };
 
   const handleContentChange = (event, editor) => {
     const data = editor.getData();
@@ -46,7 +66,7 @@ const AddLead = () => {
         "http://localhost:3001/v1/leads/leads-Info",
         formData
       );
-      if (status == 200) {
+      if (status == 201) {
         console.log(data);
       } else {
         console.log("error is here bru");
@@ -89,17 +109,15 @@ const AddLead = () => {
                 <label for="">Company Name</label>
 
                 <Form.Item name="companyName">
-                  <Select placeholder="Select an option">
-                    <Option value="option1">MCDONALD</Option>
-                    <Option value="option2">KFC</Option>
-                  </Select>
+                  <Input placeholder="Enter Company Name" />
+                  </Form.Item>
+
                   <Button
                     className="bg-blue-500 justify-center items-center flex mt-2"
                     type="primary"
                     icon={<PlusSquareOutlined />}
                     onClick={openModal}
                   />
-                </Form.Item>
               </div>
 
               <div className="w-[550px] ">
@@ -116,9 +134,9 @@ const AddLead = () => {
                 <label for="">Lead Source</label>
 
                 <Form.Item name="leadSource">
-                  <Select placeholder="Select an option">
-                    <Option value="option1">1</Option>
-                    <Option value="option2">3</Option>
+                  <Select placeholder="Select an option" onChange={handleLeadSource} value={selectedLeadSource}>
+                    <Option value="fb">fb</Option>
+                    <Option value="insta">insta</Option>
                   </Select>
                 </Form.Item>
               </div>
@@ -149,6 +167,7 @@ const AddLead = () => {
                   name="attachment"
                   valuePropName="fileList"
                   getValueFromEvent={normFile}
+                  onBlur={() => form.setFieldsValue({ description: content })}
                 >
                   <Upload name="attachments" multiple={true} maxCount={5}>
                     <Button className="w-[550px]" icon={<UploadOutlined />}>
@@ -172,12 +191,16 @@ const AddLead = () => {
               </div>
 
               <div className="w-[550px] ">
-                <label for="">Statuse</label>
+                <label for="">Status</label>
 
                 <Form.Item name="status">
-                  <Select placeholder="Select an option">
-                    <Option value="option1">Contacted</Option>
-                    <Option value="option2">Failed</Option>
+                  <Select
+                    placeholder="Select an option"
+                    onChange={handleStatus}
+                    value={selectedStatus}
+                  >
+                    <Option value="Contacted">Contacted</Option>
+                    <Option value="Failed">Failed</Option>
                   </Select>
                 </Form.Item>
               </div>
@@ -222,7 +245,7 @@ const AddLead = () => {
 
         <Modal
           title="Add New Company Name"
-          open={modalVisible}
+          visible={modalVisible}
           onCancel={closeModal}
           footer={[
             <Button
