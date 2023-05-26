@@ -1,11 +1,47 @@
-import React from "react";
+import React , {useState} from "react";
 import { Form, Input, Select } from "antd";
+import axios from "axios";
 
 const { Option } = Select;
 
 const AddCustomer = () => {
-  const onFinish = (values) => {
-    console.log("Form values:", values);
+  const [form] = Form.useForm();
+  const [selectedCity, setSelectedCity] = useState('');
+
+  const handleSelectChange = (value) => {
+    console.log('Selected value:', value);
+    // You can perform further actions with the selected value here
+  };
+
+  const onFinish = async (values) => {
+    try {
+      const formData = {
+        CompanyName: values.CompanyName,
+        Telephone: values.Telephone,
+        email: values.email,
+        website: values.website,
+        contactPersonName: values.contactPersonName,
+        contactPersonMobileNumber: values.contactPersonMobileNumber,
+        contactPersonEmail: values.contactPersonEmail,
+        otherDetails: values.otherDetails,
+        country: values.country,
+        State: values.State,
+        city: values.city,
+      };
+
+      const { status, data } = await axios.post(
+        "http://localhost:3001/v1/leads/CustomerInfo",
+        formData
+      );
+      if (status == 200) {
+        console.log(data);
+      } else {
+        console.log("error is here bru");
+      }
+    } catch (e) {
+      console.log(e);
+      return; // return early to prevent redirect
+    }
   };
 
   return (
@@ -19,14 +55,14 @@ const AddCustomer = () => {
         </div>
 
         <div className="mt-8 w-auto h-auto bg-white m-4 ">
-          <Form onFinish={onFinish} className="flex flex-col p-4">
+          <Form form={form} onFinish={onFinish} className="flex flex-col p-4">
             <div className="flex justify-center space-x-2">
               <div>
                 <label htmlFor="" className=" font-semibold">
                   Company Name
                 </label>
                 <div className="w-[550px] ">
-                  <Form.Item name="companyName">
+                  <Form.Item name="CompanyName">
                     <Input placeholder="enter company name" />
                   </Form.Item>
                 </div>
@@ -37,7 +73,7 @@ const AddCustomer = () => {
                   Telphone
                 </label>
                 <div className="w-[550px] ">
-                  <Form.Item name="telephone">
+                  <Form.Item name="Telephone">
                     <Input placeholder="Enter Telphone" />
                   </Form.Item>
                 </div>
@@ -68,13 +104,39 @@ const AddCustomer = () => {
               </div>
             </div>
 
+
+            <div className="flex justify-center space-x-2">
+              <div>
+                <label htmlFor="" className=" font-semibold">
+                  Email
+                </label>
+                <div className="w-[550px] ">
+                  <Form.Item name="contactPersonEmail">
+                    <Input placeholder="example@gmail.com" />
+                  </Form.Item>
+                </div>
+              </div>
+
+              <div className="w-[550px] ">
+                <label for="">City</label>
+
+                <Form.Item name="city">
+                  <Select placeholder="Select an option" onChange={handleSelectChange} value={selectedCity}>
+                    <Option value="Rawalpindi">Rawalpindi</Option>
+                    <Option value="Islamabad">Islamabad</Option>
+                  </Select>
+                </Form.Item>
+              </div>
+
+            </div>
+
             <div className="flex justify-center space-x-2">
               <div>
                 <label htmlFor="" className=" font-semibold">
                   Contact Person Name
                 </label>
                 <div className="w-[550px] ">
-                  <Form.Item name="personName">
+                  <Form.Item name="contactPersonName">
                     <Input placeholder="Enter Contact person name" />
                   </Form.Item>
                 </div>
@@ -85,7 +147,7 @@ const AddCustomer = () => {
                   Contact person Phone
                 </label>
                 <div className="w-[550px] ">
-                  <Form.Item name="personPhone">
+                  <Form.Item name="contactPersonMobileNumber">
                     <Input placeholder="Enter Contact person phone" />
                   </Form.Item>
                 </div>
@@ -96,10 +158,10 @@ const AddCustomer = () => {
               <div className="w-[550px] ">
                 <label for="">Country</label>
 
-                <Form.Item name="dropdownField">
+                <Form.Item name="country">
                   <Select placeholder="Select an option">
-                    <Option value="option1">Pakistan</Option>
-                    <Option value="option2">Bangladesh</Option>
+                    <Option value="Pakistan">Pakistan</Option>
+                    <Option value=" Bangladesh">Bangladesh</Option>
                   </Select>
                 </Form.Item>
               </div>
@@ -107,18 +169,16 @@ const AddCustomer = () => {
               <div className="w-[550px] ">
                 <label for="">State</label>
 
-                <Form.Item name="dropdownField">
+                <Form.Item name="State">
                   <Select placeholder="Select an option">
-                    <Option value="option1">America</Option>
-                    <Option value="option2">Asia</Option>
+                    <Option value="America">America</Option>
+                    <Option value="Asia">Asia</Option>
                   </Select>
                 </Form.Item>
               </div>
             </div>
 
             <div className="flex space-x-2">
-
-
               <div className="mb-4 ml-24">
                 <button
                   type="submit"

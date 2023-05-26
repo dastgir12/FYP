@@ -6,10 +6,12 @@ import { Button } from "antd";
 import { CKEditor } from "@ckeditor/ckeditor5-react";
 import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
 import { PlusSquareOutlined, UploadOutlined } from "@ant-design/icons";
+import axios from "axios";
 
 const { Option } = Select;
 
 const AddLead = () => {
+  const [form] = Form.useForm();
   const [content, setContent] = useState("");
   const [modalVisible, setModalVisible] = useState(false);
 
@@ -22,6 +24,37 @@ const AddLead = () => {
     e.preventDefault();
     // Perform any actions with the submitted content
     console.log(content);
+  };
+
+  const onFinish = async (values) => {
+    try {
+      const formData = {
+        companyName: values.companyName,
+        leadTitle: values.leadTitle,
+        leadSource: values.leadSource,
+        referralName: values.referralName,
+        status: values.status,
+        description: values.description,
+        attachment: values.attachment,
+        staffName: values.staffName,
+        otherDetails: values.otherDetails,
+        followUpDate: values.followUpDate,
+        followUpTime: values.followUpTime,
+      };
+
+      const { status, data } = await axios.post(
+        "http://localhost:3001/v1/leads/leads-Info",
+        formData
+      );
+      if (status == 200) {
+        console.log(data);
+      } else {
+        console.log("error is here bru");
+      }
+    } catch (e) {
+      console.log(e);
+      return; // return early to prevent redirect
+    }
   };
 
   const normFile = (e) => {
@@ -50,12 +83,12 @@ const AddLead = () => {
         </div>
 
         <div className="bg-white m-6 h-auto rounded">
-          <Form className="flex flex-col p-6">
+          <Form form={form} onFinish={onFinish} className="flex flex-col p-6">
             <div className="flex justify-center space-x-2">
               <div className="w-[550px]">
                 <label for="">Company Name</label>
 
-                <Form.Item name="dropdownField">
+                <Form.Item name="companyName">
                   <Select placeholder="Select an option">
                     <Option value="option1">MCDONALD</Option>
                     <Option value="option2">KFC</Option>
@@ -72,7 +105,7 @@ const AddLead = () => {
               <div className="w-[550px] ">
                 <label for="">Lead Title</label>
 
-                <Form.Item name="Category Name">
+                <Form.Item name="leadTitle">
                   <Input placeholder="Enter Lead Title" />
                 </Form.Item>
               </div>
@@ -82,10 +115,10 @@ const AddLead = () => {
               <div className="w-[550px] ">
                 <label for="">Lead Source</label>
 
-                <Form.Item name="dropdownField">
+                <Form.Item name="leadSource">
                   <Select placeholder="Select an option">
-                    <Option value="option1">Facbook</Option>
-                    <Option value="option2">Twitter</Option>
+                    <Option value="option1">1</Option>
+                    <Option value="option2">3</Option>
                   </Select>
                 </Form.Item>
               </div>
@@ -93,7 +126,7 @@ const AddLead = () => {
               <div className="w-[550px] ">
                 <label for="">Refferal Name</label>
 
-                <Form.Item name="Refferal Name">
+                <Form.Item name="referralName">
                   <Input placeholder="Enter Refferal Name" />
                 </Form.Item>
               </div>
@@ -102,7 +135,7 @@ const AddLead = () => {
             <div className="flex justify-center space-x-2 m-2">
               <div className="w-[550px] ">
                 <label htmlFor="">Description</label>
-                <Form.Item>
+                <Form.Item name="description">
                   <CKEditor
                     editor={ClassicEditor}
                     data={content}
@@ -113,7 +146,7 @@ const AddLead = () => {
               <div>
                 <label for="">Attach File</label>
                 <Form.Item
-                  name="attachments"
+                  name="attachment"
                   valuePropName="fileList"
                   getValueFromEvent={normFile}
                 >
@@ -130,7 +163,7 @@ const AddLead = () => {
               <div className="w-[550px] ">
                 <label for="">Staff Name</label>
 
-                <Form.Item name="dropdownField">
+                <Form.Item name="staffName">
                   <Select placeholder="Select an option">
                     <Option value="option1">any</Option>
                     <Option value="option2">any</Option>
@@ -139,9 +172,20 @@ const AddLead = () => {
               </div>
 
               <div className="w-[550px] ">
+                <label for="">Statuse</label>
+
+                <Form.Item name="status">
+                  <Select placeholder="Select an option">
+                    <Option value="option1">Contacted</Option>
+                    <Option value="option2">Failed</Option>
+                  </Select>
+                </Form.Item>
+              </div>
+
+              <div className="w-[550px] ">
                 <label for="">Other Details</label>
 
-                <Form.Item name="Detail">
+                <Form.Item name="otherDetails">
                   <Input placeholder="Enter Other Name" />
                 </Form.Item>
               </div>
@@ -149,28 +193,36 @@ const AddLead = () => {
 
             <div className="flex justify-center space-x-2 m-2">
               <div>
-                <label htmlFor="">Date</label>
-                <Form.Item name="date">
+                <label htmlFor="">followUpDate</label>
+                <Form.Item name="followUpDate">
                   <DatePicker className="w-[550px]" />
                 </Form.Item>
-
-                <div className="bg-blue-500 rounded flex justify-center items-center w-[80px] h-[40px] ">
-                  <button className="text-white">Submit</button>
-                </div>
               </div>
               <div>
-                <label htmlFor="">Time</label>
-                <Form.Item name="time">
+                <label htmlFor="">followUpTime</label>
+                <Form.Item name="followUpTime">
                   <TimePicker className="w-[550px]" />
                 </Form.Item>
-              </div>-
+              </div>
+              -
+            </div>
+
+            <div className="flex space-x-2">
+              <div className="mb-4 ml-24">
+                <button
+                  type="submit"
+                  className="bg-blue-500 text-white hover:bg-blue-700 rounded px-4 py-2"
+                >
+                  Submit
+                </button>
+              </div>
             </div>
           </Form>
         </div>
 
         <Modal
           title="Add New Company Name"
-          visible={modalVisible}
+          open={modalVisible}
           onCancel={closeModal}
           footer={[
             <Button

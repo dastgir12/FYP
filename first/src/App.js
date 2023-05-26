@@ -160,7 +160,7 @@ const App = () => {
                 <Route
                   exact
                   path="/dashboard/lead_category"
-                  element={<Customers />}
+                  element={<LeadCategory />}
                 />
 
                 <Route
@@ -177,6 +177,11 @@ const App = () => {
                   exact
                   path="/dashboard/lead_category"
                   element={<LeadCategory />}
+                />
+                 <Route
+                  exact
+                  path="/dashboard/lead_category/AddLeadCategory"
+                  element={<AddLeadCategory />}
                 />
                 <Route exact path="/dashboard/leads" element={<Leads />} />
                 <Route
