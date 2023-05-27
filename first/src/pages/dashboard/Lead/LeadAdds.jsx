@@ -1,29 +1,33 @@
-import React, { useState } from 'react';
-import axios from 'axios';
+import React, { useState } from "react";
+import axios from "axios";
 
 const LeadAdds = () => {
   const [leadData, setLeadData] = useState({
-    leadName: '',
-    sender: '',
-    subject: '',
-    wealth: '',
-    experience: '',
-    currentBusinesses: '',
-    mostPreferedBusinesses: '',
-    source: '',
-    assignedTo: '',
-    message: ''
+    leadName: "",
+    sender: "",
+    subject: "",
+    wealth: "",
+    experience: "",
+    currentBusinesses: "",
+    mostPreferedBusinesses: "",
+    source: "",
+    assignedTo: "",
+    message: "",
   });
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const token = localStorage.getItem('accessToken'); // Retrieve the access token from storage
-      const response = await axios.post('http://localhost:3001/v1/leads', leadData, {
-        headers: {
-          Authorization: `${token}` // Include the access token in the request headers
+      const token = localStorage.getItem("accessToken"); // Retrieve the access token from storage
+      const response = await axios.post(
+        "http://localhost:3001/v1/leads",
+        leadData,
+        {
+          headers: {
+            Authorization: `${token}`, // Include the access token in the request headers
+          },
         }
-      });
+      );
       console.log(response.data);
       // Handle success response, display a success message, or perform other actions
     } catch (error) {
@@ -31,8 +35,6 @@ const LeadAdds = () => {
       // Handle error response, display an error message, or perform other actions
     }
   };
-  
-  
 
   const handleChange = (e) => {
     setLeadData({ ...leadData, [e.target.name]: e.target.value });
@@ -42,7 +44,9 @@ const LeadAdds = () => {
     <div className="max-w-md mx-auto mt-8">
       <form onSubmit={handleSubmit} className="space-y-4">
         <div>
-          <label htmlFor="leadName" className="block font-medium">Lead Name</label>
+          <label htmlFor="leadName" className="block font-medium">
+            Lead Name
+          </label>
           <input
             type="text"
             id="leadName"
@@ -54,7 +58,9 @@ const LeadAdds = () => {
           />
         </div>
         <div>
-          <label htmlFor="sender" className="block font-medium">Sender Email</label>
+          <label htmlFor="sender" className="block font-medium">
+            Sender Email
+          </label>
           <input
             type="text"
             id="sender"
@@ -66,7 +72,9 @@ const LeadAdds = () => {
           />
         </div>
         <div>
-          <label htmlFor="subject" className="block font-medium">Subject</label>
+          <label htmlFor="subject" className="block font-medium">
+            Subject
+          </label>
           <input
             type="text"
             id="subject"
@@ -78,7 +86,9 @@ const LeadAdds = () => {
           />
         </div>
         <div>
-          <label htmlFor="wealth" className="block font-medium">Wealth</label>
+          <label htmlFor="wealth" className="block font-medium">
+            Wealth
+          </label>
           <input
             type="text"
             id="wealth"
@@ -90,7 +100,9 @@ const LeadAdds = () => {
           />
         </div>
         <div>
-          <label htmlFor="experience" className="block font-medium">Experience</label>
+          <label htmlFor="experience" className="block font-medium">
+            Experience
+          </label>
           <input
             type="text"
             id="experience"
@@ -102,7 +114,9 @@ const LeadAdds = () => {
           />
         </div>
         <div>
-          <label htmlFor="currentBusinesses" className="block font-medium">Current Businesses</label>
+          <label htmlFor="currentBusinesses" className="block font-medium">
+            Current Businesses
+          </label>
           <input
             type="text"
             id="currentBusinesses"
@@ -114,7 +128,9 @@ const LeadAdds = () => {
           />
         </div>
         <div>
-          <label htmlFor="mostPreferedBusinesses" className="block font-medium">Most Prefered Businesses</label>
+          <label htmlFor="mostPreferedBusinesses" className="block font-medium">
+            Most Prefered Businesses
+          </label>
           <input
             type="text"
             id="mostPreferedBusinesses"
@@ -126,7 +142,9 @@ const LeadAdds = () => {
           />
         </div>
         <div>
-          <label htmlFor="source" className="block font-medium">Source</label>
+          <label htmlFor="source" className="block font-medium">
+            Source
+          </label>
           <input
             type="text"
             id="source"
@@ -138,7 +156,9 @@ const LeadAdds = () => {
           />
         </div>
         <div>
-          <label htmlFor="assignedTo" className="block font-medium">Assigned To</label>
+          <label htmlFor="assignedTo" className="block font-medium">
+            Assigned To
+          </label>
           <input
             type="text"
             id="assignedTo"
@@ -150,7 +170,9 @@ const LeadAdds = () => {
           />
         </div>
         <div>
-          <label htmlFor="message" className="block font-medium">Message</label>
+          <label htmlFor="message" className="block font-medium">
+            Message
+          </label>
           <textarea
             id="message"
             name="message"

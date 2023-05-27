@@ -42,8 +42,8 @@ const AddLead = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    // Perform any actions with the submitted content
     console.log(content);
+    na
   };
 
   const onFinish = async (values) => {
@@ -213,7 +213,7 @@ const AddLead = () => {
                 </Form.Item>
               </div>
             </div>
-
+`
             <div className="flex justify-center space-x-2 m-2">
               <div>
                 <label htmlFor="">followUpDate</label>
@@ -228,7 +228,7 @@ const AddLead = () => {
                 </Form.Item>
               </div>
               -
-            </div>
+            </div>`
 
             <div className="flex space-x-2">
               <div className="mb-4 ml-24">

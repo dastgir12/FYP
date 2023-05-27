@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Table, Button, Modal } from "antd";
+import { Table, Button, Modal, message } from "antd";
 import { EyeOutlined, EditOutlined, DeleteOutlined } from "@ant-design/icons";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
@@ -14,34 +14,85 @@ const Staff = () => {
   const [dataSource, setDataSource] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
 
-  //Delete Action Perform here
+  // Delete Action Perform here
   const deleteStaff = (record) => {
     Modal.confirm({
-      title: "Are you sure to dlete this",
+      title: "Are you sure to delete this?",
       okText: "Yes",
       okType: "danger",
+      onOk: async () => {
+        try {
+          // Send delete request to the backend API
+          await axios.delete(
+            `http://localhost:3001/v1/leads/staff-info/${record.staffId}`
+          );
 
-      onOk: () => {
-        setDataSource((pre) => {
-          return pre.filter((staff) => staff.id !== record.id);
-        });
+          // Remove the record from dataSource state
+          setDataSource((prevDataSource) => {
+            return prevDataSource.filter(
+              (staff) => staff.staffId !== record.staffId
+            );
+          });
+
+          // Show success message or perform any other actions as needed
+          message.success("Staff deleted successfully!");
+        } catch (error) {
+          // Handle error and show error message
+          message.error("Failed to delete staff. Please try again later.");
+          console.log("Delete staff error:", error);
+        }
       },
     });
   };
 
-  //Edit Staff data:
-
+  // Edit Staff data:
   const editStaff = (record) => {
     setEditedStaff(record);
     setIsEditing(true);
   };
 
-  //View staff data :
+  // Handle staff update:
+  const handleStaffUpdate = async () => {
+    try {
+      // Send update request to the backend API
+      await axios.put(
+        `http://localhost:3001/v1/leads/staff-info/${editedStaff.staffId}`,
+        editedStaff
+      );
 
-  const viewStaff = () => {
-    setViewedStaff();
+      // Find the index of the updated staff record in the dataSource
+      const updatedIndex = dataSource.findIndex(
+        (staff) => staff.staffId === editedStaff.staffId
+      );
+
+      // Update the staff record in the dataSource
+      if (updatedIndex !== -1) {
+        setDataSource((prevDataSource) => {
+          const updatedDataSource = [...prevDataSource];
+          updatedDataSource[updatedIndex] = editedStaff;
+          return updatedDataSource;
+        });
+      }
+
+      // Show success message or perform any other actions as needed
+      message.success("Staff updated successfully!");
+
+      // Clear the editedStaff state and exit editing mode
+      setEditedStaff(null);
+      setIsEditing(false);
+    } catch (error) {
+      // Handle error and show error message
+      message.error("Failed to update staff. Please try again later.");
+      console.log("Update staff error:", error);
+    }
+  };
+
+  // View staff data:
+  const viewStaff = (record) => {
+    setViewedStaff(record);
     setIsViewing(true);
   };
+
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -61,19 +112,19 @@ const Staff = () => {
                 className="bg-blue-500"
                 type="primary"
                 icon={<EyeOutlined />}
-                onClick={viewStaff}
+                onClick={() => viewStaff(record)} // Pass the record to viewStaff function
               />
               <Button
                 className="bg-blue-500"
                 type="primary"
                 icon={<EditOutlined />}
-                onClick={editStaff}
+                onClick={() => editStaff(record)}
               />
               <Button
                 className="bg-blue-500"
                 type="primary"
                 icon={<DeleteOutlined />}
-                onClick={deleteStaff}
+                onClick={() => deleteStaff(record)}
               />
             </div>
           ),
@@ -142,7 +193,7 @@ const Staff = () => {
                 <Table
                   columns={columns}
                   dataSource={dataSource}
-                  scroll={{ x: 600 }}
+                  scroll={{ y: 400 }}
                   pagination={false}
                 />
               )}
@@ -154,10 +205,7 @@ const Staff = () => {
               onCancel={() => {
                 setIsEditing(false);
               }}
-              onOk={() => {
-                setIsEditing(false);
-                // Perform save or update logic here
-              }}
+              onOk={handleStaffUpdate} // Call handleStaffUpdate on Ok button click
             >
               {editedStaff && (
                 <form>
@@ -205,6 +253,24 @@ const Staff = () => {
                   </label>
                   {/* Add more input fields as needed */}
                 </form>
+              )}
+            </Modal>
+
+            <Modal
+              title="View Staff"
+              visible={isViewing}
+              onCancel={() => {
+                setIsViewing(false);
+              }}
+              footer={null}
+            >
+              {viewedStaff && (
+                <div>
+                  <p>Staff Name: {viewedStaff.staffName}</p>
+                  <p>Mobile No: {viewedStaff.mobileNo}</p>
+                  <p>Email: {viewedStaff.email}</p>
+                  {/* Add more details as needed */}
+                </div>
               )}
             </Modal>
           </div>

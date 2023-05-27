@@ -1,18 +1,18 @@
 import React from "react";
-import { Form, Input, Select } from "antd";
+import { Form, Input, Select, message } from "antd";
+import { useNavigate } from "react-router-dom";
 import axios from "axios";
 const { Option } = Select;
-
 const AddStaff = () => {
   const [form] = Form.useForm();
-
+  const nav = useNavigate();
   const onFinish = async (values) => {
     try {
       const formData = {
         staffId: values.staffId,
         staffName: values.staffName,
         mobileNo: values.mobileNo,
-        email: values.email,        
+        email: values.email,
         designation: values.designation,
         department: values.department,
       };
@@ -21,13 +21,11 @@ const AddStaff = () => {
         "http://localhost:3001/v1/leads/staff-info",
         formData
       );
-      if(status == 200)
-      {
-      console.log(data);
-      }
-      else
-      {
-        console.log('error is here bru');
+      if (status == 200) {
+        message.success("Successfull Added");
+        nav("/dashboard/staff");
+      } else {
+        console.log("error is here bru");
       }
     } catch (e) {
       console.log(e);

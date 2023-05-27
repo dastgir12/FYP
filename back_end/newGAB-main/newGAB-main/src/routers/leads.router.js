@@ -411,8 +411,6 @@ router.delete("/CustomerInfo/:customerId", async (req, res) => {
 
 
 
-
-
 // POST route to save lead category and status
 router.post("/leadsCategory", async (req, res) => {
   try {
@@ -520,18 +518,15 @@ router.delete("/leadsCategory/:categoryId", async (req, res) => {
   try {
     const categoryId = req.params.categoryId;
 
-    // Find the lead category document based on the categoryId
-    const leadCategory = await LeadCategorySchema.findById(categoryId);
+    // Delete the lead category document based on the categoryId
+    const result = await LeadCategorySchema.deleteOne({ _id: categoryId });
 
-    if (!leadCategory) {
+    if (result.deletedCount === 0) {
       return res.status(404).json({
         status: "error",
         message: "Lead category not found",
       });
     }
-
-    // Delete the lead category
-    await leadCategory.remove();
 
     return res.json({
       status: "success",
@@ -539,9 +534,10 @@ router.delete("/leadsCategory/:categoryId", async (req, res) => {
     });
   } catch (error) {
     console.error("Error deleting lead category:", error);
-    res.status(500).json({ error: "Error deleting lead category" });
+    res.status(500).json({ error: `Error deleting lead category: ${error.message}` });
   }
 });
+
 
 
 
