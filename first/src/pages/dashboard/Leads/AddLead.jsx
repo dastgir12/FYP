@@ -7,22 +7,21 @@ import { CKEditor } from "@ckeditor/ckeditor5-react";
 import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
 import { PlusSquareOutlined, UploadOutlined } from "@ant-design/icons";
 import axios from "axios";
-
+import { useNavigate } from "react-router-dom";
 const { Option } = Select;
 
 const AddLead = () => {
+
+  const nav = useNavigate()
   const [form] = Form.useForm();
   const [content, setContent] = useState("");
   const [modalVisible, setModalVisible] = useState(false);
   const [selectedStatus, setSelectedStatus] = useState("");
   const [selectedLeadSource, setSelectedLeadSource] = useState("");
   const [selectedCompanyName, setSelectedCompanyName] = useState("");
-
-
-
-
-
-
+  
+  
+  
   const handleStatus = (value) => {
     console.log(value);
   };
@@ -41,9 +40,6 @@ const AddLead = () => {
   };
 
   const handleSubmit = (e) => {
-    e.preventDefault();
-    console.log(content);
-    na
   };
 
   const onFinish = async (values) => {

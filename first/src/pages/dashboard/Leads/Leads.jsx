@@ -192,12 +192,12 @@ const Leads = () => {
         </div>
 
         <div className="flex flex-col justify-center items-center">
-          <div className="border-[1.5px] mt-7 border-gray-300 w-[95vw] ">
+          <div className=" mt-7 border-gray-300 w-[80vw] ">
             <Table
               columns={columns}
               dataSource={dataSource}
               scroll={{ y: 500 }}
-              // pagination={false}
+              pagination={false}
             />
           </div>
         </div>
