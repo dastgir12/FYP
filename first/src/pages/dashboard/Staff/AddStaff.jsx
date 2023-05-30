@@ -117,10 +117,10 @@ const AddStaff = () => {
               </div>
             </div>
 
-            <div className="mb-4">
+            <div className="flex justify-center space-x-2">
               <button
                 type="submit"
-                className="bg-blue-500 text-white hover:bg-blue-700 rounded px-4 py-2"
+                className="w-[100px] bg-blue-500 text-white hover:bg-blue-700 rounded px-4 py-2"
               >
                 Submit
               </button>

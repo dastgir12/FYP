@@ -121,7 +121,7 @@ const AddCustomer = () => {
                 <label for="">City</label>
 
                 <Form.Item name="city">
-                  <Select placeholder="Select an option" onChange={handleSelectChange} value={selectedCity}>
+                  <Select  placeholder="Select an option" onChange={handleSelectChange} value={selectedCity}>
                     <Option value="Rawalpindi">Rawalpindi</Option>
                     <Option value="Islamabad">Islamabad</Option>
                   </Select>

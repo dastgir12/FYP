@@ -11,7 +11,7 @@ const Leads = () => {
   const [editedLead, setEditedLead] = useState(null);
   const [columns, setColumns] = useState([]);
   const [dataSource, setDataSource] = useState([]);
-
+  const [isLoading, setIsLoading] = useState(true);
 
   const nav = useNavigate();
 

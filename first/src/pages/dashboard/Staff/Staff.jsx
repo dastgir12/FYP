@@ -12,7 +12,7 @@ const Staff = () => {
   const [editedStaff, setEditedStaff] = useState(null);
   const [columns, setColumns] = useState([]);
   const [dataSource, setDataSource] = useState([]);
-
+  const [isLoading, setIsLoading] = useState(true);
 
   // const navigate = useNavigate();
 
