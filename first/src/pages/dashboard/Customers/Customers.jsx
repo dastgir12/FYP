@@ -172,7 +172,7 @@ const Customers = () => {
     fetchData();
   }, []);
 
-  //for loading purpose 
+  //for loading purpose
   useEffect(() => {
     if (!isLoading) {
       const handleResize = () => {
@@ -204,22 +204,17 @@ const Customers = () => {
           </div>
         </div>
 
-        <div className="bg-blue-500 rounded flex justify-center items-center w-[80px] h-[40px] ml-32 ">
+        <div className="bg-blue-500 rounded flex justify-center items-center w-[80px] h-[40px] mb-2 ml-6">
           <button className="text-white" onClick={handleClicked}>
             Add New
           </button>
         </div>
 
-        <div className="flex flex-col justify-center items-center">
-          <div className="mt-7 border-gray-300 w-[80vw] ">
-            <Table
-              columns={columns}
-              dataSource={dataSource}
-              scroll={{ y: 400 }}
-              pagination={true}
-            />
-          </div>
-        </div>
+        <Table
+          dataSource={dataSource}
+          columns={columns}
+          className="rounded p-5 w-full h-full"
+        />
 
         <Modal
           title="Edit Staff"

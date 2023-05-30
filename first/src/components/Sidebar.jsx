@@ -8,7 +8,7 @@ import { useStateContext } from '../contexts/ContextProvider';
 
 const Sidebar = () => {
   const { currentColor, activeMenu, setActiveMenu, screenSize } = useStateContext();
-  // const navigate = useNavigate();
+  const navigate = useNavigate();
 
   const handleCloseSideBar = () => {
     // navigate("/")
@@ -25,9 +25,9 @@ const Sidebar = () => {
       {activeMenu && (
         <>
           <div className="flex justify-between items-center">
-            <Link onClick={handleCloseSideBar} className="items-center gap-3 ml-3 mt-4 flex text-xl font-extrabold tracking-tight dark:text-white text-slate-900">
+            <a href='/' onClick={handleCloseSideBar}  className="items-center gap-3 ml-3 mt-4 flex text-xl font-extrabold tracking-tight dark:text-white text-slate-900">
               <SiShopware /> <span >GAB_LMS</span>
-            </Link>
+            </a>
             <TooltipComponent content="Menu" position="BottomCenter">
               <button
                 type="button"

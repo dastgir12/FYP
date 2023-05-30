@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect,useState } from "react";
 import { Link } from "react-router-dom";
 import { toast } from "react-toastify";
 import { ToastContainer } from "react-toastify";
@@ -67,10 +67,22 @@ const Login = () => {
       return; // return early to prevent redirect
     }
     nav("/dashboard");
+    window.location.reload();
     //   setTimeout(() => {
     //     nav("/dashboard");
     //   },);
   };
+  const [Reloaded, setReloaded] = useState(false);
+
+  useEffect(() => {
+    if (!Reloaded && !sessionStorage.getItem('Reloaded')) {
+      setReloaded(true);
+      sessionStorage.setItem('Reloaded', true);
+      window.location.reload();
+    }
+  }, [Reloaded]);
+
+  
   return (
     <>
       <ToastContainer />
@@ -134,7 +146,7 @@ const Login = () => {
                     className="px-5 cursor-pointer py-2 text-lg font-bold text-white bg-blue-500 rounded-2xl hover:bg-blue-400"
                     type="submit"
                   >
-                    SignIn
+                    LogIn
                   </button>
                 </div>
                 <div>

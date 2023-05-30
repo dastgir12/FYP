@@ -200,14 +200,14 @@ const AddLead = () => {
                   </Select>
                 </Form.Item>
               </div>
-
+{/* 
               <div className="w-[550px] ">
                 <label for="">Other Details</label>
 
                 <Form.Item name="otherDetails">
                   <Input placeholder="Enter Other Name" />
                 </Form.Item>
-              </div>
+              </div> */}
             </div>
 `
             <div className="flex justify-center space-x-2 m-2">

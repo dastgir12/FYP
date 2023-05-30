@@ -11,6 +11,7 @@ import AboutUs from "./pages/AboutUs";
 import ContactUs from "./pages/ContactUs";
 
 import {
+  DashboardPage,
   Staff,
   AddStaff,
   Customers,
@@ -22,7 +23,7 @@ import {
   FollowUP,
   LeadCategory,
   Reportss,
-} from "./pages/dashboard/index";
+} from "./pages/dashboard/index.js";
 
 import { useStateContext } from "./contexts/ContextProvider";
 import "./App.css";
@@ -57,7 +58,7 @@ const App = () => {
   return (
     <div className={currentMode === "Dark" ? "dark" : ""}>
       <BrowserRouter>
-        <div className="flex relative dark:bg-main-dark-bg">
+        <div className="flex relative dark:bg-main-dark-bg w-full overflow-hidden">
           <div className="fixed right-4 bottom-4" style={{ zIndex: "1000" }}>
             <TooltipComponent content="Settings" position="Top">
               {AppPathName === "/" ||
@@ -114,8 +115,7 @@ const App = () => {
             }
           >
             <div className="fixed md:static bg-main-bg dark:bg-main-dark-bg navbar w-full ">
-              {
-              AppPathName === "/" ||
+              {AppPathName === "/" ||
               AppPathName === "/login" ||
               AppPathName === "/register" ||
               AppPathName === "/forgot" ||
@@ -124,18 +124,25 @@ const App = () => {
                 <></>
               ) : (
                 <></>
-              )
-              }
-
-              {
-              AppPathName === "/dashboard" 
-              ? (
-                <Navbar />
-              ) : (
-                <div>
-                404 error page is not found   
-                </div>
               )}
+              {AppPathName === "/dashboard" ? (
+                <Navbar />
+              ) :
+              AppPathName !== "/" &&
+               AppPathName !== "/login" && 
+               AppPathName !== "/register" && 
+               AppPathName !== "/forgot" && 
+               AppPathName !== "/about" && 
+               AppPathName !== "/contact"
+              ? (
+                <div className="flex justify-center items-center h-screen">
+                  <div className="text-center">
+                    <h2 className="text-2xl font-bold">
+                      404 error page not found
+                    </h2>
+                  </div>
+                </div>
+              ) : null}
             </div>
             <div>
               {themeSettings && <ThemeSetting />}
@@ -150,8 +157,8 @@ const App = () => {
                 <Route exact path="/contact" element={<ContactUs />} />
 
                 {/* Dashboard  */}
-                {/* <Route path="/dashboard" element={<Staff />} /> */}
-                <Route exact path="/dashboard/staff" element={<Staff />} />
+                <Route exact  path="/dashboard" element={<DashboardPage />} />
+                <Route path="/dashboard/staff" element={<Staff />} />
                 <Route
                   exact
                   path="/dashboard/customers"
@@ -178,7 +185,7 @@ const App = () => {
                   path="/dashboard/lead_category"
                   element={<LeadCategory />}
                 />
-                 <Route
+                <Route
                   exact
                   path="/dashboard/lead_category/AddLeadCategory"
                   element={<AddLeadCategory />}

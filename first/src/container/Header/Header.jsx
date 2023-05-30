@@ -9,7 +9,7 @@ const Header = () => {
 const navigate = useNavigate();
 
   return (
-    <div className="flex flex-col relative w-full">
+    <div className="flex flex-col relative w-full bg-white">
       <div className="absolute w-full h-[150px] ">
         <img
           src="https://naranga.com/wp-content/uploads/2021/05/header-map.svg"
@@ -29,14 +29,14 @@ const navigate = useNavigate();
         </div>
       </div>
       <div className="relative mt-32 h-[50px] bg-white shadow-lg flex justify-between items-center p-4">
-        <div className="mb-8">
+        <div className="mb-8 ">
           <img
-            className="w-[250px] h-[250px]"
+            className="w-[250px] h-[250px] "
             src={log}
             alt="Logo"
           />
         </div>
-        <div className="flex items-center mb-8">
+        <div className="flex items-center mb-8 bg-white">
           <div className="ml-10 flex space-x-4 mr-2">
             <Link
               to="/"

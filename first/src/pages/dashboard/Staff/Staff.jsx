@@ -12,7 +12,14 @@ const Staff = () => {
   const [editedStaff, setEditedStaff] = useState(null);
   const [columns, setColumns] = useState([]);
   const [dataSource, setDataSource] = useState([]);
-  const [isLoading, setIsLoading] = useState(true);
+
+
+  // const navigate = useNavigate();
+
+  // useEffect(() => {
+    // Replace the current route with the new route after component mount
+    // navigate('/dashboard', { replace: true });
+  // }, []);
 
   // Delete Action Perform here
   const deleteStaff = (record) => {
@@ -153,21 +160,7 @@ const Staff = () => {
     nav("AddStaff");
   };
 
-  useEffect(() => {
-    if (!isLoading) {
-      const handleResize = () => {
-        window.requestAnimationFrame(() => {
-          // Handle resize logic here
-        });
-      };
 
-      window.addEventListener("resize", handleResize);
-
-      return () => {
-        window.removeEventListener("resize", handleResize);
-      };
-    }
-  }, [isLoading]);
 
   return (
     <>
@@ -178,26 +171,20 @@ const Staff = () => {
             <div>Home / Staff</div>
           </div>
         </div>
-        <div className="flex flex-col item-center">
-          <div className="bg-blue-500 rounded flex justify-center items-center w-[80px] h-[40px]">
+
+          <div className="bg-blue-500 rounded flex justify-center items-center w-[80px] h-[40px] mb-2 ml-6">
             <button className="text-white" onClick={handleClicked}>
               Add New
             </button>
           </div>
 
-          <div className="border-[1.5px] mt-7 border-gray-300 w-[95vw] sm:w-[80vw]">
-            <div style={{ height: "500px" }}>
-              {isLoading ? (
-                <div>Loading...</div>
-              ) : (
                 <Table
                   columns={columns}
                   dataSource={dataSource}
-                  scroll={{ y: 400 }}
-                  pagination={false}
+                  className="rounded p-5 w-full h-full"
+
                 />
-              )}
-            </div>
+
 
             <Modal
               title="Edit Staff"
@@ -274,8 +261,8 @@ const Staff = () => {
               )}
             </Modal>
           </div>
-        </div>
-      </div>
+
+
     </>
   );
 };

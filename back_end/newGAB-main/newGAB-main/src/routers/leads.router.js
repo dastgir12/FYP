@@ -223,8 +223,6 @@ router.delete('/staff-info/:staffId', async (req, res) => {
   }
 });
 
-
-
 //post-> get -> edit -> create -> delete
 //customer info
 router.post("/CustomerInfo", async (req, res) => {
@@ -409,8 +407,6 @@ router.delete("/CustomerInfo/:customerId", async (req, res) => {
   }
 });
 
-
-
 // POST route to save lead category and status
 router.post("/leadsCategory", async (req, res) => {
   try {
@@ -537,9 +533,6 @@ router.delete("/leadsCategory/:categoryId", async (req, res) => {
     res.status(500).json({ error: `Error deleting lead category: ${error.message}` });
   }
 });
-
-
-
 
 //lead info route
 // API route to save lead information
@@ -715,11 +708,6 @@ router.delete("/leads-Info/:leadInfoId", async (req, res) => {
   }
 });
 
-
-
-
-
-
 //lead-assign 
 // API route to add LeadInfo to LeadManager
 router.post('/assign-lead', async (req, res) => {
@@ -772,9 +760,6 @@ router.post('/assign-lead', async (req, res) => {
   }
 });
 
-
-
-
 // Add Lead Manager 
 router.post('/addLeadManager', async (req, res) => {
   try {
@@ -799,10 +784,6 @@ router.post('/addLeadManager', async (req, res) => {
     res.status(500).json({ message: 'Internal server error' });
   }
 });
-
-
-
-
 
 // Update lead status
 router.put("/:leadId/followup", async (req, res) => {
@@ -899,10 +880,6 @@ router.get("/:leadId/followup", async (req, res) => {
 });
 
 
-
-
-
-
 //Status-based filter
 router.get("/status-based-filter", async (req, res) => {
   const { status } = req.query;
@@ -940,12 +917,6 @@ router.get("/status-based-filter", async (req, res) => {
 });
 
 
-
-
-
-
-
-
 router.get("/", userAuthorization, async (req, res) => {
   try {
     const userId = req.userId;
@@ -959,11 +930,6 @@ router.get("/", userAuthorization, async (req, res) => {
     res.json({ status: "error", message: error.message });
   }
 });
-
-
-
-
-
 
 
 //get single lead by id
@@ -981,9 +947,6 @@ router.get("/:_id", userAuthorization, async (req, res) => {
     res.json({ status: "error", message: error.message });
   }
 });
-
-
-
 
 //update the lead status after client reply
 router.put("/:_id",replyLeadMessageValidation,userAuthorization,async (req, res) => {
@@ -1009,8 +972,6 @@ router.put("/:_id",replyLeadMessageValidation,userAuthorization,async (req, res)
     }
   }
 );
-
-
 
 
 router.patch("/close-lead/:_id", userAuthorization, async (req, res) => {
@@ -1054,8 +1015,6 @@ router.patch("/close-lead/:_id", userAuthorization, async (req, res) => {
 });
 
 
-
-
 //Delete  the lead which have been closed
 router.delete("/:_id", userAuthorization, async (req, res) => {
   try {
@@ -1075,8 +1034,6 @@ router.delete("/:_id", userAuthorization, async (req, res) => {
 });
 
 
-
-
 //fetch all the leads of status closed
 router.get("/filtering/:status", userAuthorization, async (req, res) => {
   const { status } = req.params;
@@ -1092,8 +1049,6 @@ router.get("/filtering/:status", userAuthorization, async (req, res) => {
     res.status(500).send(err.message);
   }
 });
-
-
 
 
 const filterSchema = {
@@ -1158,8 +1113,6 @@ router.post("/filter_leads", userAuthorization, async (req, res) => {
   }
 });
 
-
-
 // Define the endpoint to retrieve the filter options
 router.get("/filter_options", async (req, res) => {
   try {
@@ -1186,8 +1139,6 @@ router.get("/filter_options", async (req, res) => {
     return res.status(500).json({ error: "Internal server error" });
   }
 });
-
-
 
 
 router.use((req, res, next) => {

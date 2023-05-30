@@ -7,11 +7,17 @@ import ProblemSolving from "../../components/ProblemSolving";
 import Number from "../../components/Number";
 import Question from "../../components/Question";
 import Footer from "../../components/Footer";
+import { useNavigate } from "react-router-dom";
 const HeroSection = () => {
+const nav = useNavigate();
+const handleclicked = ()=>{
+nav('/register')
+}
+
   return (
     <>
       <div className="w-full relative flex flex-col h-auto ">
-        <div className="mb-4">
+        <div className="">
           <img
             src="https://naranga.com/wp-content/uploads/2021/04/bg-2.jpg"
             alt=""
@@ -24,7 +30,7 @@ const HeroSection = () => {
               <h2>
                 GAB
                 <br />
-                <span className="mt-4 ">Frunchise Software</span>
+                <span className="">Frunchise Software</span>
               </h2>
             </div>
             <div className="max-w-[760px] mb-[73px]">
@@ -34,14 +40,14 @@ const HeroSection = () => {
                 <span>nurture and convert business leads into sales</span>
               </p>
             </div>
-            <div className=" mb-6">
+            <div className=" mb-6" onClick={handleclicked}>
               <Button text='I am Intrested' />
             </div>
           </div>
 
           <div className="absolute bg-white shadow-md h-[150px] w-full pt-[18px]">
             <div className="flex flex-col items-center justify-center">
-              <div className="mb-2 mt-0 p-3 text-2xl">
+              <div className=" mt-0 p-3 text-2xl">
                 <p>400+ companies who perform better with GAB</p>
               </div>
               <div className="flex gap-10">
@@ -90,9 +96,9 @@ const HeroSection = () => {
           </div>
         </div>
 
-        <div className=" relative flex flex-col items-center w-full mt-8 h-[800px] bg-white shadow-lg">
-          <div className="mb-6 mt-2">
-            <h2 className="text-5xl text-slate-900 font-bold font-sans">
+        <div className=" relative flex flex-col items-center w-full h-[800px] pt-8 bg-white shadow-lg">
+          <div className="mb-6 pt-2 bg-white">
+            <h2 className="text-5xl text-slate-900 font-bold font-sans bg-white">
               Your Automated Mangement Solution
             </h2>
           </div>

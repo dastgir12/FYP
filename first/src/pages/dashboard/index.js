@@ -1,4 +1,7 @@
+export {default as DashboardPage} from './DashboardPage/DashboardPage.jsx'
+
 export { default as Staff } from './Staff/Staff.jsx'
+
 export { default as Customers } from './Customers/Customers.jsx'
 export { default as Deals } from './Deals/Deals.jsx'
 export { default as Leads } from './Leads/Leads.jsx'

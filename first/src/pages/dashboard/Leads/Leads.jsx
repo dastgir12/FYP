@@ -11,7 +11,7 @@ const Leads = () => {
   const [editedLead, setEditedLead] = useState(null);
   const [columns, setColumns] = useState([]);
   const [dataSource, setDataSource] = useState([]);
-  const [isLoading, setIsLoading] = useState(true);
+
 
   const nav = useNavigate();
 
@@ -177,7 +177,7 @@ const Leads = () => {
 
   return (
     <>
-      <div className="bg-gray-200 h-screen ">
+      <div className="bg-gray-200 h-screen w">
         <div className="flex justify-between mb-8 p-5">
           <div className=" text-2xl font-semibold">Leads Information</div>
           <div>
@@ -185,22 +185,21 @@ const Leads = () => {
           </div>
         </div>
 
-        <div className="bg-blue-500 rounded flex justify-center items-centr w-[80px] h-[40px] ml-32 ">
+        <div className="bg-blue-500 rounded flex justify-center items-center w-[80px] h-[40px] mb-2 ml-6">
           <button className="text-white" onClick={handleClicked}>
             Add New
           </button>
         </div>
 
-        <div className="flex flex-col justify-center items-center">
-          <div className=" mt-7 border-gray-300 w-[80vw] ">
+
             <Table
+          className="rounded p-5 w-full h-full"
+            
               columns={columns}
               dataSource={dataSource}
-              scroll={{ y: 500 }}
-              pagination={false}
+
             />
-          </div>
-        </div>
+
 
         <Modal
           title="Edit Staff"

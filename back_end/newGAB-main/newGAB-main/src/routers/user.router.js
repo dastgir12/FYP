@@ -16,13 +16,11 @@ router.all('/', (req, res, next) => {
 })
 
 router.post('/signup', async (req, res) => {
-    const { name, company, Designation, password, address, phone, email } = req.body
+    const { name, company, password, address, phone, email } = req.body
     try {
         const hashed = await hashedPassword(password)
-        const newUserObj = { name, company, Designation, password: hashed, address, phone, email }
-        if (Designation !== 'Manager' && Designation !== 'Leads Manager') {
-            return res.json({ message: 'Invalid user' });
-          }
+        const newUserObj = { name, company, password: hashed, address, phone, email }
+      
         const result = await insertUser(newUserObj)
         console.log(result)
         return res.json({ message: "new user created", result })
@@ -47,7 +45,7 @@ router.post('/login', async (req, res) => {
         res.json({ status: "Invalid", message: "invalid email or password" })
     }
     const user = await getUserByEmail(email)
-    const userDesignation = user.Designation;
+    
     const passFromDb = user && user._id ? user.password : null
     if (!passFromDb) return res.json({ status: "Error", message: "invalid email or password" })
     const result = await compPassword(password, passFromDb)

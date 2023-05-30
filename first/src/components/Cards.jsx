@@ -1,8 +1,15 @@
 import React from "react";
 import Button from "./ButtonC";
 import ImageWrapper from "./ImageWrapper";
+import { useNavigate } from "react-router-dom";
 
 const Cards = ({ heading, reverseRow, text, paragraph, image, l1, l2, l3 }) => {
+
+  const nav = useNavigate();
+  const handleClicked = ()=>{
+  nav('/contact')
+  }
+
   return (
     <div className="relative w-full h-[500px] bg-white shadow-lg flex flex-col items-center">
       <div className=" w-[1100px] h-[50px] flex flex-col mb-12">
@@ -29,7 +36,7 @@ const Cards = ({ heading, reverseRow, text, paragraph, image, l1, l2, l3 }) => {
                 <li>{l3}</li>
               </ul>
             </div>
-            <div className="mt-4">
+            <div className="mt-4" onClick={handleClicked}>
               <Button text = 'Tell me more' />
             </div>
           </div>
