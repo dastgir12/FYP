@@ -10,6 +10,8 @@ import { HiOutlineRefresh } from 'react-icons/hi';
 import { TiTick } from 'react-icons/ti';
 import { GiLouvrePyramid } from 'react-icons/gi';
 import { GrLocation } from 'react-icons/gr';
+import { BsArrowRight } from 'react-icons/bs';
+
 import avatar from './avatar.jpg';
 import avatar2 from './avatar2.jpg';
 import avatar3 from './avatar3.png';
@@ -537,10 +539,39 @@ export const links = [
         icon: <AiOutlineCalendar />,
       },
       {
-        name: 'Leads Follow-UP',
-        route: 'dashboard/leads_follow_UP',
+        name: "Leads Follow-UP",
+        route: "dashboard/leads_follow_UP",
         icon: <BsKanban />,
+        submenus: [
+          {
+            name: "Failed Leads",
+            route: "dashboard/failed_leads",
+            icon: <BsArrowRight />,
+          },
+          {
+            name: "Working Leads",
+            route: "dashboard/working_leads",
+            icon: <BsArrowRight />,
+          },
+          {
+            name: "Contacted Leads",
+            route: "dashboard/contacted_leads",
+            icon: <BsArrowRight />,
+          },
+          {
+            name: "Searching Leads",
+            route: "dashboard/searching_leads",
+            icon: <BsArrowRight />,
+          },
+          {
+            name: "Process Leads",
+            route: "dashboard/process_leads",
+            icon: <BsArrowRight />,
+          },
+
+        ],
       },
+      
       {
         name: 'Deals',
         route: 'dashboard/deals',

@@ -161,7 +161,7 @@ router.get('/staff-info', async (req, res) => {
   }
 });
 
-//edit staff 
+//edit staff wor
 router.put('/staff-info/:staffId', async (req, res) => {
   try {
     const { staffId } = req.params;
@@ -599,7 +599,7 @@ router.post("/leads-Info", upload.single("attachment"), async (req, res) => {
 router.get("/leads-Info", async (req, res) => {
   try {
     // Fetch specific fields from the lead information
-    const leadFields = await leadinfoSchema.find({}, "companyName staffName leadTitle leadSource");
+    const leadFields = await leadinfoSchema.find({}, "companyName staffName leadTitle leadSource status referralName");
 
     res.json({
       status: "success",
@@ -785,8 +785,44 @@ router.post('/addLeadManager', async (req, res) => {
   }
 });
 
+router.get("/followup", async (req, res) => {
+  const { status } = req.query;
+
+  const validStatusOptions = [
+    "Working",
+    "Contacted",
+    "Qualified",
+    "Failed",
+    "Closed",
+  ];
+
+  try {
+    // Check if the provided status is valid
+    if (status && !validStatusOptions.includes(status)) {
+      return res
+        .status(400)
+        .json({
+          error:
+            "Invalid status option. Please choose one of the valid options.that are 1-Working, 2-Contacted, 3-Qualified, 4-Failed, 5-Closed.",
+        });
+    }
+
+    // Define the filter object based on the provided status
+    const filter = status ? { status: status } : {};
+
+    // Retrieve the filtered leads from the database
+    const filteredLeads = await leadinfoSchema.find(filter);
+
+    res.status(200).json({ leads: filteredLeads });
+  } catch (error) {
+    console.error("Error filtering leads:", error);
+    res.status(500).json({ error: "Error filtering leads" });
+  }
+});
+
+
 // Update lead status
-router.put("/:leadId/followup", async (req, res) => {
+router.put("/followup/:leadId", async (req, res) => {
   const { leadId } = req.params;
   const { status } = req.body;
 
@@ -833,7 +869,7 @@ router.put("/:leadId/followup", async (req, res) => {
 
 
 //get follow up
-router.get("/:leadId/followup", async (req, res) => {
+router.get("/followup/:leadId", async (req, res) => {
   const { leadId } = req.params;
 
   try {
@@ -861,7 +897,7 @@ router.get("/:leadId/followup", async (req, res) => {
 
 
 //view only follow up
-router.get("/:leadId/followup", async (req, res) => {
+router.get("/followup/:leadId", async (req, res) => {
   const { leadId } = req.params;
 
   try {
@@ -913,6 +949,29 @@ router.get("/status-based-filter", async (req, res) => {
   } catch (error) {
     console.error("Error filtering leads:", error);
     res.status(500).json({ error: "Error filtering leads" });
+  }
+});
+
+//Reports
+router.post('/reports', async (req, res) => {
+  try {
+    const { startDate, endDate } = req.body;
+
+    // Filter leads based on follow-up date and project only status and companyName fields
+    const filteredLeads = await leadinfoSchema.find(
+      {
+        followUpDate: {
+          $gte: new Date(startDate),
+          $lte: new Date(endDate)
+        }
+      },
+      'status companyName' // Projection: Include only status and companyName fields
+    );
+
+    res.status(200).json(filteredLeads);
+  } catch (error) {
+    console.error('Error occurred:', error);
+    res.status(500).json({ error: 'Internal Server Error' });
   }
 });
 
@@ -1150,6 +1209,8 @@ router.use((req, res, next) => {
   );
   next();
 });
+
+
 
 
 // Route for printing staff information(not working)

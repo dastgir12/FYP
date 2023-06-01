@@ -1,15 +1,13 @@
-import React, { useEffect,useState } from "react";
-import { Link } from "react-router-dom";
+import React, { useEffect, useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import axios from "axios";
 import { Form, Input } from "antd";
-import { message } from "antd";
-import { useNavigate } from "react-router-dom";
 
 const Login = () => {
-  const nav = useNavigate();
+  const navigate = useNavigate();
   const [form] = Form.useForm();
 
   const postForm = async (values) => {
@@ -36,53 +34,31 @@ const Login = () => {
           draggable: true,
         });
 
-        if (data) {
-          form.resetFields();
-        }
+        form.resetFields();
+        navigate("/dashboard");
+      } else {
+        toast.error("Invalid email or password", {
+          position: toast.POSITION.TOP_CENTER,
+          autoClose: 3000,
+          hideProgressBar: true,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+        });
       }
-    } catch (e) {
-      if (e) {
-        const err = e.response.data.error;
-        if (err) {
-          toast.error(err, {
-            position: toast.POSITION.TOP_CENTER,
-            autoClose: 3000,
-            hideProgressBar: true,
-            closeOnClick: true,
-            pauseOnHover: true,
-            draggable: true,
-          });
-        } else {
-          toast.error("Invalid input", {
-            position: toast.POSITION.TOP_CENTER,
-            autoClose: 3000,
-            hideProgressBar: true,
-            closeOnClick: true,
-            pauseOnHover: true,
-            draggable: true,
-          });
-        }
-      }
-      console.log(e);
-      return; // return early to prevent redirect
+    } catch (error) {
+      toast.error("An error occurred. Please try again.", {
+        position: toast.POSITION.TOP_CENTER,
+        autoClose: 3000,
+        hideProgressBar: true,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+      });
+      console.log(error);
     }
-    nav("/dashboard");
-    window.location.reload();
-    //   setTimeout(() => {
-    //     nav("/dashboard");
-    //   },);
   };
-  const [Reloaded, setReloaded] = useState(false);
 
-  useEffect(() => {
-    if (!Reloaded && !sessionStorage.getItem('Reloaded')) {
-      setReloaded(true);
-      sessionStorage.setItem('Reloaded', true);
-      window.location.reload();
-    }
-  }, [Reloaded]);
-
-  
   return (
     <>
       <ToastContainer />
@@ -168,4 +144,5 @@ const Login = () => {
     </>
   );
 };
+
 export default Login;

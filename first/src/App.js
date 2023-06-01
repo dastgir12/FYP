@@ -11,6 +11,12 @@ import AboutUs from "./pages/AboutUs";
 import ContactUs from "./pages/ContactUs";
 
 import {
+  GetReports,
+  Qualified,
+  Closed,
+  Contacted,
+  Failed,
+  Working,
   DashboardPage,
   Staff,
   AddStaff,
@@ -127,14 +133,12 @@ const App = () => {
               )}
               {AppPathName === "/dashboard" ? (
                 <Navbar />
-              ) :
-              AppPathName !== "/" &&
-               AppPathName !== "/login" && 
-               AppPathName !== "/register" && 
-               AppPathName !== "/forgot" && 
-               AppPathName !== "/about" && 
-               AppPathName !== "/contact"
-              ? (
+              ) : AppPathName !== "/" &&
+                AppPathName !== "/login" &&
+                AppPathName !== "/register" &&
+                AppPathName !== "/forgot" &&
+                AppPathName !== "/about" &&
+                AppPathName !== "/contact" ? (
                 <div className="flex justify-center items-center h-screen">
                   <div className="text-center">
                     <h2 className="text-2xl font-bold">
@@ -157,7 +161,7 @@ const App = () => {
                 <Route exact path="/contact" element={<ContactUs />} />
 
                 {/* Dashboard  */}
-                <Route exact  path="/dashboard" element={<DashboardPage />} />
+                <Route exact path="/dashboard" element={<DashboardPage />} />
                 <Route path="/dashboard/staff" element={<Staff />} />
                 <Route
                   exact
@@ -182,6 +186,31 @@ const App = () => {
                 />
                 <Route
                   exact
+                  path="/dashboard/working_leads"
+                  element={<Working />}
+                />
+                <Route
+                  exact
+                  path="/dashboard/failed_leads"
+                  element={<Failed />}
+                />
+                <Route
+                  exact
+                  path="/dashboard/contacted_leads"
+                  element={<Contacted />}
+                />
+                <Route
+                  exact
+                  path="/dashboard/closed_leads"
+                  element={<Closed />}
+                />
+                <Route
+                  exact
+                  path="/dashboard/qualified_leads"
+                  element={<Qualified />}
+                />
+                <Route
+                  exact
                   path="/dashboard/lead_category"
                   element={<LeadCategory />}
                 />
@@ -203,6 +232,13 @@ const App = () => {
                 />
                 <Route exact path="/dashboard/deals" element={<Deals />} />
                 <Route exact path="/dashboard/reports" element={<Reportss />} />
+
+                
+                <Route
+                  exact
+                  path="/dashboard/reports/GetReports"
+                  element={<GetReports />}
+                />
               </Routes>
             </div>
           </div>

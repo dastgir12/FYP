@@ -1,6 +1,13 @@
 export {default as DashboardPage} from './DashboardPage/DashboardPage.jsx'
 
 export { default as Staff } from './Staff/Staff.jsx'
+export {default as Working} from './Leads_follow_UP/Working.jsx'
+export {default as Failed} from './Leads_follow_UP/Failed.jsx'
+export {default as Qualified} from './Leads_follow_UP/Qualified.jsx'
+export {default as Contacted} from './Leads_follow_UP/Contacted.jsx'
+export {default as Closed} from './Leads_follow_UP/Closed.jsx'
+export {default as GetReports} from './Reportss/GetReports.jsx'
+
 
 export { default as Customers } from './Customers/Customers.jsx'
 export { default as Deals } from './Deals/Deals.jsx'

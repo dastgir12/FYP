@@ -1,6 +1,6 @@
 import React from "react";
 import { useState } from "react";
-import { DatePicker, TimePicker, Modal } from "antd";
+import { DatePicker, TimePicker, Modal, message } from "antd";
 import { Form, Input, Select, Upload } from "antd";
 import { Button } from "antd";
 import { CKEditor } from "@ckeditor/ckeditor5-react";
@@ -11,17 +11,14 @@ import { useNavigate } from "react-router-dom";
 const { Option } = Select;
 
 const AddLead = () => {
-
-  const nav = useNavigate()
+  const nav = useNavigate();
   const [form] = Form.useForm();
   const [content, setContent] = useState("");
   const [modalVisible, setModalVisible] = useState(false);
   const [selectedStatus, setSelectedStatus] = useState("");
   const [selectedLeadSource, setSelectedLeadSource] = useState("");
   const [selectedCompanyName, setSelectedCompanyName] = useState("");
-  
-  
-  
+
   const handleStatus = (value) => {
     console.log(value);
   };
@@ -39,8 +36,7 @@ const AddLead = () => {
     setContent(data);
   };
 
-  const handleSubmit = (e) => {
-  };
+  const handleSubmit = (e) => {};
 
   const onFinish = async (values) => {
     try {
@@ -62,8 +58,9 @@ const AddLead = () => {
         "http://localhost:3001/v1/leads/leads-Info",
         formData
       );
-      if (status == 201) {
-        console.log(data);
+      if (status == 200) {
+        message.success("Successfull Added");
+        nav("/dashboard/staff");
       } else {
         console.log("error is here bru");
       }
@@ -106,14 +103,14 @@ const AddLead = () => {
 
                 <Form.Item name="companyName">
                   <Input placeholder="Enter Company Name" />
-                  </Form.Item>
+                </Form.Item>
 
-                  <Button
-                    className="bg-blue-500 justify-center items-center flex mt-2"
-                    type="primary"
-                    icon={<PlusSquareOutlined />}
-                    onClick={openModal}
-                  />
+                <Button
+                  className="bg-blue-500 justify-center items-center flex mt-2"
+                  type="primary"
+                  icon={<PlusSquareOutlined />}
+                  onClick={openModal}
+                />
               </div>
 
               <div className="w-[550px] ">
@@ -124,13 +121,16 @@ const AddLead = () => {
                 </Form.Item>
               </div>
             </div>
-
             <div className="flex justify-center space-x-2 m-2">
               <div className="w-[550px] ">
                 <label for="">Lead Source</label>
 
                 <Form.Item name="leadSource">
-                  <Select placeholder="Select an option" onChange={handleLeadSource} value={selectedLeadSource}>
+                  <Select
+                    placeholder="Select an option"
+                    onChange={handleLeadSource}
+                    value={selectedLeadSource}
+                  >
                     <Option value="fb">fb</Option>
                     <Option value="insta">insta</Option>
                   </Select>
@@ -145,7 +145,6 @@ const AddLead = () => {
                 </Form.Item>
               </div>
             </div>
-
             <div className="flex justify-center space-x-2 m-2">
               <div className="w-[550px] ">
                 <label htmlFor="">Description</label>
@@ -173,7 +172,6 @@ const AddLead = () => {
                 </Form.Item>
               </div>
             </div>
-
             <div className="flex justify-center space-x-2 m-2">
               <div className="w-[550px] ">
                 <label for="">Staff Name</label>
@@ -195,21 +193,15 @@ const AddLead = () => {
                     onChange={handleStatus}
                     value={selectedStatus}
                   >
-                    <Option value="Contacted">Contacted</Option>
+                    <Option value="Closed">Closed</Option>
                     <Option value="Failed">Failed</Option>
+                    <Option value="Contacted">Contacted</Option>
+                    <Option value="Qualified">Qualified</Option>
+                    <Option value="Working">Working</Option>
                   </Select>
                 </Form.Item>
               </div>
-{/* 
-              <div className="w-[550px] ">
-                <label for="">Other Details</label>
-
-                <Form.Item name="otherDetails">
-                  <Input placeholder="Enter Other Name" />
-                </Form.Item>
-              </div> */}
             </div>
-`
             <div className="flex justify-center space-x-2 m-2">
               <div>
                 <label htmlFor="">followUpDate</label>
@@ -224,8 +216,8 @@ const AddLead = () => {
                 </Form.Item>
               </div>
               -
-            </div>`
-
+            </div>
+            `
             <div className="flex space-x-2">
               <div className="mb-4 ml-24">
                 <button

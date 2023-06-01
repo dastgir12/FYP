@@ -3,8 +3,8 @@ import { Table, Button, message, Modal } from "antd";
 import { EyeOutlined, EditOutlined, DeleteOutlined } from "@ant-design/icons";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
-// const API = "http://localhost:3001/v1/leads/status-based-filter?status=Working";
-const Leads = () => {
+
+const Contacted = () => {
   const [isViewing, setIsViewing] = useState(false);
   const [viewedLead, setViewedLead] = useState(null);
   const [isEditing, setIsEditing] = useState(false);
@@ -15,7 +15,6 @@ const Leads = () => {
 
   const nav = useNavigate();
 
-  //delete Lead
   const deleteLead = (record) => {
     Modal.confirm({
       title: "Are you sure to delete this?",
@@ -23,23 +22,15 @@ const Leads = () => {
       okType: "danger",
       onOk: async () => {
         try {
-          // Get the ID of the record to be deleted
           const leadId = record._id;
-          // console.log('id is' + customerId);
-          // Send delete request to the backend API using the customer ID
-          await axios.delete(
-            `http://localhost:3001/v1/leads/leads-Info/${leadId}`
-          );
+          await axios.delete(`http://localhost:3001/v1/leads/leads-Info/${leadId}`);
 
-          // Remove the record from the dataSource state
           setDataSource((prevDataSource) => {
             return prevDataSource.filter((lead) => lead._id !== leadId);
           });
 
-          // Show success message or perform any other actions as needed
           message.success("Customer deleted successfully!");
         } catch (error) {
-          // Handle error and show error message
           message.error("Failed to delete customer. Please try again later.");
           console.log("Delete customer error:", error);
         }
@@ -47,24 +38,16 @@ const Leads = () => {
     });
   };
 
-  //Edit Lead
   const editLead = (record) => {
     setEditedLead(record);
     setIsEditing(true);
   };
 
-  //Update Lead
   const handleLeadUpdate = async (record) => {
     try {
       const leadId = record._id;
+      await axios.put(`http://localhost:3001/v1/leads/leads-Info/${leadId}`, editedLead);
 
-      // Send update request to the backend API using the customer ID and updated data
-      await axios.put(
-        `http://localhost:3001/v1/leads/leads-Info/${leadId}`,
-        editedLead
-      );
-
-      // Update the customer record in the dataSource
       setDataSource((prevDataSource) => {
         const updatedDataSource = prevDataSource.map((lead) => {
           if (lead._id === leadId) {
@@ -75,20 +58,16 @@ const Leads = () => {
         return updatedDataSource;
       });
 
-      // Show success message or perform any other actions as needed
       message.success("Customer updated successfully!");
 
-      // Clear the editedCustomer state and exit editing mode
       setEditedLead(null);
       setIsEditing(false);
     } catch (error) {
-      // Handle error and show error message
       message.error("Failed to update customer. Please try again later.");
       console.log("Update customer error:", error);
     }
   };
 
-  //View Lead
   const viewLead = (record) => {
     setViewedLead(record);
     setIsViewing(true);
@@ -97,18 +76,12 @@ const Leads = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const res = await axios.get(
-          "http://localhost:3001/v1/leads/leads-Info"
-        );
-
-        console.log(res);
-        // const responseData = res.data.data
-        // responseData.forEach(item => {
-        //   const userId = item._id;
-        //   console.log(userId);
-        // });
+        const res = await axios.get("http://localhost:3001/v1/leads/leads-Info");
 
         const list = res.data.data || [];
+
+        const contactedLeads = list.filter((lead) => lead.status === "Qualified");
+
         const selectedColumns = [
           "companyName",
           "leadTitle",
@@ -116,7 +89,7 @@ const Leads = () => {
           "leadSource",
           "referralName",
           "staffName",
-        ]; // Replace with the desired column keys
+        ];
 
         const actionColumn = {
           title: "Action",
@@ -130,7 +103,7 @@ const Leads = () => {
                 icon={<EyeOutlined />}
                 onClick={() => {
                   viewLead(record);
-                }} // Pass the record to viewStaff function
+                }}
               />
               <Button
                 className="bg-blue-500"
@@ -161,7 +134,7 @@ const Leads = () => {
         cols.push(actionColumn);
 
         setColumns(cols);
-        setDataSource(list);
+        setDataSource(contactedLeads);
         setIsLoading(false);
       } catch (error) {
         console.log("error:", error);
@@ -179,7 +152,7 @@ const Leads = () => {
     <>
       <div className="bg-gray-200 h-screen w">
         <div className="flex justify-between mb-8 p-5">
-          <div className=" text-2xl font-semibold">Leads Information</div>
+          <div className="text-2xl font-semibold">Leads Information</div>
           <div>
             <div>Home / Lead</div>
           </div>
@@ -191,18 +164,11 @@ const Leads = () => {
           </button>
         </div>
 
-        <div style={{ height: "500px", overflow: "auto" }}>
-          <Table
-            className="rounded p-5 w-full"
-            columns={columns}
-            dataSource={dataSource}
-            pagination={{
-              pageSize: 10,
-              showTotal: (total, range) =>
-                `${range[0]}-${range[1]} of ${total} items`,
-            }}
-          />
-        </div>
+        <Table
+          className="rounded p-5 w-full h-full"
+          columns={columns}
+          dataSource={dataSource}
+        />
 
         <Modal
           title="Edit Staff"
@@ -210,20 +176,19 @@ const Leads = () => {
           onCancel={() => {
             setIsEditing(false);
           }}
-          onOk={() => handleLeadUpdate(editedLead)} // Call handleStaffUpdate on Ok button click
+          onOk={() => handleLeadUpdate(editedLead)}
         >
           {editedLead && (
             <form>
-              {/* Render input fields for editing */}
               <label>
                 Company Name:
                 <input
                   type="text"
-                  value={editedLead.CompanyName}
+                  value={editedLead.companyName}
                   onChange={(e) =>
                     setEditedLead({
                       ...editedLead,
-                      CompanyName: e.target.value,
+                      companyName: e.target.value,
                     })
                   }
                 />
@@ -242,7 +207,7 @@ const Leads = () => {
         >
           {viewedLead && (
             <div>
-              <p>Company Name: {viewedLead.CompanyName}</p>
+              <p>Company Name: {viewedLead.companyName}</p>
             </div>
           )}
         </Modal>
@@ -251,4 +216,4 @@ const Leads = () => {
   );
 };
 
-export default Leads;
+export default Contacted;
