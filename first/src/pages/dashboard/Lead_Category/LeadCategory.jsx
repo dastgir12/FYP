@@ -59,7 +59,6 @@ const LeadCategory = () => {
   const handleLeadCategoryUpdate = async (record) => {
     try {
       const categoryId = record._id;
-      console.log("id is" + categoryId);
       // Send delete request to the backend API using the customer ID
       await axios.put(
         `http://localhost:3001/v1/leads/leadsCategory/${categoryId}`,

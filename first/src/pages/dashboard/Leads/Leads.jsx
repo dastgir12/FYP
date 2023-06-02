@@ -57,7 +57,7 @@ const Leads = () => {
   const handleLeadUpdate = async (record) => {
     try {
       const leadId = record._id;
-
+      console.log(leadId);
       // Send update request to the backend API using the customer ID and updated data
       await axios.put(
         `http://localhost:3001/v1/leads/leads-Info/${leadId}`,
@@ -72,6 +72,7 @@ const Leads = () => {
           }
           return lead;
         });
+      
         return updatedDataSource;
       });
 
@@ -97,27 +98,17 @@ const Leads = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const res = await axios.get(
-          "http://localhost:3001/v1/leads/leads-Info"
-        );
-
-        console.log(res);
-        // const responseData = res.data.data
-        // responseData.forEach(item => {
-        //   const userId = item._id;
-        //   console.log(userId);
-        // });
-
+        const res = await axios.get("http://localhost:3001/v1/leads/leads-Info");
+  
         const list = res.data.data || [];
         const selectedColumns = [
           "companyName",
           "leadTitle",
-          "status",
           "leadSource",
-          "referralName",
           "staffName",
+          "status",
         ]; // Replace with the desired column keys
-
+  
         const actionColumn = {
           title: "Action",
           dataIndex: "action",
@@ -130,7 +121,7 @@ const Leads = () => {
                 icon={<EyeOutlined />}
                 onClick={() => {
                   viewLead(record);
-                }} // Pass the record to viewStaff function
+                }}
               />
               <Button
                 className="bg-blue-500"
@@ -151,15 +142,46 @@ const Leads = () => {
             </div>
           ),
         };
-
-        const cols = selectedColumns.map((key) => ({
-          title: key,
-          dataIndex: key,
-          key: key,
-        }));
-
+  
+        const cols = selectedColumns.map((key) => {
+          if (key === "status") {
+            return {
+              title: key,
+              dataIndex: key,
+              key: key,
+              render: (text) => {
+                let colorClass = "bg-gray-500 text-white"; // Default color
+  
+                if (text === "Working") {
+                  colorClass = "bg-green-500 text-white";
+                } else if (text === "Pending") {
+                  colorClass = "bg-yellow-500 text-black";
+                } else if (text === "Contacted") {
+                  colorClass = "bg-yellow-500 text-white";
+                }
+                else if (text === "Qualified") {
+                  colorClass = "bg-blue-900 text-white";
+                }
+                else if (text === "Closed") {
+                  colorClass = " bg-red-500 text-white";
+                }
+  
+                return (
+                  <span className={`${colorClass} px-2 py-1 rounded`}>{text}</span>
+                );
+              },
+            };
+          }
+  
+          return {
+            title: key,
+            dataIndex: key,
+            key: key,
+          };
+        });
+  
         cols.push(actionColumn);
-
+  
         setColumns(cols);
         setDataSource(list);
         setIsLoading(false);
@@ -167,9 +189,11 @@ const Leads = () => {
         console.log("error:", error);
       }
     };
-
+  
     fetchData();
   }, []);
+  
+  
 
   const handleClicked = () => {
     nav("AddLead");
@@ -196,11 +220,7 @@ const Leads = () => {
             className="rounded p-5 w-full"
             columns={columns}
             dataSource={dataSource}
-            pagination={{
-              pageSize: 10,
-              showTotal: (total, range) =>
-                `${range[0]}-${range[1]} of ${total} items`,
-            }}
+            pagination={true}
           />
         </div>
 
@@ -219,11 +239,13 @@ const Leads = () => {
                 Company Name:
                 <input
                   type="text"
-                  value={editedLead.CompanyName}
+                  value={editedLead.companyName}
                   onChange={(e) =>
                     setEditedLead({
                       ...editedLead,
-                      CompanyName: e.target.value,
+                      companyName: e.target.value,
+                      status: e.target.value,
+
                     })
                   }
                 />

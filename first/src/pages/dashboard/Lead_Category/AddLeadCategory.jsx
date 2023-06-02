@@ -1,20 +1,17 @@
-import React , {useState} from "react";
+import React, { useState } from "react";
 import { Form, Input, Select } from "antd";
 import axios from "axios";
 
 const { Option } = Select;
 
 const AddLeadCategory = () => {
-
-  const [selectedStatus, setSelectedStatus] = useState('');
+  const [selectedStatus, setSelectedStatus] = useState("");
 
   const [form] = Form.useForm();
 
-
-  const handleStatus = (value)=>{
-    console.log('Selected value:', value);
-
-  }
+  const handleStatus = (value) => {
+    console.log("Selected value:", value);
+  };
   const onFinish = async (values) => {
     try {
       const formData = {
@@ -26,13 +23,10 @@ const AddLeadCategory = () => {
         "http://localhost:3001/v1/leads/leadsCategory",
         formData
       );
-      if(status == 200)
-      {
-      console.log(data);
-      }
-      else
-      {
-        console.log('error is here bru');
+      if (status == 200) {
+        console.log(data);
+      } else {
+        console.log("error is here");
       }
     } catch (e) {
       console.log(e);
@@ -69,19 +63,22 @@ const AddLeadCategory = () => {
                 </label>
                 <div className="w-[550px] ">
                   <Form.Item name="status">
-                    <Select placeholder="Select an option" onChange={handleStatus} value={selectedStatus}>
-                      <Option value="Active">Active</Option>
-                      <Option value="non Active">non active</Option>
+                    <Select
+                      placeholder="Select an option"
+                      onChange={handleStatus}
+                      value={selectedStatus}
+                    >
+                      <Option value="active">active</Option>
+                      <Option value="non active">non active</Option>
                     </Select>
                   </Form.Item>
                 </div>
               </div>
             </div>
-
-            <div className="ml-28 mb-4">
+            <div className="flex justify-center items-center mb-4">
               <button
                 type="submit"
-                className="bg-blue-500 text-white rounded px-4 py-2"
+                className="bg-blue-500 text-white rounded px-4 py-2 w-[80px]"
               >
                 Submit
               </button>

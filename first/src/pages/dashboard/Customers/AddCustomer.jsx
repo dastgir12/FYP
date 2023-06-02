@@ -1,4 +1,4 @@
-import React , {useState} from "react";
+import React, { useState } from "react";
 import { Form, Input, Select } from "antd";
 import axios from "axios";
 
@@ -6,10 +6,10 @@ const { Option } = Select;
 
 const AddCustomer = () => {
   const [form] = Form.useForm();
-  const [selectedCity, setSelectedCity] = useState('');
+  const [selectedCity, setSelectedCity] = useState("");
 
   const handleSelectChange = (value) => {
-    console.log('Selected value:', value);
+    console.log("Selected value:", value);
     // You can perform further actions with the selected value here
   };
 
@@ -46,7 +46,7 @@ const AddCustomer = () => {
 
   return (
     <>
-      <div className="bg-gray-200 h-screen w-full">
+      <div className="bg-gray-200 h-screen w-full ">
         <div className="flex justify-between p-5">
           <div className=" text-2xl font-semibold">Customer Information</div>
           <div>
@@ -104,7 +104,6 @@ const AddCustomer = () => {
               </div>
             </div>
 
-
             <div className="flex justify-center space-x-2">
               <div>
                 <label htmlFor="" className=" font-semibold">
@@ -121,13 +120,17 @@ const AddCustomer = () => {
                 <label for="">City</label>
 
                 <Form.Item name="city">
-                  <Select  placeholder="Select an option" onChange={handleSelectChange} value={selectedCity}>
+                  <Select
+                    className="bg-white text-black"
+                    placeholder="Select an option"
+                    onChange={handleSelectChange}
+                    value={selectedCity}
+                  >
                     <Option value="Rawalpindi">Rawalpindi</Option>
                     <Option value="Islamabad">Islamabad</Option>
                   </Select>
                 </Form.Item>
               </div>
-
             </div>
 
             <div className="flex justify-center space-x-2">
@@ -178,15 +181,13 @@ const AddCustomer = () => {
               </div>
             </div>
 
-            <div className="flex space-x-2">
-              <div className="mb-4 ml-24">
-                <button
-                  type="submit"
-                  className="bg-blue-500 text-white hover:bg-blue-700 rounded px-4 py-2"
-                >
-                  Submit
-                </button>
-              </div>
+            <div className="flex justify-center items-center">
+              <button
+                type="submit"
+                className="w-[80px] ml-8 bg-blue-500 text-white hover:bg-blue-700 rounded px-4 py-2"
+              >
+                Submit
+              </button>
             </div>
           </Form>
         </div>

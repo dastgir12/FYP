@@ -16,14 +16,13 @@ const Login = () => {
         email: values.email,
         password: values.password,
       };
-
-      const { status, data } = await axios.post(
+  
+      const { data } = await axios.post(
         "http://localhost:3001/v1/user/login",
         formData
       );
-
-      if (status === 200) {
-        console.log(data);
+  
+      if (data.success) {
         localStorage.setItem("accessToken", data.accessJWT);
         toast.success("Login successful!", {
           position: toast.POSITION.TOP_CENTER,
@@ -33,7 +32,7 @@ const Login = () => {
           pauseOnHover: true,
           draggable: true,
         });
-
+  
         form.resetFields();
         navigate("/dashboard");
       } else {
@@ -58,6 +57,7 @@ const Login = () => {
       console.log(error);
     }
   };
+  
 
   return (
     <>

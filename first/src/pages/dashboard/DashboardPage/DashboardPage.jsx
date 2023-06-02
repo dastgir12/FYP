@@ -39,7 +39,7 @@ const DashboardPage = () => {
 
   return (
     <>
-      <div className="bg-blue-600 h-screen">
+      <div className="bg-blue-600 h-auto">
         <div className="flex p-4 gap-6 flex-wrap ">
           {cardData.map((data, index) => (
             <DashboardCard
@@ -52,7 +52,7 @@ const DashboardPage = () => {
         </div>
 
         <div className="p-4">
-            <Leads/>
+            <Leads />
         </div>
       </div>
     </>

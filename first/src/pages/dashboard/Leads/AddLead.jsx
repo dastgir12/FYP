@@ -58,9 +58,9 @@ const AddLead = () => {
         "http://localhost:3001/v1/leads/leads-Info",
         formData
       );
-      if (status == 200) {
+      if (status == 201) {
         message.success("Successfull Added");
-        nav("/dashboard/staff");
+        nav("/dashboard/leads");
       } else {
         console.log("error is here bru");
       }
@@ -89,7 +89,7 @@ const AddLead = () => {
     <>
       <div className="bg-gray-300 h-[770px]">
         <div className="flex justify-between mb-4 p-2">
-          <div className="text-2xl font-semibold">Lead Category</div>
+          <div className="text-2xl font-semibold">Lead Information</div>
           <div>
             <div>Home / Leads / AddLead</div>
           </div>
@@ -215,18 +215,14 @@ const AddLead = () => {
                   <TimePicker className="w-[550px]" />
                 </Form.Item>
               </div>
-              -
             </div>
-            `
-            <div className="flex space-x-2">
-              <div className="mb-4 ml-24">
-                <button
-                  type="submit"
-                  className="bg-blue-500 text-white hover:bg-blue-700 rounded px-4 py-2"
-                >
-                  Submit
-                </button>
-              </div>
+            <div className="flex justify-center items-center">
+              <button
+                type="submit"
+                className="bg-blue-500 text-white hover:bg-blue-700 rounded px-4 py-2"
+              >
+                Submit
+              </button>
             </div>
           </Form>
         </div>

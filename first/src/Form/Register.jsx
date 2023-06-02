@@ -33,7 +33,7 @@ const formData = {
 
 console.log(formData);
      const {status , data} =  await axios.post(
-        "http://localhost:3001/v1/user",
+        "http://localhost:3001/v1/user/signup",
         formData
       );
       if(status == 200)

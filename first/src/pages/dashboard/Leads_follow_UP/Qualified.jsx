@@ -4,7 +4,7 @@ import { EyeOutlined, EditOutlined, DeleteOutlined } from "@ant-design/icons";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 
-const Contacted = () => {
+const Qualified = () => {
   const [isViewing, setIsViewing] = useState(false);
   const [viewedLead, setViewedLead] = useState(null);
   const [isEditing, setIsEditing] = useState(false);
@@ -23,7 +23,9 @@ const Contacted = () => {
       onOk: async () => {
         try {
           const leadId = record._id;
-          await axios.delete(`http://localhost:3001/v1/leads/leads-Info/${leadId}`);
+          await axios.delete(
+            `http://localhost:3001/v1/leads/leads-Info/${leadId}`
+          );
 
           setDataSource((prevDataSource) => {
             return prevDataSource.filter((lead) => lead._id !== leadId);
@@ -46,7 +48,10 @@ const Contacted = () => {
   const handleLeadUpdate = async (record) => {
     try {
       const leadId = record._id;
-      await axios.put(`http://localhost:3001/v1/leads/leads-Info/${leadId}`, editedLead);
+      await axios.put(
+        `http://localhost:3001/v1/leads/leads-Info/${leadId}`,
+        editedLead
+      );
 
       setDataSource((prevDataSource) => {
         const updatedDataSource = prevDataSource.map((lead) => {
@@ -68,28 +73,18 @@ const Contacted = () => {
     }
   };
 
-  const viewLead = (record) => {
-    setViewedLead(record);
-    setIsViewing(true);
-  };
-
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const res = await axios.get("http://localhost:3001/v1/leads/leads-Info");
+        const res = await axios.get(
+          "http://localhost:3001/v1/leads/leads-Info"
+        );
 
         const list = res.data.data || [];
 
         const contactedLeads = list.filter((lead) => lead.status === "Qualified");
 
-        const selectedColumns = [
-          "companyName",
-          "leadTitle",
-          "status",
-          "leadSource",
-          "referralName",
-          "staffName",
-        ];
+        const selectedColumns = ["companyName", "leadTitle", "status"];
 
         const actionColumn = {
           title: "Action",
@@ -97,14 +92,6 @@ const Contacted = () => {
           key: "action",
           render: (_, record) => (
             <div className="space-x-1">
-              <Button
-                className="bg-blue-500"
-                type="primary"
-                icon={<EyeOutlined />}
-                onClick={() => {
-                  viewLead(record);
-                }}
-              />
               <Button
                 className="bg-blue-500"
                 type="primary"
@@ -124,12 +111,35 @@ const Contacted = () => {
             </div>
           ),
         };
+        const cols = selectedColumns.map((key) => {
+          if (key === "status") {
+            return {
+              title: key,
+              dataIndex: key,
+              key: key,
+              render: (text) => (
+                <span className="bg-green-500 text-white px-2 py-1 rounded">
+                  {text}
+                </span>
+              ),
+            };
+          }
+        
 
-        const cols = selectedColumns.map((key) => ({
-          title: key,
-          dataIndex: key,
-          key: key,
-        }));
+        
+        // Rest of your code...
+        
+        
+          return {
+            title: key,
+            dataIndex: key,
+            key: key,
+          };
+        });
+        
+        // Rest of your code...
+        
+        
 
         cols.push(actionColumn);
 
@@ -144,24 +154,12 @@ const Contacted = () => {
     fetchData();
   }, []);
 
-  const handleClicked = () => {
-    nav("AddLead");
-  };
 
   return (
     <>
       <div className="bg-gray-200 h-screen w">
         <div className="flex justify-between mb-8 p-5">
-          <div className="text-2xl font-semibold">Leads Information</div>
-          <div>
-            <div>Home / Lead</div>
-          </div>
-        </div>
-
-        <div className="bg-blue-500 rounded flex justify-center items-center w-[80px] h-[40px] mb-2 ml-6">
-          <button className="text-white" onClick={handleClicked}>
-            Add New
-          </button>
+          <div className="text-2xl font-semibold">Qualified Leads</div>
         </div>
 
         <Table
@@ -196,24 +194,9 @@ const Contacted = () => {
             </form>
           )}
         </Modal>
-
-        <Modal
-          title="View Staff"
-          visible={isViewing}
-          onCancel={() => {
-            setIsViewing(false);
-          }}
-          footer={null}
-        >
-          {viewedLead && (
-            <div>
-              <p>Company Name: {viewedLead.companyName}</p>
-            </div>
-          )}
-        </Modal>
       </div>
     </>
   );
 };
 
-export default Contacted;
+export default Qualified;

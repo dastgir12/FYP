@@ -617,6 +617,7 @@ router.put("/leads-Info/:leadInfoId", upload.single("attachment"), async (req, r
   const {
     companyName,
     leadTitle,
+    status,
     leadSource,
     staffName
   } = req.body;
@@ -638,6 +639,8 @@ router.put("/leads-Info/:leadInfoId", upload.single("attachment"), async (req, r
     leadInfo.leadTitle = leadTitle;
     leadInfo.leadSource = leadSource;
     leadInfo.staffName = staffName;
+    leadInfo.status = status;
+
 
     // Update the attachment if a new file is provided
     if (req.file) {
