@@ -3,6 +3,8 @@ import { Table, Button, message, Modal } from "antd";
 import { EyeOutlined, EditOutlined, DeleteOutlined } from "@ant-design/icons";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
+import { Form, Input } from "antd";
+
 // const API = "http://localhost:3001/v1/leads/status-based-filter?status=Working";
 const Leads = () => {
   const [isViewing, setIsViewing] = useState(false);
@@ -14,6 +16,7 @@ const Leads = () => {
   const [isLoading, setIsLoading] = useState(true);
 
   const nav = useNavigate();
+  const [form] = Form.useForm();
 
   //delete Lead
   const deleteLead = (record) => {
@@ -72,7 +75,7 @@ const Leads = () => {
           }
           return lead;
         });
-      
+
         return updatedDataSource;
       });
 
@@ -95,11 +98,20 @@ const Leads = () => {
     setIsViewing(true);
   };
 
+  const handleFormChange = (changedValues, allValues) => {
+    setEditedLead({
+      ...editedLead,
+      ...changedValues,
+    });
+  };
+
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const res = await axios.get("http://localhost:3001/v1/leads/leads-Info");
-  
+        const res = await axios.get(
+          "http://localhost:3001/v1/leads/leads-Info"
+        );
+
         const list = res.data.data || [];
         const selectedColumns = [
           "companyName",
@@ -108,7 +120,7 @@ const Leads = () => {
           "staffName",
           "status",
         ]; // Replace with the desired column keys
-  
+
         const actionColumn = {
           title: "Action",
           dataIndex: "action",
@@ -142,7 +154,7 @@ const Leads = () => {
             </div>
           ),
         };
-  
+
         const cols = selectedColumns.map((key) => {
           if (key === "status") {
             return {
@@ -151,37 +163,37 @@ const Leads = () => {
               key: key,
               render: (text) => {
                 let colorClass = "bg-gray-500 text-white"; // Default color
-  
+
                 if (text === "Working") {
                   colorClass = "bg-green-500 text-white";
                 } else if (text === "Pending") {
                   colorClass = "bg-yellow-500 text-black";
                 } else if (text === "Contacted") {
                   colorClass = "bg-yellow-500 text-white";
-                }
-                else if (text === "Qualified") {
+                } else if (text === "Qualified") {
                   colorClass = "bg-blue-900 text-white";
-                }
-                else if (text === "Closed") {
+                } else if (text === "Closed") {
                   colorClass = " bg-red-500 text-white";
                 }
-  
+
                 return (
-                  <span className={`${colorClass} px-2 py-1 rounded`}>{text}</span>
+                  <span className={`${colorClass} px-2 py-1 rounded`}>
+                    {text}
+                  </span>
                 );
               },
             };
           }
-  
+
           return {
             title: key,
             dataIndex: key,
             key: key,
           };
         });
-  
+
         cols.push(actionColumn);
-  
+
         setColumns(cols);
         setDataSource(list);
         setIsLoading(false);
@@ -189,11 +201,9 @@ const Leads = () => {
         console.log("error:", error);
       }
     };
-  
+
     fetchData();
   }, []);
-  
-  
 
   const handleClicked = () => {
     nav("AddLead");
@@ -233,24 +243,31 @@ const Leads = () => {
           onOk={() => handleLeadUpdate(editedLead)} // Call handleStaffUpdate on Ok button click
         >
           {editedLead && (
-            <form>
-              {/* Render input fields for editing */}
-              <label>
-                Company Name:
-                <input
-                  type="text"
-                  value={editedLead.companyName}
-                  onChange={(e) =>
-                    setEditedLead({
-                      ...editedLead,
-                      companyName: e.target.value,
-                      status: e.target.value,
-
-                    })
-                  }
-                />
-              </label>
-            </form>
+            <Form form={form} onValuesChange={handleFormChange}>
+              <Form.Item label="Company Name" name="companyName">
+                <Input />
+              </Form.Item>
+              <Form.Item label="Staff Name" name="staffName">
+                <Input />
+              </Form.Item>
+              <Form.Item label="Lead Title" name="leadTitle">
+                <Input />
+              </Form.Item>
+              Lead Status:
+              <select
+                value={editedLead.status}
+                onChange={(e) =>
+                  setEditedLead({
+                    ...editedLead,
+                    status: e.target.value,
+                  })
+                }
+              >
+                <option value="Working">Working</option>
+                <option value="Failed">Failed</option>
+                <option value="Contacted">Contacted</option>
+              </select>
+            </Form>
           )}
         </Modal>
 
@@ -264,7 +281,10 @@ const Leads = () => {
         >
           {viewedLead && (
             <div>
-              <p>Company Name: {viewedLead.CompanyName}</p>
+              <p>Company Name: {viewedLead.companyName}</p>
+              <p>Staff Name: {viewedLead.staffName}</p>
+              <p>Lead Source: {viewedLead.leadSource}</p>
+              <p>Status: {viewedLead.status}</p>
             </div>
           )}
         </Modal>

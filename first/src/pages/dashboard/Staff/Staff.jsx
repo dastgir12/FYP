@@ -3,8 +3,9 @@ import { Table, Button, Modal, message } from "antd";
 import { EyeOutlined, EditOutlined, DeleteOutlined } from "@ant-design/icons";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
-
+import { Form, Input } from "antd";
 const Staff = () => {
+  const [form] = Form.useForm();
   const nav = useNavigate();
   const [isViewing, setIsViewing] = useState(false);
   const [viewedStaff, setViewedStaff] = useState(null);
@@ -14,11 +15,17 @@ const Staff = () => {
   const [dataSource, setDataSource] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
 
+  const handleFormChange = (changedValues, allValues) => {
+    setEditedStaff({
+      ...editedStaff,
+      ...changedValues,
+    });
+  };
   // const navigate = useNavigate();
 
   // useEffect(() => {
-    // Replace the current route with the new route after component mount
-    // navigate('/dashboard', { replace: true });
+  // Replace the current route with the new route after component mount
+  // navigate('/dashboard', { replace: true });
   // }, []);
 
   // Delete Action Perform here
@@ -107,7 +114,7 @@ const Staff = () => {
           "http://localhost:3001/v1/leads/staff-info"
         );
         const list = res.data.staff || [];
-        const selectedColumns = ["staffId", "staffName", "mobileNo", "email"]; // Replace with the desired column keys
+        const selectedColumns = ["staffName", "mobileNo", "email"];
 
         const actionColumn = {
           title: "Action",
@@ -160,8 +167,6 @@ const Staff = () => {
     nav("AddStaff");
   };
 
-
-
   return (
     <>
       <div className="bg-gray-200 h-screen">
@@ -172,97 +177,63 @@ const Staff = () => {
           </div>
         </div>
 
-          <div className="bg-blue-500 rounded flex justify-center items-center w-[80px] h-[40px] mb-2 ml-6">
-            <button className="text-white" onClick={handleClicked}>
-              Add New
-            </button>
-          </div>
+        <div className="bg-blue-500 rounded flex justify-center items-center w-[80px] h-[40px] mb-2 ml-6">
+          <button className="text-white" onClick={handleClicked}>
+            Add New
+          </button>
+        </div>
 
-                <Table
-                  columns={columns}
-                  dataSource={dataSource}
-                  className="rounded p-5 w-full h-full"
+        <Table
+          columns={columns}
+          dataSource={dataSource}
+          className="rounded p-5 w-full h-full"
+        />
 
-                />
+        <Modal
+          title="Edit Staff"
+          visible={isEditing}
+          onCancel={() => {
+            setIsEditing(false);
+          }}
+          onOk={handleStaffUpdate} // Call handleStaffUpdate on Ok button click
+        >
+          {editedStaff && (
+            <Form form={form} onValuesChange={handleFormChange}>
+              <Form.Item label="Staff Name" name="staffName">
+                <Input />
+              </Form.Item>
 
+              <Form.Item label="Mobile No" name="mobileNo">
+                <Input />
+              </Form.Item>
 
-            <Modal
-              title="Edit Staff"
-              visible={isEditing}
-              onCancel={() => {
-                setIsEditing(false);
-              }}
-              onOk={handleStaffUpdate} // Call handleStaffUpdate on Ok button click
-            >
-              {editedStaff && (
-                <form>
-                  {/* Render input fields for editing */}
-                  <label>
-                    Staff Name:
-                    <input
-                      type="text"
-                      value={editedStaff.staffName}
-                      onChange={(e) =>
-                        setEditedStaff({
-                          ...editedStaff,
-                          staffName: e.target.value,
-                        })
-                      }
-                    />
-                  </label>
+              <Form.Item label="Email" name="email">
+                <Input />
+              </Form.Item>
 
-                  <label>
-                    Mobile No:
-                    <input
-                      type="mobileNo"
-                      value={editedStaff.mobileNo}
-                      onChange={(e) =>
-                        setEditedStaff({
-                          ...editedStaff,
-                          mobileNo: e.target.value,
-                        })
-                      }
-                    />
-                  </label>
+              {/* Add more Form.Item components as needed */}
+            </Form>
+          )}
+        </Modal>
 
-                  <label>
-                    Email:
-                    <input
-                      type="email"
-                      value={editedStaff.email}
-                      onChange={(e) =>
-                        setEditedStaff({
-                          ...editedStaff,
-                          email: e.target.value,
-                        })
-                      }
-                    />
-                  </label>
-                  {/* Add more input fields as needed */}
-                </form>
-              )}
-            </Modal>
-
-            <Modal
-              title="View Staff"
-              visible={isViewing}
-              onCancel={() => {
-                setIsViewing(false);
-              }}
-              footer={null}
-            >
-              {viewedStaff && (
-                <div>
-                  <p>Staff Name: {viewedStaff.staffName}</p>
-                  <p>Mobile No: {viewedStaff.mobileNo}</p>
-                  <p>Email: {viewedStaff.email}</p>
-                  {/* Add more details as needed */}
-                </div>
-              )}
-            </Modal>
-          </div>
-
-
+        <Modal
+          title="View Staff"
+          visible={isViewing}
+          onCancel={() => {
+            setIsViewing(false);
+          }}
+          footer={null}
+        >
+          {viewedStaff && (
+            <div>
+              <p>Staff Name: {viewedStaff.staffName}</p>
+              <p>Mobile No: {viewedStaff.mobileNo}</p>
+              <p>Email: {viewedStaff.email}</p>
+              {/* Add more details as needed */}
+            </div>
+          )}
+        </Modal>
+      </div>
     </>
   );
 };

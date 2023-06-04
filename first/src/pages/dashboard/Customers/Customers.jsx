@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from "react";
-import { Table, Button, message, Modal } from "antd";
+import { Table, Button, Modal, message,Input,Form } from "antd";
 import { EyeOutlined, EditOutlined, DeleteOutlined } from "@ant-design/icons";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 const Customers = () => {
   const nav = useNavigate();
+  const [form] = Form.useForm();
 
   const [isViewing, setIsViewing] = useState(false);
   const [viewedCustomer, setViewedCustomer] = useState(null);
@@ -194,6 +195,12 @@ const Customers = () => {
     nav("AddCustomer");
   };
 
+  const handleFormChange = (changedValues, allValues) => {
+    setEditedCustomer({
+      ...editedCustomer,
+      ...changedValues,
+    });
+  };
   return (
     <>
       <div className="bg-gray-200 h-screen ">
@@ -225,22 +232,25 @@ const Customers = () => {
           onOk={() => handleCustomerUpdate(editedCustomer)} // Call handleStaffUpdate on Ok button click
         >
           {editedCustomer && (
-            <form>
-              {/* Render input fields for editing */}
-              <label>
-                Company Name:
-                <input
-                  type="text"
-                  value={editedCustomer.CompanyName}
-                  onChange={(e) =>
-                    setEditedCustomer({
-                      ...editedCustomer,
-                      CompanyName: e.target.value,
-                    })
-                  }
-                />
-              </label>
-            </form>
+            <Form form={form} onValuesChange={handleFormChange}>
+            <Form.Item label="Compmnay Name" name="companyName">
+              <Input />
+            </Form.Item>
+
+            <Form.Item label="Telephone" name="telephone">
+              <Input />
+            </Form.Item>
+
+            <Form.Item label="Email" name="email">
+              <Input />
+            </Form.Item>
+
+            <Form.Item label="Contact Person Name" name="contactPersonName">
+              <Input />
+            </Form.Item>
+
+            {/* Add more Form.Item components as needed */}
+          </Form>
           )}
         </Modal>
 
@@ -255,6 +265,11 @@ const Customers = () => {
           {viewedCustomer && (
             <div>
               <p>Company Name: {viewedCustomer.CompanyName}</p>
+              <p>Telephone: {viewedCustomer.mobileNumber}</p>
+              <p>Email: {viewedCustomer.email}</p>
+              <p>Contact Person Name: {viewedCustomer.contactPersonName}</p>
+              <p>Contact Person Number: {viewedCustomer.contactPersonNumber}</p>
+
             </div>
           )}
         </Modal>

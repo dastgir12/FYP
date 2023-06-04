@@ -50,9 +50,8 @@ const Working = () => {
         `http://localhost:3001/v1/leads/leads-Info/${leadId}`,
         editedLead
       );
-
+      nav('/dashboard/leads')
       message.success("Lead updated successfully!");
-
       setEditedLead(null);
       setIsEditing(false);
 

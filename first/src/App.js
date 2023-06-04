@@ -3,13 +3,19 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { FiSettings } from "react-icons/fi";
 import { TooltipComponent } from "@syncfusion/ej2-react-popups";
 import { Navbar, Sidebar, ThemeSetting } from "./components";
+import AdminDashboardPage from "./pages/AdminDashboard/AdminDashboardPage";
 import Home from "./pages/Home";
 import Login from "./Form/Login";
 import Register from "./Form/Register";
 import Forgot from "./Form/Forgot";
 import AboutUs from "./pages/AboutUs";
 import ContactUs from "./pages/ContactUs";
-
+import {
+  SignUp,
+  SignIn,
+  CompanyProfile,
+  UserProfile
+} from "./pages/AdminDashboard/index.js";
 import {
   GetReports,
   Qualified,
@@ -71,6 +77,10 @@ const App = () => {
               AppPathName === "/login" ||
               AppPathName === "/register" ||
               AppPathName === "/forgot" ||
+              AppPathName === "/AdminDashboard" ||
+              AppPathName === "/AdminDashboard/signUp" ||
+              AppPathName === "/AdminDashboard/signin" ||
+              AppPathName === "/AdminDashboard/CompanyProfile" ||
               AppPathName === "/about" ||
               AppPathName === "/contact" ? (
                 <></>
@@ -93,6 +103,12 @@ const App = () => {
               AppPathName === "/register" ||
               AppPathName === "/forgot" ||
               AppPathName === "/about" ||
+              AppPathName === "/AdminDashboard" ||
+              AppPathName === "/AdminDashboard/signUp" ||
+              AppPathName === "/AdminDashboard/signin" ||
+              AppPathName === "/AdminDashboard/CompanyProfile" ||
+              AppPathName === "/AdminDashboard/UserProfile" ||
+
               AppPathName === "/contact" ? (
                 <></>
               ) : (
@@ -106,6 +122,12 @@ const App = () => {
               AppPathName === "/register" ||
               AppPathName === "/forgot" ||
               AppPathName === "/about" ||
+              AppPathName === "/AdminDashboard" ||
+              AppPathName === "/AdminDashboard/signUp" ||
+              AppPathName === "/AdminDashboard/signin" ||
+              AppPathName === "/AdminDashboard/CompanyProfile" ||
+              AppPathName === "/AdminDashboard/UserProfile" ||
+
               AppPathName === "/contact" ? (
                 <></>
               ) : (
@@ -126,6 +148,7 @@ const App = () => {
               AppPathName === "/register" ||
               AppPathName === "/forgot" ||
               AppPathName === "/about" ||
+              // AppPathName === "/AdminDashboard/AdminDashboardPage" ||
               AppPathName === "/contact" ? (
                 <></>
               ) : (
@@ -138,6 +161,12 @@ const App = () => {
                 AppPathName !== "/register" &&
                 AppPathName !== "/forgot" &&
                 AppPathName !== "/about" &&
+                AppPathName !== "/AdminDashboard" &&
+                AppPathName !== "/AdminDashboard/signUp" &&
+                AppPathName !== "/AdminDashboard/signin" &&
+                AppPathName !== "/AdminDashboard/CompanyProfile" &&
+                AppPathName !== "/AdminDashboard/UserProfile" &&
+
                 AppPathName !== "/contact" ? (
                 <div className="flex justify-center items-center h-screen">
                   <div className="text-center">
@@ -160,8 +189,38 @@ const App = () => {
                 <Route exact path="/about" element={<AboutUs />} />
                 <Route exact path="/contact" element={<ContactUs />} />
 
+                {/* Admin Dashboard  */}
+
+                <Route
+                  exact
+                  path="/AdminDashboard"
+                  element={<AdminDashboardPage />}
+                >
+                  <Route
+                    exact
+                    path="/AdminDashboard/signUp"
+                    element={<SignUp />}
+                  />
+                  <Route
+                    exact
+                    path="/AdminDashboard/signin"
+                    element={<SignIn />}
+                  />
+                  <Route
+                    exact
+                    path="/AdminDashboard/CompanyProfile"
+                    element={<CompanyProfile />}
+                  />
+                  <Route
+                    exact
+                    path="/AdminDashboard/UserProfile"
+                    element={<UserProfile />}
+                  />
+                </Route>
                 {/* Dashboard  */}
                 <Route exact path="/dashboard" element={<DashboardPage />} />
+                <Route exact path="/dashboard" element={<DashboardPage />} />
+
                 <Route path="/dashboard/staff" element={<Staff />} />
                 <Route
                   exact
@@ -233,7 +292,6 @@ const App = () => {
                 <Route exact path="/dashboard/deals" element={<Deals />} />
                 <Route exact path="/dashboard/reports" element={<Reportss />} />
 
-                
                 <Route
                   exact
                   path="/dashboard/reports/GetReports"

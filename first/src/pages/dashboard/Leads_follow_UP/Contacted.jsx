@@ -52,6 +52,8 @@ const Contacted = () => {
         `http://localhost:3001/v1/leads/leads-Info/${leadId}`,
         editedLead
       );
+      nav('/dashboard/leads')
+      message.success("Lead updated successfully!");
 
       setDataSource((prevDataSource) => {
         const updatedDataSource = prevDataSource.map((lead) => {
@@ -133,11 +135,6 @@ const Contacted = () => {
           };
         });
         
-        // Rest of your code...
-        
-        // Rest of your code...
-        
-        
 
         cols.push(actionColumn);
 
@@ -176,20 +173,36 @@ const Contacted = () => {
         >
           {editedLead && (
             <form>
-              <label>
-                Company Name:
-                <input
-                  type="text"
-                  value={editedLead.companyName}
-                  onChange={(e) =>
-                    setEditedLead({
-                      ...editedLead,
-                      companyName: e.target.value,
-                    })
-                  }
-                />
-              </label>
-            </form>
+            <label>
+              Company Name:
+              <input
+                type="text"
+                value={editedLead.companyName}
+                onChange={(e) =>
+                  setEditedLead({
+                    ...editedLead,
+                    companyName: e.target.value,
+                  })
+                }
+              />
+            </label>
+            <label>
+              Lead Status:
+              <select
+                value={editedLead.status}
+                onChange={(e) =>
+                  setEditedLead({
+                    ...editedLead,
+                    status: e.target.value,
+                  })
+                }
+              >
+                <option value="Working">Working</option>
+                <option value="Failed">Failed</option>
+                <option value="Contacted">Contacted</option>
+              </select>
+            </label>
+          </form>
           )}
         </Modal>
       </div>
