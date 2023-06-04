@@ -171,7 +171,7 @@ nav('/register')
         <ProblemSolving />
         <Question />
         <Number />
-        <Footer />
+        {/* <Footer /> */}
       </div>
     </>
   );

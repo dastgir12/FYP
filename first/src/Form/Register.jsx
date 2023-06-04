@@ -91,15 +91,15 @@ console.log(formData);
   return (
     <>
     <ToastContainer/>
-      <div className="relative mt-14 flex gap-4 w-[1400px] h-screen">
-        <div className=" h-screen mr-4 mt-14">
+      <div className="relative flex w-screen h-screen">
+        <div >
           <img
-            src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-login-form/draw2.svg"
+            src="https://media.istockphoto.com/id/1305268276/vector/registration-abstract-concept-vector-illustration.jpg?s=612x612&w=0&k=20&c=nfvUbHjcNDVIPdWkaxGx0z0WZaAEuBK9SyG-aIqg2-0="
             alt=""
-            className="w-[700px] h-[450px]"
+            className=" h-screen w-screen "
           />
         </div>
-        <div className="h-[450px] gap-y-4  flex flex-col items-center w-[700px] justify-around p-10 ml-6 mt-14">
+        <div className="bg-white h-screen flex flex-col items-center w-screen gap-y-4 justify-center">
           <div>
             <img
               src="https://cdn-icons-png.flaticon.com/512/6681/6681204.png"
@@ -111,7 +111,7 @@ console.log(formData);
           <Form
             form={form}
             onFinish={postForm}
-            className="flex flex-col justify-center  w-[450px]"
+            className="flex flex-col justify-center w-[450px]"
           >
             <Form.Item
               name="email"
@@ -240,12 +240,14 @@ console.log(formData);
                   </button>
                 </div>
 
-                <div>
-                  <p class="text-sm">
+                <div className="">
+                  <p className="text-sm ">
                     Already have an account? 
+                    </p>
+                    <p className="font-bold">
                     <Link
                       to="/login"
-                      class="font-medium text-primary-600 hover:underline dark:text-primary-500"
+                      className="font-bold text-primary-600 hover:underline dark:text-primary-500"
                     >
                       Login here
                     </Link>

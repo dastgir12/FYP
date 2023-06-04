@@ -38,7 +38,6 @@ router.get('/',userAuthorization,async(req,res)=>{
   const _id= req.userId
     const userProf =await getUserById(_id)
     res.json({ user: userProf })
-
      })
 
      router.post('/login', async (req, res) => {

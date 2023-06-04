@@ -62,15 +62,15 @@ const Login = () => {
   return (
     <>
       <ToastContainer />
-      <div className="relative mt-14 flex gap-4 w-[1400px] h-screen">
-        <div className=" h-screen mr-4 mt-14">
+      <div className="relative flex w-screen h-screen">
+        <div>
           <img
-            src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-login-form/draw2.svg"
+            src="https://st2.depositphotos.com/1001599/43046/v/450/depositphotos_430460192-stock-illustration-sign-page-abstract-concept-vector.jpg"
             alt=""
-            className="w-[700px] h-[450px]px]"
+            className="w-screen h-screen"
           />
         </div>
-        <div className="h-[450px] gap-y-4  flex flex-col items-center w-[700px] justify-around p-10 ml-6 mt-14">
+        <div className="h-screen  bg-white flex flex-col justify-center items-center w-screen gap-y-6 p-10 ">
           <div>
             <img
               src="https://cdn-icons-png.flaticon.com/512/6681/6681204.png"

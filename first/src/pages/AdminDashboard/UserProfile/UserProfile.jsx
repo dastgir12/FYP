@@ -34,9 +34,13 @@ const UserProfile = () => {
 
   return (
     <>
-      <div className="mt-28 flex items-center justify-center">
+      <div className="flex justify-center items-center">
         {/* Card */}
-        <div className="border gap-y-4 w-[85vw] flex flex-col sm:w-[55vw] md:w-[45vw] lg:w-[30vw] rounded-3xl shadow-md justify-center p-10">
+        <div className="border gap-y-4 mt-14 flex flex-col sm:w-[55vw] md:w-[45vw] lg:w-[30vw] rounded-3xl shadow-md  p-10">
+          <div className="font-bold text-2xl text-center mb-3">
+            User Profile{" "}
+          </div>
+
           <Form
             form={form}
             onFinish={postForm}
@@ -44,28 +48,38 @@ const UserProfile = () => {
           >
             <Form.Item
               label="companyId"
-              name="companyId"
-              rules={[{ required: true, message: "companyId" }]}
-            >
-              <Input type="number" placeholder="companyId" />
-            </Form.Item>
-
-            <Form.Item
-              name="fullName"
+              name="companyId" //S547
               rules={[
                 {
                   type: "string",
                 },
                 {
                   required: true,
-                  message: "Please Enter Full Name",
+                  message: "Please Enter Company Id",
                 },
               ]}
             >
-              <Input placeholder="Enter fullName" />
+              <Input placeholder="Enter copmpanyId" />
             </Form.Item>
 
             <Form.Item
+              label="companyName"
+              name="companyName"
+              rules={[
+                {
+                  type: "string",
+                },
+                {
+                  required: true,
+                  message: "Please Enter Full companyName",
+                },
+              ]}
+            >
+              <Input placeholder="Enter companyName" />
+            </Form.Item>
+
+            <Form.Item
+              label="password"
               hasFeedback
               name="password"
               rules={[
@@ -85,7 +99,7 @@ const UserProfile = () => {
               />
             </Form.Item>
 
-            <Form.Item name="userLevel">
+            <Form.Item name="userLevel" label="userLevel">
               <Select
                 placeholder="Select an option"
                 onChange={handleStatus}
@@ -98,6 +112,7 @@ const UserProfile = () => {
             </Form.Item>
 
             <Form.Item
+              label="email"
               name="email"
               hasFeedback
               rules={[
@@ -114,12 +129,8 @@ const UserProfile = () => {
               <Input placeholder="Enter Your Email" />
             </Form.Item>
 
-            <Form.Item
-              label="contactNumber"
-              name="contactNumber"
-              rules={[{ required: true, message: "contactNumber" }]}
-            >
-              <Input type="number" placeholder="contactNumber" />
+            <Form.Item name="contactNumber" label="contactNumber">
+              <Input placeholder="Enter Your Phone Number" />
             </Form.Item>
 
             <Form.Item>
@@ -128,7 +139,7 @@ const UserProfile = () => {
                   className="px-5 cursor-pointer py-2 text-lg font-bold tracking-wider text-white bg-blue-500 rounded-3xl hover:bg-blue-400"
                   type="submit"
                 >
-                  Sign in
+                  Save
                 </button>
               </div>
             </Form.Item>

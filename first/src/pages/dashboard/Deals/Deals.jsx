@@ -268,5 +268,4 @@ const Deals = () => {
         </div>
     );
 };
-
 export default Deals;
