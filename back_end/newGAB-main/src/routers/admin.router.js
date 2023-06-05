@@ -139,11 +139,9 @@ router.post("/companies", authenticateUser, async (req, res) => {
 
     // Check if the number of users exceeds the limit
     if (numberOfUsers > maxAllowedUsers) {
-      return res
-        .status(400)
-        .json({
-          error: `Number of users exceeds the limit of ${maxAllowedUsers}`,
-        });
+      return res.status(400).json({
+        error: `Number of users exceeds the limit of ${maxAllowedUsers}`,
+      });
     }
 
     // Create a new company profile

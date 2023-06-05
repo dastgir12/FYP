@@ -219,7 +219,7 @@ const App = () => {
                 </Route>
                 {/* Dashboard  */}
                 <Route exact path="/dashboard" element={<DashboardPage />} />
-                <Route exact path="/dashboard" element={<DashboardPage />} />
+                {/* <Route exact path="/dashboard" element={<DashboardPage />} /> */}
 
                 <Route path="/dashboard/staff" element={<Staff />} />
                 <Route

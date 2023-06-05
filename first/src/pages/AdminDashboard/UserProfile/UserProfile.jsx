@@ -22,10 +22,16 @@ const UserProfile = () => {
         userLevel: values.userLevel,
         password: values.password,
       };
-      console.log(formData);
+      const token ="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NDdjZTY0NmM1Yjk1ZmM4MGU0NGM3ZGMiLCJpYXQiOjE2ODU5MTU0MzIsImV4cCI6MTY4NTkxOTAzMn0.LOG6-aKpBNkrdkeee8kejN97kIUIMTZGhKgIAipIUKE";
+      
       const data = await axios.post(
         "http://localhost:3001/v1/admin/registration",
-        formData
+        formData,
+        {
+          headers: {
+            Authorization: `${token}`,
+          },
+        }
       );
     } catch (e) {
       console.log(e);

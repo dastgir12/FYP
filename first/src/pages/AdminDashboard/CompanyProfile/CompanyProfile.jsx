@@ -5,20 +5,22 @@ import axios from "axios";
 const CompanyProfile = () => {
   const [form] = Form.useForm();
 
-
-
   const postForm = async (values) => {
-
     try {
       const formData = {
         name: values.name,
         numberOfUsers: values.numberOfUsers,
         maxAllowedUsers: values.maxAllowedUsers,
       };
-      console.log(formData);
+      const token ="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NDdjZTY0NmM1Yjk1ZmM4MGU0NGM3ZGMiLCJpYXQiOjE2ODU5MTU0MzIsImV4cCI6MTY4NTkxOTAzMn0.LOG6-aKpBNkrdkeee8kejN97kIUIMTZGhKgIAipIUKE";
       const { data, status } = await axios.post(
         "http://localhost:3001/v1/admin/companies",
-        formData
+        formData,
+        {
+          headers: {
+            Authorization: `${token}`,
+          },
+        }
       );
       if (status === 200) {
         console.log(data);
@@ -32,7 +34,9 @@ const CompanyProfile = () => {
     <>
       <div className="mt-11 flex  justify-center">
         <div className="w-[90vw] sm:w-[70vw] md:w-[60vw] lg:w-[35vw] p-10 rounded-3xl border shadow-md">
-          <div className="font-bold text-2xl text-center mb-3">Company Profile </div>
+          <div className="font-bold text-2xl text-center mb-3">
+            Company Profile{" "}
+          </div>
           <Form
             form={form}
             onFinish={postForm}
@@ -40,7 +44,6 @@ const CompanyProfile = () => {
           >
             <Form.Item
               label="Name"
-
               name="name"
               rules={[
                 {
@@ -48,7 +51,7 @@ const CompanyProfile = () => {
                 },
                 {
                   required: true,
-                  message: "Please Enter your Company Name",
+                  message: "Please Enter your Name",
                 },
               ]}
             >

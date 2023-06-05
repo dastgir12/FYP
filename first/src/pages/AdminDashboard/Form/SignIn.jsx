@@ -1,10 +1,11 @@
 import React, { useState } from "react";
 import axios from "axios";
 import { Form, Input, Select } from "antd";
-
+import { useNavigate } from "react-router-dom";
 const { Option } = Select;
 
 const SignIn = () => {
+  const nav = useNavigate();
   const [form] = Form.useForm();
   const [selectedRole, setSelectedRole] = useState("");
   const handleStatus = (value) => {
@@ -17,11 +18,14 @@ const SignIn = () => {
         role: values.role,
         password: values.password,
       };
-      console.log(formData);
+      // console.log(formData);
       const data = await axios.post(
-        "http://localhost:3001/v1/admin/signIn",
+        "http://localhost:3001/v1/admin/loginA",
         formData
       );
+      console.log(data);
+      localStorage.setItem("Token", data.data.token);
+      nav('/AdminDashboard')
     } catch (e) {
       console.log(e);
     }
