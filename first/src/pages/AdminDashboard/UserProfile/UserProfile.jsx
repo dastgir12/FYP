@@ -1,10 +1,11 @@
 import React, { useState } from "react";
 import axios from "axios";
 import { Form, Input, Select } from "antd";
-
+import { useNavigate } from "react-router-dom";
 const { Option } = Select;
 
 const UserProfile = () => {
+  const nav = useNavigate();
   const [form] = Form.useForm();
   const [selectedRole, setSelectedRole] = useState("");
   const handleStatus = (value) => {
@@ -14,6 +15,8 @@ const UserProfile = () => {
     try {
       const formData = {
         companyId: values.companyId,
+        userID: values.userID,
+
 
         fullName: values.fullName,
         email: values.email,
@@ -22,17 +25,19 @@ const UserProfile = () => {
         userLevel: values.userLevel,
         password: values.password,
       };
-      const token ="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NDdjZTY0NmM1Yjk1ZmM4MGU0NGM3ZGMiLCJpYXQiOjE2ODU5MTU0MzIsImV4cCI6MTY4NTkxOTAzMn0.LOG6-aKpBNkrdkeee8kejN97kIUIMTZGhKgIAipIUKE";
+      const token ="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NDdjZWNiZWJkZjAwYjhiNGFkMmQ5MTkiLCJpYXQiOjE2ODYwNzUzMjUsImV4cCI6MTY4NjA3ODkyNX0.AhcwZgwlYOqi0IojK4zu39FveKV0agHELYf1TlaJYzY";
       
       const data = await axios.post(
         "http://localhost:3001/v1/admin/registration",
         formData,
         {
           headers: {
-            Authorization: `${token}`,
+            Authorization:`${token}`,
           },
         }
       );
+
+      // nav('/dashboard')
     } catch (e) {
       console.log(e);
     }
@@ -52,6 +57,13 @@ const UserProfile = () => {
             onFinish={postForm}
             className="flex flex-col justify-center "
           >
+           <Form.Item
+              label="userID"
+              name="userID"
+            >
+              <Input placeholder="Enter userID" />
+            </Form.Item>
+
             <Form.Item
               label="companyId"
               name="companyId" //S547
@@ -69,15 +81,15 @@ const UserProfile = () => {
             </Form.Item>
 
             <Form.Item
-              label="companyName"
-              name="companyName"
+              label="fullName"
+              name="fullName"
               rules={[
                 {
                   type: "string",
                 },
                 {
                   required: true,
-                  message: "Please Enter Full companyName",
+                  message: "Please Enter FullName",
                 },
               ]}
             >

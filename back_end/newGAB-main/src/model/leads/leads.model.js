@@ -3,6 +3,21 @@ const customerSchema = require("./customer.Schema");
 const LeadCategorySchema = require("./category.Schema");
 const { LeadsSchema } = require("./leads.schema");
 
+// Assuming you have a database connection and a User model defined
+
+// Function to get a user by ID from the database
+// const getUserById = async (userId) => {
+//     try {
+//       const user = await UserSchema.findById(userId);
+//       return user;
+//     } catch (error) {
+//       console.error('Error occurred while fetching user by ID:', error);
+//       throw new Error('Failed to fetch user by ID');
+//     }
+//   };
+  
+ 
+  
 
 
 //inset staff
@@ -31,9 +46,21 @@ const insertStaff = staffObj =>{
 
 //get staff
 const getStaff = () => {
-    return StaffSchema.find({}, 'staffId staffName mobileNo email ').exec();
-  };
-  
+    return new Promise((resolve, reject) => {
+      try {
+        StaffSchema
+        .find({}, 'staffId staffName mobileNo email', (error, staff) => {
+          if (error) {
+            reject(error);
+          } else {
+            resolve(staff);
+          }
+        });
+      } catch (error) {
+        reject(error);
+      }
+    });
+};
 
 // Function to generate a unique staff ID
 function generateStaffId() {
@@ -323,7 +350,19 @@ const  deleteLead = ({_id,clientId}) =>{
    
 }
 
+async function getStaffByDepartment(department) {
+    try {
+      const staffMembers = await StaffSchema.find({ department: department }).exec();
+      return staffMembers;
+    } catch (error) {
+      console.error('Error occurred while retrieving staff members:', error);
+      throw error;
+    }
+  }
+  
 
+  
+  
 //exports 
 module.exports={
     insertLeads,
@@ -337,9 +376,11 @@ module.exports={
     insertStaff,
     insertCust,
     insertCat,
+ 
     getStaff,
     generateStaffId,
     getCust,
     generateLeadId,
-    generateLeadMId
+    generateLeadMId,
+    getStaffByDepartment
 }

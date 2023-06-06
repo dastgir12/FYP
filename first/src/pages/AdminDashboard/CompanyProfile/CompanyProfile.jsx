@@ -2,7 +2,9 @@ import React from "react";
 import { Form, Input, InputNumber } from "antd";
 // import { apiHeader } from "../../services/authHeader";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 const CompanyProfile = () => {
+  const nav = useNavigate()
   const [form] = Form.useForm();
 
   const postForm = async (values) => {
@@ -12,7 +14,7 @@ const CompanyProfile = () => {
         numberOfUsers: values.numberOfUsers,
         maxAllowedUsers: values.maxAllowedUsers,
       };
-      const token ="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NDdjZTY0NmM1Yjk1ZmM4MGU0NGM3ZGMiLCJpYXQiOjE2ODU5MTU0MzIsImV4cCI6MTY4NTkxOTAzMn0.LOG6-aKpBNkrdkeee8kejN97kIUIMTZGhKgIAipIUKE";
+      const token ="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NDdjZWNiZWJkZjAwYjhiNGFkMmQ5MTkiLCJpYXQiOjE2ODYwODQxMzMsImV4cCI6MTY4NjA4NzczM30.IBH7uHtaxbLr9s3VOyM4cvnF1AWWZrEoBozy5EeQbwg";
       const { data, status } = await axios.post(
         "http://localhost:3001/v1/admin/companies",
         formData,
@@ -22,8 +24,9 @@ const CompanyProfile = () => {
           },
         }
       );
-      if (status === 200) {
+      if (status === 201) {
         console.log(data);
+        nav('/AdminDashboard/UserProfile')
       }
     } catch (e) {
       console.log(e.response.data.message);
