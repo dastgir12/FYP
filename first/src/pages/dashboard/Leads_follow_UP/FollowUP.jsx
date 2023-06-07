@@ -1,45 +1,64 @@
-import React ,{useState , useEffect} from 'react';
-import { Table , Button , Dropdown, Menu } from 'antd';
+import React, { useState, useEffect } from 'react';
+import { Table, Button, Dropdown, Menu } from 'antd';
 import axios from 'axios';
-import { EyeOutlined, EditOutlined, DeleteOutlined ,DownOutlined } from "@ant-design/icons";
+import { EyeOutlined, EditOutlined, DeleteOutlined, DownOutlined } from "@ant-design/icons";
 
 const FollowUP = () => {
-
   const [columns, setColumns] = useState([]);
   const [dataSource, setDataSource] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
-const [users,setUsers]=useState([]);
-  const [selectedAction, setSelectedAction] = useState("");
-  const handleMenuClick = (e) => {
-    setSelectedAction(e.key);
+  const [users, setUsers] = useState([]);
+  const [selectedUser, setSelectedUser] = useState(null);
+  const [checkedItems, setCheckedItems] = useState([]);
+
+  const handleMenuClick = async (e) => {
+    const selectedUserId = e.key;
+    const selectedUser = users.find((user) => user._id === selectedUserId);
+    setSelectedUser(selectedUser);
+    console.log("Selected User:", selectedUser);
+
+    if (selectedUser) {
+      try {
+        const selectedRowKeys = checkedItems.map((key) => key.toString());
+
+        const payload = {
+          leadInfoIds: selectedRowKeys,
+          userID: selectedUser.userID,
+          companyID: "S920"
+        };
+
+        const response = await axios.post(
+          "http://localhost:3001/v1/leads/assign-lead",
+          payload
+        );
+
+        console.log("Data saved successfully:", response.data);
+      } catch (error) {
+        console.log("Error saving data:", error);
+      }
+    }
   };
 
-useEffect(() => {
-const getData = async ()=>{
-  const response =await axios.get('http://localhost:3001/v1/leads/companies/S640/users')
-   console.log(response);
-   setUsers(response.data.users);
+  const usersMenu = (
+    <Menu onClick={handleMenuClick}>
+      {users.map((item, index) => {
+        return (
+          <Menu.Item key={item._id}>
+            {item.fullName}
+          </Menu.Item>
+        )
+      })}
+    </Menu>
+  );
 
-}
-getData();
-}, [])
-
-const [checkedItems,setCheckedItems]=useState([]);
-
-const usersMenu = (
-  <Menu onClick={handleMenuClick}>
-    {users.map((item,index)=>{
-      return(
-<Menu.Item key={index} onClick={()=>{
-  
-}}>
-        {item.fullName}
-    </Menu.Item>
-      )
-    })}
-    
-  </Menu>
-);
+  useEffect(() => {
+    const getData = async () => {
+      const response = await axios.get('http://localhost:3001/v1/leads/companies/S920/users');
+      console.log(response);
+      setUsers(response.data.users);
+    }
+    getData();
+  }, []);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -55,7 +74,7 @@ const usersMenu = (
           "leadSource",
           "staffName",
           "status",
-        ]; // Replace with the desired column keys
+        ];
 
         const actionColumn = {
           title: "Action",
@@ -67,25 +86,16 @@ const usersMenu = (
                 className="bg-blue-500"
                 type="primary"
                 icon={<EyeOutlined />}
-                // onClick={() => {
-                //   viewLead(record);
-                // }}
               />
               <Button
                 className="bg-blue-500"
                 type="primary"
                 icon={<EditOutlined />}
-                // onClick={() => {
-                //   editLead(record);
-                // }}
               />
               <Button
                 className="bg-blue-500"
                 type="primary"
                 icon={<DeleteOutlined />}
-                // onClick={() => {
-                //   deleteLead(record);
-                // }}
               />
             </div>
           ),
@@ -130,8 +140,13 @@ const usersMenu = (
 
         cols.push(actionColumn);
 
+        const dataSourceWithKeys = list.map((row) => ({
+          ...row,
+          key: row._id,
+        }));
+
         setColumns(cols);
-        setDataSource(list);
+        setDataSource(dataSourceWithKeys);
         setIsLoading(false);
       } catch (error) {
         console.log("error:", error);
@@ -141,42 +156,37 @@ const usersMenu = (
     fetchData();
   }, []);
 
-  
-  // rowSelection object indicates the need for row selection
   const rowSelection = {
     onChange: (selectedRowKeys, selectedRows) => {
-      console.log(`selectedRowKeys: ${selectedRowKeys}`, 'selectedRows: ', selectedRows);
-      setCheckedItems(selectedRows)
+      console.log(
+        `selectedRowKeys: ${selectedRowKeys}`,
+        "selectedRows: ",
+        selectedRows
+      );
+      setCheckedItems(selectedRowKeys);
     },
-
-    getCheckboxProps: record => ({
-      disabled: record.name === 'Disabled User', 
+    getCheckboxProps: (record) => ({
+      disabled: record.name === "Disabled User",
       name: record.name,
-     
     }),
-
   };
 
-
-
-
-
-  return(
+  return (
     <>
-    {checkedItems.length>0&&
-    <div className="mb-2">
-        <Dropdown overlay={usersMenu}>
-          <Button className="bg-blue-500" type="primary" icon={<DownOutlined />}>
-            Select Users
-          </Button>
-        </Dropdown>
-        <Button className="bg-red-500 ml-2" type="primary" icon={<DeleteOutlined />}>
-          Delete Selected
-        </Button>
+      <div className='p-4 h-auto w-auto'>
+        <div className="mb-2 flex flex-row-reverse">
+          <Dropdown overlay={usersMenu} trigger={['click']} >
+            <Button className="bg-blue-500" type="primary w-[130px] h-[50px]" icon={<DownOutlined />}>
+              Select Users
+            </Button>
+          </Dropdown>
+        </div>
+        <div className='mt-2'>
+          <Table rowSelection={rowSelection} columns={columns} dataSource={dataSource} />
+        </div>
       </div>
-    }  <Table rowSelection={rowSelection} columns={columns} dataSource={dataSource} />
-      </>
-   
-)};
+    </>
+  );
+};
 
 export default FollowUP;

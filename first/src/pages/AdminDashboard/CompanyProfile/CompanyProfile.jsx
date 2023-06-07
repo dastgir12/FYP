@@ -14,7 +14,7 @@ const CompanyProfile = () => {
         numberOfUsers: values.numberOfUsers,
         maxAllowedUsers: values.maxAllowedUsers,
       };
-      const token ="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NDdjZWNiZWJkZjAwYjhiNGFkMmQ5MTkiLCJpYXQiOjE2ODYwODQxMzMsImV4cCI6MTY4NjA4NzczM30.IBH7uHtaxbLr9s3VOyM4cvnF1AWWZrEoBozy5EeQbwg";
+      const token ="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NDdjZWNiZWJkZjAwYjhiNGFkMmQ5MTkiLCJpYXQiOjE2ODYxMjIxNTUsImV4cCI6MTY4NjEyNTc1NX0.7k2jyNv6zmpWK-JXjo5avElzAdQgvrH-m6y7oWC5ErU";
       const { data, status } = await axios.post(
         "http://localhost:3001/v1/admin/companies",
         formData,

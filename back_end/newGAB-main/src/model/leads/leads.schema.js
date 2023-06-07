@@ -91,6 +91,6 @@ const LeadsSchema=mongoose.Schema({
     ]
 })
 
-module.exports={
+module.exports = {
     LeadsSchema:mongoose.model("Leads",LeadsSchema)
 }

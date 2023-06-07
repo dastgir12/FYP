@@ -17,7 +17,7 @@ const companySchema = new mongoose.Schema({
       contactNumber: { type: String, required: true },
       userLevel: { type: String, required: true },
       userID: { type: Number, required: true },
-      password: { type: String, required: true },
+      password: { type: String, required: true },  
       leadInfo: [
         {
           type: Object,
