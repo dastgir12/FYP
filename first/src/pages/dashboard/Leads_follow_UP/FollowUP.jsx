@@ -1,3 +1,17 @@
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 import React, { useState, useEffect } from 'react';
 import { Table, Button, Dropdown, Menu } from 'antd';
 import axios from 'axios';
@@ -21,9 +35,10 @@ const FollowUP = () => {
       try {
         const selectedRowKeys = checkedItems.map((key) => key.toString());
 
+
         const payload = {
           leadInfoIds: selectedRowKeys,
-          userID: selectedUser.userID,
+          userId: selectedUser.userID,
           companyID: "S920"
         };
 
@@ -66,7 +81,7 @@ const FollowUP = () => {
         const res = await axios.get(
           "http://localhost:3001/v1/leads/leads-Info"
         );
-
+console.log(res.data);
         const list = res.data.data || [];
         const selectedColumns = [
           "companyName",
@@ -158,12 +173,9 @@ const FollowUP = () => {
 
   const rowSelection = {
     onChange: (selectedRowKeys, selectedRows) => {
-      console.log(
-        `selectedRowKeys: ${selectedRowKeys}`,
-        "selectedRows: ",
-        selectedRows
-      );
-      setCheckedItems(selectedRowKeys);
+      console.log("selectedRows:", selectedRows);
+      const selectedLeadInfoIds = selectedRows.map((row) => row.leadInfoId);
+      setCheckedItems(selectedLeadInfoIds);
     },
     getCheckboxProps: (record) => ({
       disabled: record.name === "Disabled User",

@@ -41,36 +41,18 @@ export const footerLinks = [
       title: "Resources",
       links: [
         {
-          name: "About",
-          link: "https://www.hoobank.com/help-center/",
+          name: "Home",
+          url: "/",
         },
+
         {
-          name: "News",
-          link: "https://www.hoobank.com/partners/",
+          name: "About Us",
+          url: "/about",
         },
-        {
-          name: "Jobs",
-          link: "https://www.hoobank.com/suggestions/",
-        },
-        {
-          name: "Blog",
-          link: "https://www.hoobank.com/blog/",
-        },
-        {
-          name: "Refferal Program",
-          link: "https://www.hoobank.com/newsletters/",
-        },
-        {
-            name: "Terms and Condition",
-            link: "https://www.hoobank.com/newsletters/",
-          },
-          {
-            name: "Privacy Policy",
-            link: "https://www.hoobank.com/newsletters/",
-          },
+
           {
             name: "Contact Us",
-            link: "https://www.hoobank.com/newsletters/",
+            url: "/contact",
           },
       ],
     }]

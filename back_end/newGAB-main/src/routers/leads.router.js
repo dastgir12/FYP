@@ -686,7 +686,7 @@ router.post("/leads-Info", upload.single("attachment"), async (req, res) => {
 router.get("/leads-Info", async (req, res) => {
   try {
     // Fetch specific fields from the lead information
-    const leadFields = await leadinfoSchema.find({}, "companyName staffName leadTitle leadSource status");
+    const leadFields = await leadinfoSchema.find({}, "companyName staffName leadTitle leadSource status leadInfoId");
 
     res.json({
       status: "success",
@@ -796,13 +796,16 @@ router.delete("/leads-Info/:leadInfoId", async (req, res) => {
   }
 });
 
-
-router.post('/assign-lead', async (req, res) => {
+//Assign-LEAD
+  router.post('/assign-lead', async (req, res) => {
   try {
     const { leadInfoIds,userId,companyID } = req.body;
+    const joinedLeadInfoIds = leadInfoIds.join(",")
+    console.log(joinedLeadInfoIds);
+    console.log(userId);
+    console.log(companyID);
     
-    // Step 1: Get data of LeadInfo based on LeadInfoID
-    const leadInfos = await leadinfoSchema.find({ leadInfoId: { $in: leadInfoIds } });
+    const leadInfos = await leadinfoSchema.find({ leadInfoId: { $in: joinedLeadInfoIds } });
     
     if (!leadInfos || leadInfos.length === 0) {
       return res.status(404).json({ message: 'LeadInfos not found' });

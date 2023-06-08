@@ -3,6 +3,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { FiSettings } from "react-icons/fi";
 import { TooltipComponent } from "@syncfusion/ej2-react-popups";
 import { Navbar, Sidebar, ThemeSetting } from "./components";
+import Privateroute from "./components/Privateroute";
 import AdminDashboardPage from "./pages/AdminDashboard/AdminDashboardPage";
 import Home from "./pages/Home";
 import Login from "./Form/Login";
@@ -14,7 +15,7 @@ import {
   SignUp,
   SignIn,
   CompanyProfile,
-  UserProfile
+  UserProfile,
 } from "./pages/AdminDashboard/index.js";
 import {
   GetReports,
@@ -108,7 +109,6 @@ const App = () => {
               AppPathName === "/AdminDashboard/signin" ||
               AppPathName === "/AdminDashboard/CompanyProfile" ||
               AppPathName === "/AdminDashboard/UserProfile" ||
-
               AppPathName === "/contact" ? (
                 <></>
               ) : (
@@ -127,7 +127,6 @@ const App = () => {
               AppPathName === "/AdminDashboard/signin" ||
               AppPathName === "/AdminDashboard/CompanyProfile" ||
               AppPathName === "/AdminDashboard/UserProfile" ||
-
               AppPathName === "/contact" ? (
                 <></>
               ) : (
@@ -157,6 +156,8 @@ const App = () => {
               {AppPathName === "/dashboard" ? (
                 <Navbar />
               ) : AppPathName !== "/" &&
+                AppPathName !== "/private" &&
+                AppPathName !== "/private/dashboard" &&
                 AppPathName !== "/login" &&
                 AppPathName !== "/register" &&
                 AppPathName !== "/forgot" &&
@@ -166,7 +167,6 @@ const App = () => {
                 AppPathName !== "/AdminDashboard/signin" &&
                 AppPathName !== "/AdminDashboard/CompanyProfile" &&
                 AppPathName !== "/AdminDashboard/UserProfile" &&
-
                 AppPathName !== "/contact" ? (
                 <div className="flex justify-center items-center h-screen">
                   <div className="text-center">
@@ -182,6 +182,17 @@ const App = () => {
 
               <Routes>
                 {/* Main Website */}
+
+                {/* Private Routes */}
+
+
+                <Route path="/private" element={<Privateroute />}>
+
+                <Route exact path="dashboard" element={<DashboardPage />} />
+
+
+                </Route>
+
                 <Route exact path="/" element={<Home />} />
                 <Route exact path="/login" element={<Login />} />
                 <Route exact path="/register" element={<Register />} />
@@ -218,7 +229,6 @@ const App = () => {
                   />
                 </Route>
                 {/* Dashboard  */}
-                <Route exact path="/dashboard" element={<DashboardPage />} />
                 {/* <Route exact path="/dashboard" element={<DashboardPage />} /> */}
 
                 <Route path="/dashboard/staff" element={<Staff />} />

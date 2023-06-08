@@ -1,9 +1,17 @@
 import React from "react";
 import { Input } from "antd";
 import Button from "./Button";
+import { useNavigate } from 'react-router-dom';
 // import { logo } from "../assets";
 import { socialMedia, footerLinks } from "../constant";
+
 const Footer = () => {
+  const nav = useNavigate();
+
+  const LinkClickHandler = (url) => {
+    nav(url);
+  }
+
   return (
     <div className=" w-full h-[700px] flex flex-col bg-slate-100 shadow-lg p-6">
       <div className="flex justify-between items-center p-6 border-b-2 border-slate-400">
@@ -68,6 +76,7 @@ const Footer = () => {
                 <ul className="mt-4">
                   {i.links.map((link, index) => (
                     <li
+                    onClick={() => LinkClickHandler(link.url)} 
                       key={link.name}
                       className={`${
                         index !== i.links.length - 1 ? "mb-4" : "mb-0"
