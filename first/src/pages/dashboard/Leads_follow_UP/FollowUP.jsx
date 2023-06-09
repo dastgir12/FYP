@@ -1,21 +1,9 @@
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 import React, { useState, useEffect } from 'react';
 import { Table, Button, Dropdown, Menu } from 'antd';
 import axios from 'axios';
 import { EyeOutlined, EditOutlined, DeleteOutlined, DownOutlined } from "@ant-design/icons";
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const FollowUP = () => {
   const [columns, setColumns] = useState([]);
@@ -35,7 +23,6 @@ const FollowUP = () => {
       try {
         const selectedRowKeys = checkedItems.map((key) => key.toString());
 
-
         const payload = {
           leadInfoIds: selectedRowKeys,
           userId: selectedUser.userID,
@@ -48,8 +35,10 @@ const FollowUP = () => {
         );
 
         console.log("Data saved successfully:", response.data);
+        toast.success("Lead assigned successfully!"); // Show success notification
       } catch (error) {
         console.log("Error saving data:", error);
+        toast.error("Failed to assign lead!"); // Show failure notification
       }
     }
   };
@@ -81,7 +70,7 @@ const FollowUP = () => {
         const res = await axios.get(
           "http://localhost:3001/v1/leads/leads-Info"
         );
-console.log(res.data);
+        console.log(res.data);
         const list = res.data.data || [];
         const selectedColumns = [
           "companyName",
@@ -185,6 +174,7 @@ console.log(res.data);
 
   return (
     <>
+      <ToastContainer />
       <div className='p-4 h-auto w-auto'>
         <div className="mb-2 flex flex-row-reverse">
           <Dropdown overlay={usersMenu} trigger={['click']} >

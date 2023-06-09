@@ -184,13 +184,86 @@ const App = () => {
                 {/* Main Website */}
 
                 {/* Private Routes */}
-
-
-                <Route path="/private" element={<Privateroute />}>
-
-                <Route exact path="dashboard" element={<DashboardPage />} />
-
-
+                <Route path="" element={<Privateroute />}>
+                  <Route exact path="dashboard" element={<DashboardPage />} />
+                  <Route path="dashboard/staff" element={<Staff />} />
+                  <Route
+                    exact
+                    path="dashboard/customers"
+                    element={<Customers />}
+                  />
+                  <Route
+                    exact
+                    path="dashboard/lead_category"
+                    element={<LeadCategory />}
+                  />
+                  <Route
+                    exact
+                    path="dashboard/staff/AddStaff"
+                    element={<AddStaff />}
+                  />
+                  <Route
+                    exact
+                    path="dashboard/customers/AddCustomer"
+                    element={<AddCustomer />}
+                  />
+                  <Route
+                    exact
+                    path="dashboard/working_leads"
+                    element={<Working />}
+                  />
+                  <Route
+                    exact
+                    path="dashboard/failed_leads"
+                    element={<Failed />}
+                  />
+                  <Route
+                    exact
+                    path="dashboard/contacted_leads"
+                    element={<Contacted />}
+                  />
+                  <Route
+                    exact
+                    path="dashboard/closed_leads"
+                    element={<Closed />}
+                  />
+                  <Route
+                    exact
+                    path="dashboard/qualified_leads"
+                    element={<Qualified />}
+                  />
+                  <Route
+                    exact
+                    path="dashboard/lead_category"
+                    element={<LeadCategory />}
+                  />
+                  <Route
+                    exact
+                    path="dashboard/lead_category/AddLeadCategory"
+                    element={<AddLeadCategory />}
+                  />
+                  <Route exact path="dashboard/leads" element={<Leads />} />
+                  <Route
+                    exact
+                    path="dashboard/leads/AddLead"
+                    element={<AddLead />}
+                  />
+                  <Route
+                    exact
+                    path="dashboard/leads_follow_UP"
+                    element={<FollowUP />}
+                  />
+                  <Route exact path="dashboard/deals" element={<Deals />} />
+                  <Route
+                    exact
+                    path="dashboard/reports"
+                    element={<Reportss />}
+                  />
+                  <Route
+                    exact
+                    path="dashboard/reports/GetReports"
+                    element={<GetReports />}
+                  />
                 </Route>
 
                 <Route exact path="/" element={<Home />} />
@@ -230,83 +303,6 @@ const App = () => {
                 </Route>
                 {/* Dashboard  */}
                 {/* <Route exact path="/dashboard" element={<DashboardPage />} /> */}
-
-                <Route path="/dashboard/staff" element={<Staff />} />
-                <Route
-                  exact
-                  path="/dashboard/customers"
-                  element={<Customers />}
-                />
-                <Route
-                  exact
-                  path="/dashboard/lead_category"
-                  element={<LeadCategory />}
-                />
-
-                <Route
-                  exact
-                  path="/dashboard/staff/AddStaff"
-                  element={<AddStaff />}
-                />
-                <Route
-                  exact
-                  path="/dashboard/customers/AddCustomer"
-                  element={<AddCustomer />}
-                />
-                <Route
-                  exact
-                  path="/dashboard/working_leads"
-                  element={<Working />}
-                />
-                <Route
-                  exact
-                  path="/dashboard/failed_leads"
-                  element={<Failed />}
-                />
-                <Route
-                  exact
-                  path="/dashboard/contacted_leads"
-                  element={<Contacted />}
-                />
-                <Route
-                  exact
-                  path="/dashboard/closed_leads"
-                  element={<Closed />}
-                />
-                <Route
-                  exact
-                  path="/dashboard/qualified_leads"
-                  element={<Qualified />}
-                />
-                <Route
-                  exact
-                  path="/dashboard/lead_category"
-                  element={<LeadCategory />}
-                />
-                <Route
-                  exact
-                  path="/dashboard/lead_category/AddLeadCategory"
-                  element={<AddLeadCategory />}
-                />
-                <Route exact path="/dashboard/leads" element={<Leads />} />
-                <Route
-                  exact
-                  path="/dashboard/Leads/AddLead"
-                  element={<AddLead />}
-                />
-                <Route
-                  exact
-                  path="/dashboard/leads_follow_UP"
-                  element={<FollowUP />}
-                />
-                <Route exact path="/dashboard/deals" element={<Deals />} />
-                <Route exact path="/dashboard/reports" element={<Reportss />} />
-
-                <Route
-                  exact
-                  path="/dashboard/reports/GetReports"
-                  element={<GetReports />}
-                />
               </Routes>
             </div>
           </div>
