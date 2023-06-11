@@ -515,57 +515,57 @@ export const links = [
     links: [
       {
         name: 'dashboard',
-        route: 'dashboard/', // Updated route path
+        route: 'private/dashboard', // Updated route path
         icon: <FiShoppingBag />,
       },
       {
         name: 'Staff',
-        route: 'dashboard/staff',
+        route: 'private/dashboard/staff',
         icon: <AiOutlineShoppingCart />,
       },
       {
         name: 'Customers',
-        route: 'dashboard/customers',
+        route: 'private/dashboard/customers',
         icon: <IoMdContacts />,
       },
       {
         name: 'Lead Category',
-        route: 'dashboard/lead_category',
+        route: 'private/dashboard/lead_category',
         icon: <RiContactsLine />,
       },
       {
         name: 'Leads',
-        route: 'dashboard/leads',
+        route: 'private/dashboard/leads',
         icon: <AiOutlineCalendar />,
       },
       {
         name: "Leads Follow-UP",
-        route: "dashboard/leads_follow_UP",
+        route: "private/dashboard/leads_follow_UP",
         icon: <BsKanban />,
         submenus: [
           {
             name: "Failed Leads",
-            route: "dashboard/failed_leads",
+            route: "private/dashboard/failed_leads",
             icon: <BsArrowRight />,
           },
           {
             name: "Working Leads",
-            route: "dashboard/working_leads",
+            route: "private/dashboard/working_leads",
             icon: <BsArrowRight />,
           },
           {
             name: "Contacted Leads",
-            route: "dashboard/contacted_leads",
+            route: "private/dashboard/contacted_leads",
             icon: <BsArrowRight />,
           },
           {
             name: "Searching Leads",
-            route: "dashboard/searching_leads",
+            route: "private/dashboard/searching_leads",
             icon: <BsArrowRight />,
           },
           {
             name: "Process Leads",
-            route: "dashboard/process_leads",
+            route: "private/dashboard/process_leads",
             icon: <BsArrowRight />,
           },
 
@@ -574,12 +574,12 @@ export const links = [
       
       {
         name: 'Deals',
-        route: 'dashboard/deals',
+        route: 'private/dashboard/deals',
         icon: <FiEdit />,
       },
       {
         name: 'Reports',
-        route: 'dashboard/reports',
+        route: 'private/dashboard/reports',
         icon: <BiColorFill />,
       },
     ],
@@ -843,7 +843,7 @@ export const medicalproBranding = {
     {
       image:
         avatar,
-    },
+    }
   ],
 };
 

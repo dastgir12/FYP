@@ -23,7 +23,7 @@ const AddLeadCategory = () => {
         "http://localhost:3001/v1/leads/leadsCategory",
         formData
       );
-      if (status == 200) {
+      if (status == 201) {
         console.log(data);
       } else {
         console.log("error is here");

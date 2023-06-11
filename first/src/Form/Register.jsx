@@ -9,73 +9,75 @@ const Register = () => {
   const nav = useNavigate();
   const [form] = Form.useForm();
   const postForm = async (values) => {
-    // console.log(values);
     form.resetFields();
     try {
-    //   const formData = new FormData();
-    //   formData.append("email", values.email);
-    //   formData.append("password", values.password);
-    //   // formData.append("repassword", values.repassword);
-    //   formData.append("name", values.name);
-    //   formData.append("number", values.number);
-    //   formData.append("address", values.address);
-    //   formData.append("companyName", values.companyName);
-// console.log();
-
-const formData = {
-  email : values.email,
-  name : values.name,
-  company : values.company,
-  phone : values.phone,
-  password : values.password,
-  address : values.address,
-}
-
-console.log(formData);
-     const {status , data} =  await axios.post(
+      const formData = {
+        email: values.email,
+        name: values.name,
+        company: values.company,
+        phone: values.phone,
+        password: values.password,
+        address: values.address,
+      };
+  
+      const { status, data } = await axios.post(
         "http://localhost:3001/v1/user/register",
         formData
       );
-      if(status == 200)
-      {
-
-      // console.log('register succeessfully');
-      toast.success('Registered successfully!', {
-        position: toast.POSITION.TOP_CENTER,
-        autoClose: 3000,
-        hideProgressBar: true,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
+  
+      console.log(status); // Log the actual status received from the server
+  
+      if (status === 201) { // Update the status code based on the server response
+        toast.success('Registered successfully!', {
+          position: toast.POSITION.TOP_CENTER,
+          autoClose: 3000,
+          hideProgressBar: true,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
         });
-
+        setTimeout(() => {
+          nav('/login'); // Navigate to login after a delay
+        }, 2000);
       }
     } catch (e) {
-      if (e) {
+      if (e.response) {
         const err = e.response.data.error;
         if (err) {
-        toast.error(err, {
-          position: toast.POSITION.TOP_CENTER,
-          autoClose: 3000,
-          hideProgressBar: true,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-        });
+          toast.error(err, {
+            position: toast.POSITION.TOP_CENTER,
+            autoClose: 3000,
+            hideProgressBar: true,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+          });
+        } else if (e.response.status === 409) {
+          toast.error("Already Registered", {
+            position: toast.POSITION.TOP_CENTER,
+            autoClose: 3000,
+            hideProgressBar: true,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+          });
         } else {
-        toast.error("Already Registerd", {
-          position: toast.POSITION.TOP_CENTER,
-          autoClose: 3000,
-          hideProgressBar: true,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-        });
+          toast.error("An error occurred", {
+            position: toast.POSITION.TOP_CENTER,
+            autoClose: 3000,
+            hideProgressBar: true,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+          });
         }
       }
-        console.log(e);
-      }
+      console.log(e);
+    }
   };
+  
+  
+  
   //// Number Validation
   const numberValidation = async (rule, value) => {
     if (!value) {

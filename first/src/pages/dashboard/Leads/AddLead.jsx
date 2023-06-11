@@ -58,9 +58,9 @@ const AddLead = () => {
         "http://localhost:3001/v1/leads/leads-Info",
         formData
       );
-      if (status == 201) {
+      if (status == 200) {
         message.success("Successfull Added");
-        nav("/dashboard/leads");
+        nav("/private/dashboard/leads");
       } else {
         console.log("error is here bru");
       }

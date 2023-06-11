@@ -1,13 +1,13 @@
 import React, { useState } from "react";
 import { Form, Input, Select } from "antd";
 import axios from "axios";
-
+import { useNavigate } from "react-router-dom";
 const { Option } = Select;
 
 const AddCustomer = () => {
   const [form] = Form.useForm();
   const [selectedCity, setSelectedCity] = useState("");
-
+const nav = useNavigate()
   const handleSelectChange = (value) => {
     console.log("Selected value:", value);
     // You can perform further actions with the selected value here
@@ -34,7 +34,8 @@ const AddCustomer = () => {
         formData
       );
       if (status == 200) {
-        console.log(data);
+        // console.log(data);
+        nav('/private/dashboard/customers')
       } else {
         console.log("error is here bru");
       }

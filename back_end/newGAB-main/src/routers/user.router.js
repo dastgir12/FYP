@@ -17,29 +17,39 @@ router.all('/', (req, res, next) => {
 
 //register Api
 router.post('/register', async (req, res) => {
-    const { name, company, password, address, phone, email } = req.body
-    try {
-        const hashed = await hashedPassword(password)
-        const newUserObj = { name, company, password: hashed, address, phone, email }
-        // if (Designation !== 'Manager' && Designation !== 'Leads Manager') {
-        //     return res.json({ message: 'Invalid user' });
-        //   }
-        const result = await insertUser(newUserObj)
-        console.log(result)
-        return res.json({ message: "new user created", result })
-    } catch (error) {
-        console.log(error)
-        res.json({ status: "error", message: error.message })
+    const { name, company, password, address, phone, email } = req.body;
+  
+    // Check if any required fields are missing
+    if (!name || !company || !password || !address || !phone || !email) {
+      return res.status(400).json({ message: 'All fields are required' });
     }
-
-})
+  
+    try {
+      const hashed = await hashedPassword(password);
+      const newUserObj = { name, company, password: hashed, address, phone, email };
+  
+      // Check if email already exists
+      const existingUser = await getUserByEmail(email);
+      if (existingUser) {
+        return res.status(409).json({ message: 'Email already exists' });
+      }
+  
+      const result = await insertUser(newUserObj);
+      console.log(result);
+      return res.status(201).json({ message: 'New user created', result });
+    } catch (error) {
+      console.log(error);
+      res.status(500).json({ status: 'error', message: error.message });
+    }
+  });
+  
 
 router.get('/',userAuthorization,async(req,res)=>{
   const _id= req.userId
     const userProf =await getUserById(_id)
     res.json({ user: userProf })
      })
-
+//Login Api
      router.post('/login', async (req, res) => {
         const { email, password } = req.body
         console.log(req.body)

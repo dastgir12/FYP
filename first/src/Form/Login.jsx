@@ -1,7 +1,6 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { toast } from "react-toastify";
-import { ToastContainer } from "react-toastify";
+import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import axios from "axios";
 import { Form, Input } from "antd";
@@ -16,13 +15,13 @@ const Login = () => {
         email: values.email,
         password: values.password,
       };
-  
+
       const { data } = await axios.post(
         "http://localhost:3001/v1/user/login",
         formData
       );
-  
-      if (data.success) {
+
+      if (data) {
         localStorage.setItem("accessToken", data.accessJWT);
         toast.success("Login successful!", {
           position: toast.POSITION.TOP_CENTER,
@@ -32,9 +31,9 @@ const Login = () => {
           pauseOnHover: true,
           draggable: true,
         });
-  
+
         form.resetFields();
-        navigate("/dashboard");
+        navigate("/private/dashboard");
       } else {
         toast.error("Invalid email or password", {
           position: toast.POSITION.TOP_CENTER,
@@ -57,7 +56,6 @@ const Login = () => {
       console.log(error);
     }
   };
-  
 
   return (
     <>

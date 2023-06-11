@@ -1,6 +1,6 @@
 //Login
 export const IsLoggedIn = () => {
-  const data = localStorage.getItem("Token");
+  const data = localStorage.getItem("accessToken");
   if (data == null) {
     return false;
   } else {
@@ -10,13 +10,13 @@ export const IsLoggedIn = () => {
 
 //Do Login
 export const doLogin = () => {
-    const data = localStorage.setItem("Token" , JSON.stringify(''));
+    const data = localStorage.setItem("accessToken" , JSON.stringify(''));
   };
   
 
 //Do Logout
 export const logout = () => {
-    const data = localStorage.removeItem("Token");
+    const data = localStorage.removeItem("accessToken");
   };
 
 

@@ -9,7 +9,7 @@ const Privateroute = () => {
     return <Outlet />;
   } else {
     navigate('/login');
-    return null; // Render nothing or a fallback UI while navigating
+    return null; 
   }
 };
 

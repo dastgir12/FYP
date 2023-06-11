@@ -25,7 +25,7 @@ const UserProfile = () => {
         userLevel: values.userLevel,
         password: values.password,
       };
-      const token ="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NDdjZWNiZWJkZjAwYjhiNGFkMmQ5MTkiLCJpYXQiOjE2ODYxMzA4ODUsImV4cCI6MTY4NjEzNDQ4NX0.B60vikSYZsztWaquvRtXAajULAseB2AVfDQstinTc4c";
+      const token = localStorage.getItem("accessToken");;
       
       const data = await axios.post(
         "http://localhost:3001/v1/admin/registration",

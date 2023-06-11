@@ -37,6 +37,9 @@ const DashboardPage = () => {
     },
   ];
 
+
+  //if we do same thing in dashboard page then what will be the logic ...
+
   return (
     <>
       <div className="bg-blue-600 h-auto">

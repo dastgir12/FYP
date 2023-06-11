@@ -37,10 +37,8 @@ import {
   LeadCategory,
   Reportss,
 } from "./pages/dashboard/index.js";
-
 import { useStateContext } from "./contexts/ContextProvider";
 import "./App.css";
-
 const App = () => {
   const {
     setCurrentColor,
@@ -52,12 +50,12 @@ const App = () => {
   } = useStateContext();
   const { activeMenu, setActiveMenu } = useStateContext();
   const [AppPathName, setAppPathName] = useState("");
-
   useEffect(() => {
-    const url = window.location.href;
+    // const url = window.location.href;
+
     setActiveMenu(false);
 
-    const pathname = window.location.pathname; // "/path"
+    const pathname = window.location.pathname;
     setAppPathName(pathname);
 
     const currentThemeColor = localStorage.getItem("colorMode");
@@ -74,18 +72,7 @@ const App = () => {
         <div className="flex relative dark:bg-main-dark-bg w-full overflow-hidden">
           <div className="fixed right-4 bottom-4" style={{ zIndex: "1000" }}>
             <TooltipComponent content="Settings" position="Top">
-              {AppPathName === "/" ||
-              AppPathName === "/login" ||
-              AppPathName === "/register" ||
-              AppPathName === "/forgot" ||
-              AppPathName === "/AdminDashboard" ||
-              AppPathName === "/AdminDashboard/signUp" ||
-              AppPathName === "/AdminDashboard/signin" ||
-              AppPathName === "/AdminDashboard/CompanyProfile" ||
-              AppPathName === "/about" ||
-              AppPathName === "/contact" ? (
-                <></>
-              ) : (
+              {AppPathName === "/private/dashboard" ? (
                 <button
                   type="button"
                   onClick={() => setThemeSettings(true)}
@@ -94,44 +81,18 @@ const App = () => {
                 >
                   <FiSettings />
                 </button>
+              ) : (
+                <></>
               )}
             </TooltipComponent>
           </div>
           {activeMenu ? (
             <div className="w-72 fixed sidebar dark:bg-secondary-dark-bg bg-white ">
-              {AppPathName === "/" ||
-              AppPathName === "/login" ||
-              AppPathName === "/register" ||
-              AppPathName === "/forgot" ||
-              AppPathName === "/about" ||
-              AppPathName === "/AdminDashboard" ||
-              AppPathName === "/AdminDashboard/signUp" ||
-              AppPathName === "/AdminDashboard/signin" ||
-              AppPathName === "/AdminDashboard/CompanyProfile" ||
-              AppPathName === "/AdminDashboard/UserProfile" ||
-              AppPathName === "/contact" ? (
-                <></>
-              ) : (
-                <Sidebar />
-              )}
+              {AppPathName === "/private/dashboard" ? <Sidebar /> : <></>}
             </div>
           ) : (
             <div className="w-0 dark:bg-secondary-dark-bg">
-              {AppPathName === "/" ||
-              AppPathName === "/login" ||
-              AppPathName === "/register" ||
-              AppPathName === "/forgot" ||
-              AppPathName === "/about" ||
-              AppPathName === "/AdminDashboard" ||
-              AppPathName === "/AdminDashboard/signUp" ||
-              AppPathName === "/AdminDashboard/signin" ||
-              AppPathName === "/AdminDashboard/CompanyProfile" ||
-              AppPathName === "/AdminDashboard/UserProfile" ||
-              AppPathName === "/contact" ? (
-                <></>
-              ) : (
-                <Sidebar />
-              )}
+              {AppPathName === "/private/dashboard" ? <Sidebar /> : <></>}
             </div>
           )}
           <div
@@ -142,51 +103,17 @@ const App = () => {
             }
           >
             <div className="fixed md:static bg-main-bg dark:bg-main-dark-bg navbar w-full ">
-              {AppPathName === "/" ||
-              AppPathName === "/login" ||
-              AppPathName === "/register" ||
-              AppPathName === "/forgot" ||
-              AppPathName === "/about" ||
-              // AppPathName === "/AdminDashboard/AdminDashboardPage" ||
-              AppPathName === "/contact" ? (
-                <></>
-              ) : (
-                <></>
-              )}
-              {AppPathName === "/dashboard" ? (
-                <Navbar />
-              ) : AppPathName !== "/" &&
-                AppPathName !== "/private" &&
-                AppPathName !== "/private/dashboard" &&
-                AppPathName !== "/login" &&
-                AppPathName !== "/register" &&
-                AppPathName !== "/forgot" &&
-                AppPathName !== "/about" &&
-                AppPathName !== "/AdminDashboard" &&
-                AppPathName !== "/AdminDashboard/signUp" &&
-                AppPathName !== "/AdminDashboard/signin" &&
-                AppPathName !== "/AdminDashboard/CompanyProfile" &&
-                AppPathName !== "/AdminDashboard/UserProfile" &&
-                AppPathName !== "/contact" ? (
-                <div className="flex justify-center items-center h-screen">
-                  <div className="text-center">
-                    <h2 className="text-2xl font-bold">
-                      404 error page not found
-                    </h2>
-                  </div>
-                </div>
-              ) : null}
+              {AppPathName === "/private/dashboard" ? <Navbar /> : <></>}
             </div>
             <div>
-              {themeSettings && <ThemeSetting />}
-
+              {AppPathName === "/private/dashboard" && (
+                <>{themeSettings && <ThemeSetting />}</>
+              )}
               <Routes>
-                {/* Main Website */}
-
                 {/* Private Routes */}
-                <Route path="" element={<Privateroute />}>
+                <Route path="/private" element={<Privateroute />}>
                   <Route exact path="dashboard" element={<DashboardPage />} />
-                  <Route path="dashboard/staff" element={<Staff />} />
+                  <Route exact path="dashboard/staff" element={<Staff />} />
                   <Route
                     exact
                     path="dashboard/customers"
@@ -301,8 +228,6 @@ const App = () => {
                     element={<UserProfile />}
                   />
                 </Route>
-                {/* Dashboard  */}
-                {/* <Route exact path="/dashboard" element={<DashboardPage />} /> */}
               </Routes>
             </div>
           </div>
