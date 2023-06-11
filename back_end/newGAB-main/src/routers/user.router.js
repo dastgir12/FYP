@@ -50,28 +50,35 @@ router.get('/',userAuthorization,async(req,res)=>{
     res.json({ user: userProf })
      })
 //Login Api
-     router.post('/login', async (req, res) => {
-        const { email, password } = req.body
-        console.log(req.body)
-        if (!email || !password) {
-            res.json({ status: "Invalid", message: "invalid email or password" })
-        }
-    
-        const user = await getUserByEmail(email)
-        const passFromDb = user && user._id ? user.password : null
-        if (!passFromDb) return res.json({ status: "Error", message: "invalid email or password" })
-        const result = await compPassword(password, passFromDb)
-        if (!result) { 
-            res.json({ status: "Invalid", message: "invalid email or password" })
-    
-        }
-        const accessJWT = await createAccessJWT(user.email,`${user._id}`)
-        const refreshJWT = await createRefreshJWT(user.email,`${user._id}`)
-    
-        console.log(result)
-        res.json({ status: "Success", message: "login successfully",accessJWT,refreshJWT})
-    
-    })
+router.post('/login', async (req, res) => {
+  const { email, password } = req.body;
+  console.log(req.body);
+  if (!email || !password) {
+    return res.status(400).json({ status: "Invalid", message: "Invalid email or password" });
+  }
+
+  const user = await getUserByEmail(email);
+  const passFromDb = user && user._id ? user.password : null;
+  if (!passFromDb) {
+    return res.status(401).json({ status: "Error", message: "Invalid email or password" });
+  }
+
+  const result = await compPassword(password, passFromDb);
+  if (!result) {
+    return res.status(401).json({ status: "Invalid", message: "Invalid email or password" });
+  }
+
+  const accessJWT = await createAccessJWT(user.email, `${user._id}`);
+  const refreshJWT = await createRefreshJWT(user.email, `${user._id}`);
+
+  console.log(result);
+  res.status(200).json({
+    status: "Success",
+    message: "Login successful",
+    accessJWT,
+    refreshJWT
+  });
+});
 
 router.post('/reset-password',resetPassValidation ,async(req,res)=>{
     const {email} =req.body;

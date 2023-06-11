@@ -514,7 +514,7 @@ export const links = [
     title: 'Dashboard',
     links: [
       {
-        name: 'dashboard',
+        name: 'Dashboard',
         route: 'private/dashboard', // Updated route path
         icon: <FiShoppingBag />,
       },

@@ -72,7 +72,14 @@ const App = () => {
         <div className="flex relative dark:bg-main-dark-bg w-full overflow-hidden">
           <div className="fixed right-4 bottom-4" style={{ zIndex: "1000" }}>
             <TooltipComponent content="Settings" position="Top">
-              {AppPathName === "/private/dashboard" ? (
+              {AppPathName === "/" ||
+              AppPathName === "/login" ||
+              AppPathName === "/register" ||
+              AppPathName === "/forgot" ||
+              AppPathName === "/about" ||
+              AppPathName === "/contact" ? (
+                <></>
+              ) : (
                 <button
                   type="button"
                   onClick={() => setThemeSettings(true)}
@@ -81,18 +88,34 @@ const App = () => {
                 >
                   <FiSettings />
                 </button>
-              ) : (
-                <></>
               )}
             </TooltipComponent>
           </div>
           {activeMenu ? (
             <div className="w-72 fixed sidebar dark:bg-secondary-dark-bg bg-white ">
-              {AppPathName === "/private/dashboard" ? <Sidebar /> : <></>}
+              {AppPathName === "/" ||
+              AppPathName === "/login" ||
+              AppPathName === "/register" ||
+              AppPathName === "/forgot" ||
+              AppPathName === "/about" ||
+              AppPathName === "/contact" ? (
+                <></>
+              ) : (
+                <Sidebar />
+              )}
             </div>
           ) : (
             <div className="w-0 dark:bg-secondary-dark-bg">
-              {AppPathName === "/private/dashboard" ? <Sidebar /> : <></>}
+              {AppPathName === "/" ||
+              AppPathName === "/login" ||
+              AppPathName === "/register" ||
+              AppPathName === "/forgot" ||
+              AppPathName === "/about" ||
+              AppPathName === "/contact" ? (
+                <></>
+              ) : (
+                <Sidebar />
+              )}
             </div>
           )}
           <div
@@ -103,7 +126,16 @@ const App = () => {
             }
           >
             <div className="fixed md:static bg-main-bg dark:bg-main-dark-bg navbar w-full ">
-              {AppPathName === "/private/dashboard" ? <Navbar /> : <></>}
+              {AppPathName === "/" ||
+              AppPathName === "/login" ||
+              AppPathName === "/register" ||
+              AppPathName === "/forgot" ||
+              AppPathName === "/about" ||
+              AppPathName === "/contact" ? (
+                <></>
+              ) : (
+                <Navbar />
+              )}
             </div>
             <div>
               {AppPathName === "/private/dashboard" && (

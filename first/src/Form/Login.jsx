@@ -15,13 +15,15 @@ const Login = () => {
         email: values.email,
         password: values.password,
       };
-
-      const { data } = await axios.post(
+  
+      const response = await axios.post(
         "http://localhost:3001/v1/user/login",
         formData
       );
-
-      if (data) {
+  
+      const { status, data } = response;
+  
+      if (status === 200 && data.status === "Success") {
         localStorage.setItem("accessToken", data.accessJWT);
         toast.success("Login successful!", {
           position: toast.POSITION.TOP_CENTER,
@@ -31,11 +33,11 @@ const Login = () => {
           pauseOnHover: true,
           draggable: true,
         });
-
+  
         form.resetFields();
         navigate("/private/dashboard");
       } else {
-        toast.error("Invalid email or password", {
+        toast.error(data.message, {
           position: toast.POSITION.TOP_CENTER,
           autoClose: 3000,
           hideProgressBar: true,
@@ -56,6 +58,8 @@ const Login = () => {
       console.log(error);
     }
   };
+  
+  
 
   return (
     <>
