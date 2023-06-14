@@ -77,6 +77,7 @@ const App = () => {
               AppPathName === "/register" ||
               AppPathName === "/forgot" ||
               AppPathName === "/about" ||
+              AppPathName === "/dashboard" ||
               AppPathName === "/contact" ? (
                 <></>
               ) : (
@@ -98,6 +99,7 @@ const App = () => {
               AppPathName === "/register" ||
               AppPathName === "/forgot" ||
               AppPathName === "/about" ||
+              AppPathName === "/dashboard" ||
               AppPathName === "/contact" ? (
                 <></>
               ) : (
@@ -111,6 +113,7 @@ const App = () => {
               AppPathName === "/register" ||
               AppPathName === "/forgot" ||
               AppPathName === "/about" ||
+              AppPathName === "/dashboard" ||
               AppPathName === "/contact" ? (
                 <></>
               ) : (
@@ -131,6 +134,7 @@ const App = () => {
               AppPathName === "/register" ||
               AppPathName === "/forgot" ||
               AppPathName === "/about" ||
+              AppPathName === "/dashboard" ||
               AppPathName === "/contact" ? (
                 <></>
               ) : (

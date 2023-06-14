@@ -36,13 +36,13 @@ const Footer = () => {
                 alt=""
               />
             </div>
-            <div className="flex flex-row md:mt-0 mt-6">
+            <div className="flex flex-row md:mt-0 mt-6 ">
               {socialMedia.map((social, index) => (
                 <img
                   key={social.id}
                   src={social.icon}
                   alt="icon"
-                  className={`w-[22px] h-[22px] object-contain cursor-pointer ${
+                  className={`w-[22px] h-[22px] object-contain cursor-pointer bg-slate-500 rounded-full hover:bg-blue-400 ${
                     index !== socialMedia.length - 1 ? "mr-6" : "mr-0"
                   }`}
                 />
@@ -93,15 +93,15 @@ const Footer = () => {
       </div>
       <div className="w-full flex justify-between items-center md:flex-row flex-col ">
         <p className="font-poppins font-normal text-[16px] leading-[24px] text-dimWhite">
-          @2022 GAB ! All rights reserved
+          @2022 GAB ! All rights reserved 
         </p>
-        <div className="flex flex-row md:mt-0 mt-6">
+        <div className="flex flex-row md:mt-0 mt-6 mr-10">
           {socialMedia.map((social, index) => (
             <img
               key={social.id}
               src={social.icon}
               alt="icon"
-              className={`w-[22px] h-[22px] object-contain cursor-pointer ${
+              className={`w-[22px] h-[22px] object-contain cursor-pointer bg-slate-500 rounded-full hover:bg-blue-400  ${
                 index !== socialMedia.length - 1 ? "mr-6" : "mr-0"
               }`}
             />
@@ -111,5 +111,4 @@ const Footer = () => {
     </div>
   );
 };
-
 export default Footer;

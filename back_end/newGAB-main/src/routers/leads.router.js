@@ -7,6 +7,7 @@ const {
   replyLeadMessageValidation,
 } = require("../middlewares/formValidation.middleware");
 const {
+  category,
   insertLeads,
   getLeads,
   getLeadsById,
@@ -71,10 +72,6 @@ const transporter = nodemailer.createTransport({
     pass: 'helloiamahmedbilal', // Your email password or API key
   },
 });
-
-
-
-
 
 
 
@@ -482,12 +479,6 @@ router.get('/companies/:companyId/users', async (req, res) => {
   }
 });
 
-
-
-
-
-
-
 // POST route to save lead category and status
 router.post("/leadsCategory", async (req, res) => {
   try {
@@ -612,7 +603,7 @@ router.delete("/leadsCategory/:categoryId", async (req, res) => {
       status: "success",
       message: "Lead category deleted successfully",
     });
-  } catch (error) {
+  } catch (error) {yh
     console.error("Error deleting lead category:", error);
     res.status(500).json({ error: "Error deleting lead category" });
   }

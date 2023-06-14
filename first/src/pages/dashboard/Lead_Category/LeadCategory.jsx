@@ -199,6 +199,9 @@ const handleClicked = () => {
           onCancel={() => {
             setIsEditing(false);
           }}
+          okButtonProps={{
+            className: 'bg-blue-300 hover:bg-blue-800 border-blue-300 hover:border-blue-800',
+          }}
           onOk={() => handleLeadCategoryUpdate(editedLeadCategory)} // Call handleStaffUpdate on Ok button click
         >
           {editedLeadCategory && (

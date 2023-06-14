@@ -229,6 +229,9 @@ const Customers = () => {
           onCancel={() => {
             setIsEditing(false);
           }}
+          okButtonProps={{
+            className: 'bg-blue-300 hover:bg-blue-800 border-blue-300 hover:border-blue-800',
+          }}
           onOk={() => handleCustomerUpdate(editedCustomer)} // Call handleStaffUpdate on Ok button click
         >
           {editedCustomer && (
