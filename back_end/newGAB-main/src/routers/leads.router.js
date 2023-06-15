@@ -665,7 +665,7 @@ router.post("/leads-Info", upload.single("attachment"), async (req, res) => {
     // Save the lead to the database
     await lead.save();
 
-    res.status(201).json({ message: "Lead information saved successfully" });
+    res.status(200).json({ message: "Lead information saved successfully" });
   } catch (error) {
     console.error("Error saving lead information:", error);
     res.status(500).json({ error: "Error saving lead information" });
@@ -697,6 +697,7 @@ router.put("/leads-Info/:leadInfoId", upload.single("attachment"), async (req, r
     leadTitle,
     leadSource,
     staffName,
+    status
   } = req.body;
 
   try {
@@ -716,6 +717,8 @@ router.put("/leads-Info/:leadInfoId", upload.single("attachment"), async (req, r
     leadInfo.leadTitle = leadTitle;
     leadInfo.leadSource = leadSource;
     leadInfo.staffName = staffName;
+    leadInfo.status = status;
+
     
 
     // Update the attachment if a new file is provided

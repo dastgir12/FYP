@@ -77,6 +77,11 @@ const App = () => {
               AppPathName === "/register" ||
               AppPathName === "/forgot" ||
               AppPathName === "/about" ||
+              AppPathName === "/private/AdminDashboard" ||
+              AppPathName === "/private/AdminDashboard/signUp" ||
+              AppPathName === "/private/AdminDashboard/signin" ||
+              AppPathName === "/private/AdminDashboard/UserProfile" ||
+              AppPathName === "/private/AdminDashboard/CompanyProfile" ||
               AppPathName === "/dashboard" ||
               AppPathName === "/contact" ? (
                 <></>
@@ -100,6 +105,11 @@ const App = () => {
               AppPathName === "/forgot" ||
               AppPathName === "/about" ||
               AppPathName === "/dashboard" ||
+              AppPathName === "/private/AdminDashboard" ||
+              AppPathName === "/private/AdminDashboard/signUp" ||
+              AppPathName === "/private/AdminDashboard/signin" ||
+              AppPathName === "/private/AdminDashboard/UserProfile" ||
+              AppPathName === "/private/AdminDashboard/CompanyProfile" ||
               AppPathName === "/contact" ? (
                 <></>
               ) : (
@@ -114,6 +124,11 @@ const App = () => {
               AppPathName === "/forgot" ||
               AppPathName === "/about" ||
               AppPathName === "/dashboard" ||
+              AppPathName === "/private/AdminDashboard" ||
+              AppPathName === "/private/AdminDashboard/signUp" ||
+              AppPathName === "/private/AdminDashboard/signin" ||
+              AppPathName === "/private/AdminDashboard/UserProfile" ||
+              AppPathName === "/private/AdminDashboard/CompanyProfile" ||
               AppPathName === "/contact" ? (
                 <></>
               ) : (
@@ -135,6 +150,11 @@ const App = () => {
               AppPathName === "/forgot" ||
               AppPathName === "/about" ||
               AppPathName === "/dashboard" ||
+              AppPathName === "/private/AdminDashboard" ||
+              AppPathName === "/private/AdminDashboard/signUp" ||
+              AppPathName === "/private/AdminDashboard/signin" ||
+              AppPathName === "/private/AdminDashboard/UserProfile" ||
+              AppPathName === "/private/AdminDashboard/CompanyProfile" ||
               AppPathName === "/contact" ? (
                 <></>
               ) : (
@@ -149,6 +169,32 @@ const App = () => {
                 {/* Private Routes */}
                 <Route path="/private" element={<Privateroute />}>
                   <Route exact path="dashboard" element={<DashboardPage />} />
+                  <Route
+                    exact
+                    path="AdminDashboard"
+                    element={<AdminDashboardPage />}
+                  />
+                <Route
+                  exact
+                  path="AdminDashboard/signUp"
+                  element={<SignUp />}
+                />
+                <Route
+                  exact
+                  path="AdminDashboard/signin"
+                  element={<SignIn />}
+                />
+                <Route
+                  exact
+                  path="AdminDashboard/CompanyProfile"
+                  element={<CompanyProfile />}
+                />
+                <Route
+                  exact
+                  path="AdminDashboard/UserProfile"
+                  element={<UserProfile />}
+                />
+
                   <Route exact path="dashboard/staff" element={<Staff />} />
                   <Route
                     exact
@@ -238,32 +284,7 @@ const App = () => {
 
                 {/* Admin Dashboard  */}
 
-                <Route
-                  exact
-                  path="/AdminDashboard"
-                  element={<AdminDashboardPage />}
-                >
-                  <Route
-                    exact
-                    path="/AdminDashboard/signUp"
-                    element={<SignUp />}
-                  />
-                  <Route
-                    exact
-                    path="/AdminDashboard/signin"
-                    element={<SignIn />}
-                  />
-                  <Route
-                    exact
-                    path="/AdminDashboard/CompanyProfile"
-                    element={<CompanyProfile />}
-                  />
-                  <Route
-                    exact
-                    path="/AdminDashboard/UserProfile"
-                    element={<UserProfile />}
-                  />
-                </Route>
+
               </Routes>
             </div>
           </div>

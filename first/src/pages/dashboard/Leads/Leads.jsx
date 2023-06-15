@@ -40,11 +40,11 @@ const Leads = () => {
           });
 
           // Show success message or perform any other actions as needed
-          message.success("Customer deleted successfully!");
+          message.success(" Lead deleted successfully!");
         } catch (error) {
           // Handle error and show error message
-          message.error("Failed to delete customer. Please try again later.");
-          console.log("Delete customer error:", error);
+          message.error("Failed to delete lead. Please try again later.");
+          console.log("Delete lead error:", error);
         }
       },
     });
@@ -80,15 +80,15 @@ const Leads = () => {
       });
 
       // Show success message or perform any other actions as needed
-      message.success("Customer updated successfully!");
+      message.success("Lead updated successfully!");
 
       // Clear the editedCustomer state and exit editing mode
       setEditedLead(null);
       setIsEditing(false);
     } catch (error) {
       // Handle error and show error message
-      message.error("Failed to update customer. Please try again later.");
-      console.log("Update customer error:", error);
+      message.error("Failed to update lead. Please try again later.");
+      console.log("Update lead error:", error);
     }
   };
 

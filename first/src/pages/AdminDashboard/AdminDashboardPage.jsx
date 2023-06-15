@@ -24,9 +24,9 @@ const AdminDashBoardPage = () => {
 
  const handleMenuItem = (e) => {
   setOpen(false);
-  if (e.key === "/AdminDashboard") setpageTitle("Admin DashBoard");
-  if (e.key === "CompanyProfile") setpageTitle("Company Profile");
-  if (e.key === "UserProfile") setpageTitle("User Profile");
+  if (e.key === "/private/AdminDashboard") setpageTitle("Admin DashBoard");
+  if (e.key === "/private/AdminDashboard/CompanyProfile") setpageTitle("Company Profile");
+  if (e.key === "/private/AdminDashboard/UserProfile") setpageTitle("User Profile");
   // if (e.key === "Addresidence") setpageTitle("Add Residence");
 
   nav(e.key);
@@ -34,19 +34,19 @@ const AdminDashBoardPage = () => {
  const adminItems = [
   {
    label: "Admin DashBoard",
-   key: "/AdminDashboard",
+   key: "/private/AdminDashboard",
    icon: <SettingOutlined />,
    style: { fontSize: "15px" },
   },
   {
     label: "Company Profile",
-    key: "CompanyProfile",
+    key: "/private/AdminDashboard/CompanyProfile",
     icon: <WalletOutlined />,
     style: { fontSize: "15px" },
    },
   {
    label: "User Profile",
-   key: "UserProfile",
+   key: "/private/AdminDashboard/UserProfile",
    icon: <UploadOutlined />,
    style: { fontSize: "15px" },
   },
