@@ -48,19 +48,20 @@ const insertStaff = staffObj =>{
 const getStaff = () => {
     return new Promise((resolve, reject) => {
       try {
-        StaffSchema
-        .find({}, 'staffId staffName mobileNo email', (error, staff) => {
-          if (error) {
-            reject(error);
-          } else {
+        StaffSchema.find({}, 'staffId staffName mobileNo email')
+          .then(staff => {
             resolve(staff);
-          }
-        });
+          })
+          .catch(error => {
+            reject(error);
+          });
       } catch (error) {
         reject(error);
       }
     });
-};
+  };
+  
+  
 
 // Function to generate a unique staff ID
 function generateStaffId() {

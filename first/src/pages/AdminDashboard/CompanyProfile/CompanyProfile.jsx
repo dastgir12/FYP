@@ -14,7 +14,7 @@ const CompanyProfile = () => {
         numberOfUsers: values.numberOfUsers,
         maxAllowedUsers: values.maxAllowedUsers,
       };
-      const token = localStorage.getItem("accessToken");;
+      const token = localStorage.getItem("Token");
       const { data, status } = await axios.post(
         "http://localhost:3001/v1/admin/companies",
         formData,
@@ -26,7 +26,7 @@ const CompanyProfile = () => {
       );
       if (status === 201) {
         console.log(data);
-        nav('/AdminDashboard/UserProfile')
+        nav('/private/AdminDashboard')
       }
     } catch (e) {
       console.log(e.response.data.message);

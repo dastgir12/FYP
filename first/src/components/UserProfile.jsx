@@ -8,16 +8,22 @@ import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 const UserProfile = () => {
   const { currentColor } = useStateContext();
-const nav = useNavigate()
-  const logOut = () => {
-    axios.delete('http://localhost:3001/v1/user/logout')
-      .then(() => {
-        nav('/')
-      })
-      .catch((error) => {
-        console.log('Logout failed', error);
+  const navigate = useNavigate();
+  const logOut = async () => {
+    try {
+      const token = localStorage.getItem("accessToken");
+      // const userId = '6484b941ff0eb0b3ca01b764'
+      await axios.delete('http://localhost:3001/v1/user/logout', {
+        headers: {
+          Authorization: token,
+        },
       });
+      navigate('/');
+    } catch (error) {
+      console.log('Logout failed', error);
+    }
   };
+
   return (
     <div className="nav-item absolute right-1 top-16 bg-white dark:bg-[#42464D] p-8 rounded-lg w-96">
       <div className="flex justify-between items-center">

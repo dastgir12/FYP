@@ -25,7 +25,7 @@ const UserProfile = () => {
         userLevel: values.userLevel,
         password: values.password,
       };
-      const token = localStorage.getItem("accessToken");;
+      const token = localStorage.getItem("Token");;
       
       const data = await axios.post(
         "http://localhost:3001/v1/admin/registration",
@@ -37,7 +37,10 @@ const UserProfile = () => {
         }
       );
 
-      // nav('/dashboard')
+    if(data)
+    {
+      nav('/private/dashboard')
+    }
     } catch (e) {
       console.log(e);
     }

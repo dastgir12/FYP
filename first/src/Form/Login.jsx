@@ -20,7 +20,7 @@ const Login = () => {
         "http://localhost:3001/v1/user/login",
         formData
       );
-  
+  console.log(response);
       const { status, data } = response;
   
       if (status === 200 && data.status === "Success") {

@@ -78,8 +78,8 @@ const App = () => {
               AppPathName === "/forgot" ||
               AppPathName === "/about" ||
               AppPathName === "/private/AdminDashboard" ||
-              AppPathName === "/private/AdminDashboard/signUp" ||
-              AppPathName === "/private/AdminDashboard/signin" ||
+              AppPathName === "/AdminDashboard/signUp" ||
+              AppPathName === "/AdminDashboard/signin" ||
               AppPathName === "/private/AdminDashboard/UserProfile" ||
               AppPathName === "/private/AdminDashboard/CompanyProfile" ||
               AppPathName === "/dashboard" ||
@@ -106,8 +106,8 @@ const App = () => {
               AppPathName === "/about" ||
               AppPathName === "/dashboard" ||
               AppPathName === "/private/AdminDashboard" ||
-              AppPathName === "/private/AdminDashboard/signUp" ||
-              AppPathName === "/private/AdminDashboard/signin" ||
+              AppPathName === "/AdminDashboard/signUp" ||
+              AppPathName === "/AdminDashboard/signin" ||
               AppPathName === "/private/AdminDashboard/UserProfile" ||
               AppPathName === "/private/AdminDashboard/CompanyProfile" ||
               AppPathName === "/contact" ? (
@@ -125,8 +125,8 @@ const App = () => {
               AppPathName === "/about" ||
               AppPathName === "/dashboard" ||
               AppPathName === "/private/AdminDashboard" ||
-              AppPathName === "/private/AdminDashboard/signUp" ||
-              AppPathName === "/private/AdminDashboard/signin" ||
+              AppPathName === "/AdminDashboard/signUp" ||
+              AppPathName === "/AdminDashboard/signin" ||
               AppPathName === "/private/AdminDashboard/UserProfile" ||
               AppPathName === "/private/AdminDashboard/CompanyProfile" ||
               AppPathName === "/contact" ? (
@@ -151,8 +151,8 @@ const App = () => {
               AppPathName === "/about" ||
               AppPathName === "/dashboard" ||
               AppPathName === "/private/AdminDashboard" ||
-              AppPathName === "/private/AdminDashboard/signUp" ||
-              AppPathName === "/private/AdminDashboard/signin" ||
+              AppPathName === "/AdminDashboard/signUp" ||
+              AppPathName === "/AdminDashboard/signin" ||
               AppPathName === "/private/AdminDashboard/UserProfile" ||
               AppPathName === "/private/AdminDashboard/CompanyProfile" ||
               AppPathName === "/contact" ? (
@@ -174,16 +174,7 @@ const App = () => {
                     path="AdminDashboard"
                     element={<AdminDashboardPage />}
                   />
-                <Route
-                  exact
-                  path="AdminDashboard/signUp"
-                  element={<SignUp />}
-                />
-                <Route
-                  exact
-                  path="AdminDashboard/signin"
-                  element={<SignIn />}
-                />
+
                 <Route
                   exact
                   path="AdminDashboard/CompanyProfile"
@@ -281,7 +272,16 @@ const App = () => {
                 <Route exact path="/forgot" element={<Forgot />} />
                 <Route exact path="/about" element={<AboutUs />} />
                 <Route exact path="/contact" element={<ContactUs />} />
-
+                <Route
+                  exact
+                  path="AdminDashboard/signUp"
+                  element={<SignUp />}
+                />
+                <Route
+                  exact
+                  path="AdminDashboard/signin"
+                  element={<SignIn />}
+                />
                 {/* Admin Dashboard  */}
 
 

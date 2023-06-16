@@ -23,7 +23,7 @@ const AddStaff = () => {
       );
       if (status == 200) {
         message.success("Successfull Added");
-        nav("/dashboard/staff");
+        nav("/private/dashboard/staff");
       } else {
         console.log("error is here bru");
       }

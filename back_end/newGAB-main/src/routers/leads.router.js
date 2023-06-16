@@ -139,12 +139,13 @@ router.post("/", userAuthorization, async (req, res) => {
 
 //post-> get -> edit -> create -> delete
 
-// POST route to save staff  infodata
-router.post('/staff-info', userAuthorization, async (req, res) => {
+
+// post staff->
+router.post('/staff-info', async (req, res) => {
   try {
-    const { staffName, mobileNo, email, designation, department } = req.body;
-    // Generate a unique staff ID
-    const staffId = generateStaffId();
+    const {  staffName, mobileNo, email, designation, department } = req.body;
+// Generate a unique staff ID
+const staffId = generateStaffId();
     // Create a new staff object
     const staffObj = ({
       staffId,
@@ -239,42 +240,6 @@ router.delete('/staff-info/:staffId', async (req, res) => {
     res.status(500).json({ error: 'Internal server error' });
   }
 });
-
-//filter based on department
-// API endpoint for department-based filtering
-
-// export const searchStaff = async (req, res) => {
-//   const id = req.params.id;
-//   console.log(id);
-//   let data = await Product.find({  $or: [{ names: { $regexs :id } }]
-  
-// })
-//   res.status(200).json({date});
-//   };
-
-  // Search staff by department, designation, and staff name
-  // router.post('/search-staff', async (req, res) => {
-  //   try {
-  //     const { staffName } = req.body;
-  
-  //     // Create a query object to search for staff
-  //     const query = {};
-  
-  //     const regexStaffName = new RegExp(staffName, 'i');
-  //     query.staffName = regexStaffName;
-  
-  //     // Find staff based on the query
-  //     const staff = await StaffSchema.find(query);
-  
-  //     res.status(200).json({ staff: staff }); // Return only the matching staff records
-  //   } catch (error) {
-  //     console.error('Error occurred while searching staff:', error);
-  //     res.status(500).json({ error: 'Internal Server Error' });
-  //   }
-  // });
-  
-
-
 
 //post-> get -> edit -> create -> delete
 //customer info
@@ -597,18 +562,17 @@ router.delete("/leadsCategory/:categoryId", async (req, res) => {
     }
 
     // Delete the lead category
-    await leadCategory.remove();
+    await leadCategory.deleteOne(); // Use deleteOne() instead of remove()
 
     return res.json({
       status: "success",
       message: "Lead category deleted successfully",
     });
-  } catch (error) {yh
+  } catch (error) {
     console.error("Error deleting lead category:", error);
     res.status(500).json({ error: "Error deleting lead category" });
   }
 });
-
 
 
 //lead info route
@@ -1358,5 +1322,4 @@ router.post('/reports', async (req, res) => {
     res.status(500).json({ error: 'Internal Server Error' });
   }
 });
-
 module.exports = router;

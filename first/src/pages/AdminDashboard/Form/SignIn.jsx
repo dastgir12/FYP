@@ -25,7 +25,7 @@ const SignIn = () => {
       );
       console.log(data);
       localStorage.setItem("Token", data.data.token);
-      nav('/AdminDashboard')
+      nav('/private/AdminDashboard')
     } catch (e) {
       console.log(e);
     }

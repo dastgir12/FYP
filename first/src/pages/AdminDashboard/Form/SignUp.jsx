@@ -1,13 +1,12 @@
 import React , {useState} from "react";
+// import { Toast , message } from "react-toastify/dist/components";
 import { Form, Input, Select } from "antd";
 import axios from "axios";
-
+import { useNavigate } from "react-router-dom";
 const { Option } = Select;
-
 const SignUp = () => {
-
+  const nav = useNavigate();
   const [form] = Form.useForm();
-
   const [selectedRole, setSelectedRole] = useState("");
   const handleStatus = (value) => {
     console.log("Selected value:", value);
@@ -15,7 +14,6 @@ const SignUp = () => {
   const postForm = async (values) => {
     console.log(values);
     form.resetFields();
-
     try {
       const formData = {
         username: values.username,
@@ -25,17 +23,19 @@ const SignUp = () => {
         password: values.password,
       };
       console.log(formData);
-
       const data = await axios.post(
         "http://localhost:3001/v1/admin/signup",
         formData
       );
-      console.log(data);
+      if(data)
+      {
+        // message.success()
+        nav('/AdminDashBoard/signIn')
+      }
     } catch (error) {
       console.log(error);
     }
   };
-
   return (
     <>
       <div className="mt-11 flex items-center justify-center">
