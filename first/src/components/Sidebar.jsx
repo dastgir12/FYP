@@ -56,7 +56,7 @@ const Sidebar = () => {
                 </p>
                 {item.links.map((link) => (
                   <div key={link.route}>
-                    {link.route === 'dashboard/leads_follow_UP' ? (
+                    {link.route === 'private/dashboard/leads_follow_UP' ? (
                       <div
                         className="relative"
                         onMouseEnter={handleFollowUpHover}

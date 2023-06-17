@@ -21,7 +21,6 @@ const generateToken = (userId) => {
 };
 
 // Middleware function to authenticate and authorize the user
-
 const authenticateUser = (req, res, next) => {
   const token = req.headers.authorization;
 
@@ -38,7 +37,7 @@ const authenticateUser = (req, res, next) => {
   }
 };
 
-// User Signup
+// Admin Signup
 router.post('/signup', async (req, res) => {
  
     try {
@@ -77,7 +76,7 @@ router.post('/signup', async (req, res) => {
   }
 });
 
-// User Login
+// Admin Login
 router.post('/loginA', async (req, res) => {
     try {
       const { username, password, role } = req.body;
@@ -111,7 +110,7 @@ router.post('/loginA', async (req, res) => {
   
 
 // Logout
-router.post('/logoutA', authenticateUser, async (req, res) => {
+router.delete('/logoutA', authenticateUser, async (req, res) => {
     try {
       const { authorization } = req.headers;
   
@@ -263,8 +262,6 @@ router.post('/payment', authenticateUser, async (req, res) => {
   }
 });
 
-
-
 // Login Company Registered User
 router.post('/loginC', authenticateUser, async (req, res) => {
   try {
@@ -295,10 +292,8 @@ router.post('/loginC', authenticateUser, async (req, res) => {
   }
 });
 
-
-
-// Logout
-router.post('/logoutC', authenticateUser, async (req, res) => {
+// Logout Company
+router.delete('/logoutC', authenticateUser, async (req, res) => {
     try {
       const { authorization } = req.headers;
       

@@ -1,4 +1,4 @@
- const mongoose = require('mongoose');
+const mongoose = require('mongoose');
 
 // Replace the values below with your MongoDB Atlas cluster information
 const DB_USERNAME = 'your-username';
@@ -27,7 +27,7 @@ const JWT = mongoose.model('JWT', jwtSchema);
 
 // Define functions for interacting with the JWTs collection
 const setJWT = (key, value) => {
-  return JWT.findOneAndUpdate({ key }, { value }, { upsert: true, new: true });
+  return JWT.findOneAndUpdate({ key }, { value }, { upsert: true, new: true }).exec();
 };
 
 const getJWT = (key) => {

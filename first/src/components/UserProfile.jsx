@@ -8,21 +8,25 @@ import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 const UserProfile = () => {
   const { currentColor } = useStateContext();
-  const navigate = useNavigate();
-  const logOut = async () => {
+  const nav = useNavigate();
+
+  const handleLogout = async () => {
     try {
-      const token = localStorage.getItem("accessToken");
-      // const userId = '6484b941ff0eb0b3ca01b764'
-      await axios.delete('http://localhost:3001/v1/user/logout', {
+      // Make the logout API request
+      await axios.delete("http://localhost:3001/v1/user/logout", {
         headers: {
-          Authorization: token,
+          authorization: localStorage.getItem("accessToken"),
         },
       });
-      navigate('/');
+      // Clear the access token from local storage or state
+      localStorage.removeItem("accessToken");
+      // Redirect the user to the login page or any other desired page
+      nav("/login");
     } catch (error) {
-      console.log('Logout failed', error);
+      console.log("Logout failed", error);
     }
   };
+  
 
   return (
     <div className="nav-item absolute right-1 top-16 bg-white dark:bg-[#42464D] p-8 rounded-lg w-96">
@@ -65,7 +69,7 @@ const UserProfile = () => {
           </div>
         ))}
       </div>
-      <div onClick={logOut} className="mt-5">
+      <div onClick={handleLogout} className="mt-5">
         <Button
           color="white"
           bgColor={currentColor}
