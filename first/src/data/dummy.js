@@ -545,7 +545,7 @@ export const links = [
         submenus: [
           {
             name: "Failed Leads",
-            route: "dashboard/failed_leads",
+            route: "private/dashboard/failed_leads",
             icon: <BsArrowRight />,
           },
           {

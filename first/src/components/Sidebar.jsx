@@ -80,31 +80,31 @@ const Sidebar = () => {
                             onMouseLeave={handleFollowUpLeave}
                           >
                             <NavLink
-                              to="/dashboard/failed_leads"
+                              to="private/dashboard/failed_leads"
                               className="block px-2 py-1 hover:bg-gray-200 rounded"
                             >
                               Failed
                             </NavLink>
                             <NavLink
-                              to="/dashboard/working_leads"
+                              to="private/dashboard/working_leads"
                               className="block px-2 py-1 hover:bg-gray-200 rounded"
                             >
                              Working
                             </NavLink>
                             <NavLink
-                              to="/dashboard/contacted_leads"
+                              to="private/dashboard/contacted_leads"
                               className="block px-2 py-1 hover:bg-gray-200 rounded"
                             >
                               Contaced
                             </NavLink>
                             <NavLink
-                              to="/dashboard/closed_leads"
+                              to="private/dashboard/closed_leads"
                               className="block px-2 py-1 hover:bg-gray-200 rounded"
                             >
                              Closed
                             </NavLink>
                             <NavLink
-                              to="/dashboard/qualified_leads"
+                              to="private/dashboard/qualified_leads"
                               className="block px-2 py-1 hover:bg-gray-200 rounded"
                             >
                              Qualified

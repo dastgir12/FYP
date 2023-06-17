@@ -36,6 +36,13 @@ const FollowUP = () => {
 
         console.log("Data saved successfully:", response.data);
         toast.success("Lead assigned successfully!"); // Show success notification
+
+        // Remove assigned leads from the table
+        const updatedDataSource = dataSource.filter(
+          (row) => !selectedRowKeys.includes(row.key)
+        );
+        setDataSource(updatedDataSource);
+        setCheckedItems([]); // Clear selected leads
       } catch (error) {
         console.log("Error saving data:", error);
         toast.error("Failed to assign lead!"); // Show failure notification
@@ -84,25 +91,30 @@ const FollowUP = () => {
           title: "Action",
           dataIndex: "action",
           key: "action",
-          render: (_, record) => (
-            <div className="space-x-1">
-              <Button
-                className="bg-blue-500"
-                type="primary"
-                icon={<EyeOutlined />}
-              />
-              <Button
-                className="bg-blue-500"
-                type="primary"
-                icon={<EditOutlined />}
-              />
-              <Button
-                className="bg-blue-500"
-                type="primary"
-                icon={<DeleteOutlined />}
-              />
-            </div>
-          ),
+          render: (_, record) => {
+            const isRowSelected = checkedItems.includes(record.key);
+            const blurClass = isRowSelected ? "opacity-0" : "";
+
+            return (
+              <div className={`space-x-1 ${blurClass}`}>
+                <Button
+                  className="bg-blue-500"
+                  type="primary"
+                  icon={<EyeOutlined />}
+                />
+                <Button
+                  className="bg-blue-500"
+                  type="primary"
+                  icon={<EditOutlined />}
+                />
+                <Button
+                  className="bg-blue-500"
+                  type="primary"
+                  icon={<DeleteOutlined />}
+                />
+              </div>
+            );
+          },
         };
 
         const cols = selectedColumns.map((key) => {
