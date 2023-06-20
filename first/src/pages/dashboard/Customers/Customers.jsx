@@ -1,8 +1,13 @@
 import React, { useState, useEffect } from "react";
-import { Table, Button, Modal, message,Input,Form } from "antd";
-import { EyeOutlined, EditOutlined, DeleteOutlined } from "@ant-design/icons";
+import { Table, Button, Modal, message, Input, Form } from "antd";
+import {
+  EyeOutlined,
+  EditOutlined,
+  DeleteOutlined,
+} from "@ant-design/icons";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
+
 const Customers = () => {
   const nav = useNavigate();
   const [form] = Form.useForm();
@@ -23,25 +28,15 @@ const Customers = () => {
       okType: "danger",
       onOk: async () => {
         try {
-          // Get the ID of the record to be deleted
           const customerId = record._id;
-          // console.log('id is' + customerId);
-          // Send delete request to the backend API using the customer ID
           await axios.delete(
             `http://localhost:3001/v1/leads/CustomerInfo/${customerId}`
           );
-
-          // Remove the record from the dataSource state
-          setDataSource((prevDataSource) => {
-            return prevDataSource.filter(
-              (customer) => customer._id !== customerId
-            );
-          });
-
-          // Show success message or perform any other actions as needed
+          setDataSource((prevDataSource) =>
+            prevDataSource.filter((customer) => customer._id !== customerId)
+          );
           message.success("Customer deleted successfully!");
         } catch (error) {
-          // Handle error and show error message
           message.error("Failed to delete customer. Please try again later.");
           console.log("Delete customer error:", error);
         }
@@ -49,67 +44,47 @@ const Customers = () => {
     });
   };
 
-  // Edit Staff data:
+  // Edit Customer data
   const editCustomer = (record) => {
     setEditedCustomer(record);
     setIsEditing(true);
   };
 
-  // Handle customer update:
-  const handleCustomerUpdate = async (record) => {
+  // Handle customer update
+  const handleCustomerUpdate = async () => {
     try {
-      const customerId = record._id;
-
-      // Send update request to the backend API using the customer ID and updated data
+      const customerId = editedCustomer._id;
       await axios.put(
         `http://localhost:3001/v1/leads/CustomerInfo/${customerId}`,
         editedCustomer
       );
-
-      // Update the customer record in the dataSource
-      setDataSource((prevDataSource) => {
-        const updatedDataSource = prevDataSource.map((customer) => {
-          if (customer._id === customerId) {
-            return editedCustomer;
-          }
-          return customer;
-        });
-        return updatedDataSource;
-      });
-
-      // Show success message or perform any other actions as needed
+      setDataSource((prevDataSource) =>
+        prevDataSource.map((customer) =>
+          customer._id === customerId ? editedCustomer : customer
+        )
+      );
       message.success("Customer updated successfully!");
-
-      // Clear the editedCustomer state and exit editing mode
       setEditedCustomer(null);
       setIsEditing(false);
     } catch (error) {
-      // Handle error and show error message
       message.error("Failed to update customer. Please try again later.");
       console.log("Update customer error:", error);
     }
   };
 
-  // View staff data:
+  // View customer data
   const viewCustomer = (record) => {
     setViewedCustomer(record);
     setIsViewing(true);
   };
 
-  //get and show data
+  // Get and show data
   useEffect(() => {
     const fetchData = async () => {
       try {
         const res = await axios.get(
           "http://localhost:3001/v1/leads/CustomerInfo"
         );
-
-        console.log(res.data.data);
-        // const responseData = res.data.data
-        // responseData.forEach(item => {
-        //   const userId = item._id;
-        //   console.log(userId);
-        // });
 
         const list = res.data.data || [];
         const selectedColumns = [
@@ -118,7 +93,7 @@ const Customers = () => {
           "email",
           "contactPersonName",
           "contactPersonMobileNumber",
-        ]; // Replace with the desired column keys
+        ];
 
         const actionColumn = {
           title: "Action",
@@ -130,25 +105,19 @@ const Customers = () => {
                 className="bg-blue-500"
                 type="primary"
                 icon={<EyeOutlined />}
-                onClick={() => {
-                  viewCustomer(record);
-                }} // Pass the record to viewStaff function
+                onClick={() => viewCustomer(record)}
               />
               <Button
                 className="bg-blue-500"
                 type="primary"
                 icon={<EditOutlined />}
-                onClick={() => {
-                  editCustomer(record);
-                }}
+                onClick={() => editCustomer(record)}
               />
               <Button
                 className="bg-blue-500"
                 type="primary"
                 icon={<DeleteOutlined />}
-                onClick={() => {
-                  deleteCustomer(record);
-                }}
+                onClick={() => deleteCustomer(record)}
               />
             </div>
           ),
@@ -173,46 +142,27 @@ const Customers = () => {
     fetchData();
   }, []);
 
-  //for loading purpose
-  useEffect(() => {
-    if (!isLoading) {
-      const handleResize = () => {
-        window.requestAnimationFrame(() => {
-          // Handle resize logic here
-        });
-      };
-
-      window.addEventListener("resize", handleResize);
-
-      return () => {
-        window.removeEventListener("resize", handleResize);
-      };
-    }
-  }, [isLoading]);
-
-  //handleClicked Button
-  const handleClicked = () => {
-    nav("AddCustomer");
-  };
-
+  // Handle form changes
   const handleFormChange = (changedValues, allValues) => {
     setEditedCustomer({
       ...editedCustomer,
       ...changedValues,
     });
   };
+
+  // Render
   return (
     <>
-      <div className="bg-gray-200 h-screen ">
+      <div className="bg-gray-200 h-screen">
         <div className="flex justify-between mb-8 p-5">
-          <div className=" text-2xl font-semibold">Customers Information</div>
+          <div className="text-2xl font-semibold">Customers Information</div>
           <div>
             <div>Home / Customers</div>
           </div>
         </div>
 
         <div className="bg-blue-500 rounded flex justify-center items-center w-[80px] h-[40px] mb-2 ml-6">
-          <button className="text-white" onClick={handleClicked}>
+          <button className="text-white" onClick={() => nav("AddCustomer")}>
             Add New
           </button>
         </div>
@@ -226,43 +176,37 @@ const Customers = () => {
         <Modal
           title="Edit Staff"
           visible={isEditing}
-          onCancel={() => {
-            setIsEditing(false);
-          }}
-          okButtonProps={{
-            className: 'bg-blue-300 hover:bg-blue-800 border-blue-300 hover:border-blue-800',
-          }}
-          onOk={() => handleCustomerUpdate(editedCustomer)} // Call handleStaffUpdate on Ok button click
+          onCancel={() => setIsEditing(false)}
+          onOk={handleCustomerUpdate}
         >
           {editedCustomer && (
             <Form form={form} onValuesChange={handleFormChange}>
-            <Form.Item label="Compmnay Name" name="companyName">
-              <Input />
-            </Form.Item>
+              <Form.Item label="Company Name" name="CompanyName">
+                <Input />
+              </Form.Item>
 
-            <Form.Item label="Telephone" name="telephone">
-              <Input />
-            </Form.Item>
+              <Form.Item label="Telephone" name="Telephone">
+                <Input />
+              </Form.Item>
 
-            <Form.Item label="Email" name="email">
-              <Input />
-            </Form.Item>
+              <Form.Item label="Email" name="email">
+                <Input />
+              </Form.Item>
 
-            <Form.Item label="Contact Person Name" name="contactPersonName">
-              <Input />
-            </Form.Item>
-
-            {/* Add more Form.Item components as needed */}
-          </Form>
+              <Form.Item
+                label="Contact Person Name"
+                name="contactPersonName"
+              >
+                <Input />
+              </Form.Item>
+            </Form>
           )}
         </Modal>
 
         <Modal
           title="View Staff"
           visible={isViewing}
-          onCancel={() => {
-            setIsViewing(false);
-          }}
+          onCancel={() => setIsViewing(false)}
           footer={null}
         >
           {viewedCustomer && (
@@ -272,7 +216,6 @@ const Customers = () => {
               <p>Email: {viewedCustomer.email}</p>
               <p>Contact Person Name: {viewedCustomer.contactPersonName}</p>
               <p>Contact Person Number: {viewedCustomer.contactPersonNumber}</p>
-
             </div>
           )}
         </Modal>
