@@ -1,65 +1,37 @@
-import React from "react";
-import { Link, useNavigate } from "react-router-dom";
-import { toast, ToastContainer } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
+import React, { useState } from "react";
 import axios from "axios";
-import { Form, Input } from "antd";
+import { toast, ToastContainer } from "react-toastify";
+import { Form, Input, Select } from "antd";
+import { useNavigate } from "react-router-dom";
+const { Option } = Select;
 
 const Login = () => {
-  const navigate = useNavigate();
+  const nav = useNavigate();
   const [form] = Form.useForm();
+  const [selectedRole, setSelectedRole] = useState("");
+  const handleStatus = (value) => {
+    console.log("Selected value:", value);
+  };
 
   const postForm = async (values) => {
     try {
       const formData = {
-        email: values.email,
+        username: values.username,
+        role: values.role,
         password: values.password,
       };
-  
-      const response = await axios.post(
-        "http://localhost:3001/v1/user/login",
+      // console.log(formData);
+      const data = await axios.post(
+        "http://localhost:3001/v1/admin/loginA",
         formData
       );
-  console.log(response);
-      const { status, data } = response;
-  
-      if (status === 200 && data.status === "Success") {
-        localStorage.setItem("accessToken", data.accessJWT);
-        toast.success("Login successful!", {
-          position: toast.POSITION.TOP_CENTER,
-          autoClose: 3000,
-          hideProgressBar: true,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-        });
-  
-        form.resetFields();
-        navigate("/private/dashboard");
-      } else {
-        toast.error(data.message, {
-          position: toast.POSITION.TOP_CENTER,
-          autoClose: 3000,
-          hideProgressBar: true,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-        });
-      }
-    } catch (error) {
-      toast.error("An error occurred. Please try again.", {
-        position: toast.POSITION.TOP_CENTER,
-        autoClose: 3000,
-        hideProgressBar: true,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-      });
-      console.log(error);
+      console.log(data);
+      localStorage.setItem("Token", data.data.token);
+      nav("/private/AdminDashboard");
+    } catch (e) {
+      console.log(e);
     }
   };
-  
-  
 
   return (
     <>
@@ -80,34 +52,38 @@ const Login = () => {
               className="w-10 h-10 "
             />
           </div>
-          <div className="text-4xl text-center font-bold ">Login</div>
+          <div className="text-4xl text-center font-bold ">Sign In</div>
           <Form
             form={form}
             onFinish={postForm}
             className="flex flex-col justify-between w-[350px]"
           >
             <Form.Item
-              name="email"
-              hasFeedback
+              name="username"
               rules={[
                 {
-                  type: "email",
-                  message: "This is not a valid E-mail!",
+                  type: "string",
                 },
                 {
                   required: true,
-                  message: "Please input your E-mail!",
+                  message: "Please Enter userName",
                 },
               ]}
             >
-              <Input placeholder="Enter Your Email" />
+              <Input placeholder="Enter userName" />
             </Form.Item>
+
             <Form.Item
+              hasFeedback
               name="password"
               rules={[
                 {
                   required: true,
                   message: "Please Enter Your Password",
+                },
+                {
+                  min: 8,
+                  message: "Password must contains 8 characters",
                 },
               ]}
             >
@@ -117,29 +93,30 @@ const Login = () => {
               />
             </Form.Item>
 
+            <Form.Item name="role">
+              <Select
+                placeholder="Select an option"
+                onChange={handleStatus}
+                value={selectedRole}
+              >
+                <Option value="Admin">Admin</Option>
+                <Option value="Manager">Manager</Option>
+                <Option value="leadManager">Lead Manager</Option>
+              </Select>
+            </Form.Item>
             <Form.Item>
-              <div className="flex justify-between items-center">
-                <div className="flex justify-center items-center">
-                  <button
-                    className="px-5 cursor-pointer py-2 text-lg font-bold text-white bg-blue-500 rounded-2xl hover:bg-blue-400"
-                    type="submit"
-                  >
-                    LogIn
-                  </button>
-                </div>
-                <div>
-                  <Link
-                    to="/forgot"
-                    className="text-primary transition duration-150 ease-in-out hover:text-primary-600 focus:text-primary-600 active:text-primary-700 dark:text-primary-400 dark:hover:text-primary-500 dark:focus:text-primary-500 dark:active:text-primary-600"
-                  >
-                    Forgot password
-                  </Link>
-                </div>
+              <div className="flex justify-center items-center">
+                <button
+                  className="px-5 cursor-pointer py-2 text-lg font-bold tracking-wider text-white bg-blue-500 rounded-3xl hover:bg-blue-400"
+                  type="submit"
+                >
+                  Sign in
+                </button>
               </div>
             </Form.Item>
           </Form>
           <div className="flex justify-center text-sm">
-            <p>copyright @ GabLms 2023</p>
+            <p>copyright @ GabLms 2022</p>
           </div>
         </div>
       </div>

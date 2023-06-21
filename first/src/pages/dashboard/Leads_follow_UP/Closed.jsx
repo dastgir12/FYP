@@ -52,7 +52,7 @@ const Contacted = () => {
         `http://localhost:3001/v1/leads/leads-Info/${leadId}`,
         editedLead
       );
-      nav('/dashboard/leads')
+      nav('/private/dashboard/leads')
       message.success("Lead updated successfully!");
       setDataSource((prevDataSource) => {
         const updatedDataSource = prevDataSource.map((lead) => {

@@ -11,20 +11,20 @@ const UserProfile = () => {
   const nav = useNavigate();
 
   const handleLogout = async () => {
-    try {
+    // try {
       // Make the logout API request
-      await axios.delete("http://localhost:3001/v1/user/logout", {
-        headers: {
-          authorization: localStorage.getItem("accessToken"),
-        },
-      });
+      // await axios.delete("http://localhost:3001/v1/user/logout", {
+      //   headers: {
+      //     authorization: localStorage.getItem("accessToken"),
+      //   },
+      // });
       // Clear the access token from local storage or state
-      localStorage.removeItem("accessToken");
+      // localStorage.removeItem("accessToken");
       // Redirect the user to the login page or any other desired page
-      nav("/login");
-    } catch (error) {
-      console.log("Logout failed", error);
-    }
+      nav("/");
+    // } catch (error) {
+      // console.log("Logout failed", error);
+    // }
   };
   
 

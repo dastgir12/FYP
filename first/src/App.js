@@ -39,6 +39,7 @@ import {
 } from "./pages/dashboard/index.js";
 import { useStateContext } from "./contexts/ContextProvider";
 import "./App.css";
+
 const App = () => {
   const {
     setCurrentColor,
@@ -48,11 +49,11 @@ const App = () => {
     themeSettings,
     setThemeSettings,
   } = useStateContext();
+
   const { activeMenu, setActiveMenu } = useStateContext();
   const [AppPathName, setAppPathName] = useState("");
-  useEffect(() => {
-    // const url = window.location.href;
 
+  useEffect(() => {
     setActiveMenu(false);
 
     const pathname = window.location.pathname;
@@ -66,26 +67,30 @@ const App = () => {
     }
   }, []);
 
+  const shouldShowSidebarAndNavbar = () => {
+    return (
+      AppPathName !== "/" &&
+      AppPathName !== "/login" &&
+      AppPathName !== "/register" &&
+      AppPathName !== "/forgot" &&
+      AppPathName !== "/about" &&
+      AppPathName !== "/dashboard" &&
+      AppPathName !== "/private/AdminDashboard" &&
+      AppPathName !== "/AdminDashboard/signUp" &&
+      AppPathName !== "/AdminDashboard/signin" &&
+      AppPathName !== "/private/AdminDashboard/UserProfile" &&
+      AppPathName !== "/private/AdminDashboard/CompanyProfile" &&
+      AppPathName !== "/contact"
+    );
+  };
+
   return (
     <div className={currentMode === "Dark" ? "dark" : ""}>
       <BrowserRouter>
         <div className="flex relative dark:bg-main-dark-bg w-full overflow-hidden">
           <div className="fixed right-4 bottom-4" style={{ zIndex: "1000" }}>
             <TooltipComponent content="Settings" position="Top">
-              {AppPathName === "/" ||
-              AppPathName === "/login" ||
-              AppPathName === "/register" ||
-              AppPathName === "/forgot" ||
-              AppPathName === "/about" ||
-              AppPathName === "/private/AdminDashboard" ||
-              AppPathName === "/AdminDashboard/signUp" ||
-              AppPathName === "/AdminDashboard/signin" ||
-              AppPathName === "/private/AdminDashboard/UserProfile" ||
-              AppPathName === "/private/AdminDashboard/CompanyProfile" ||
-              AppPathName === "/dashboard" ||
-              AppPathName === "/contact" ? (
-                <></>
-              ) : (
+              {shouldShowSidebarAndNavbar() && (
                 <button
                   type="button"
                   onClick={() => setThemeSettings(true)}
@@ -98,43 +103,17 @@ const App = () => {
             </TooltipComponent>
           </div>
           {activeMenu ? (
-            <div className="w-72 fixed sidebar dark:bg-secondary-dark-bg bg-white ">
-              {AppPathName === "/" ||
-              AppPathName === "/login" ||
-              AppPathName === "/register" ||
-              AppPathName === "/forgot" ||
-              AppPathName === "/about" ||
-              AppPathName === "/dashboard" ||
-              AppPathName === "/private/AdminDashboard" ||
-              AppPathName === "/AdminDashboard/signUp" ||
-              AppPathName === "/AdminDashboard/signin" ||
-              AppPathName === "/private/AdminDashboard/UserProfile" ||
-              AppPathName === "/private/AdminDashboard/CompanyProfile" ||
-              AppPathName === "/contact" ? (
-                <></>
-              ) : (
+            shouldShowSidebarAndNavbar() && (
+              <div className="w-72 fixed sidebar dark:bg-secondary-dark-bg bg-white">
                 <Sidebar />
-              )}
-            </div>
+              </div>
+            )
           ) : (
-            <div className="w-0 dark:bg-secondary-dark-bg">
-              {AppPathName === "/" ||
-              AppPathName === "/login" ||
-              AppPathName === "/register" ||
-              AppPathName === "/forgot" ||
-              AppPathName === "/about" ||
-              AppPathName === "/dashboard" ||
-              AppPathName === "/private/AdminDashboard" ||
-              AppPathName === "/AdminDashboard/signUp" ||
-              AppPathName === "/AdminDashboard/signin" ||
-              AppPathName === "/private/AdminDashboard/UserProfile" ||
-              AppPathName === "/private/AdminDashboard/CompanyProfile" ||
-              AppPathName === "/contact" ? (
-                <></>
-              ) : (
+            shouldShowSidebarAndNavbar() && (
+              <div className="w-0 dark:bg-secondary-dark-bg">
                 <Sidebar />
-              )}
-            </div>
+              </div>
+            )
           )}
           <div
             className={
@@ -143,23 +122,8 @@ const App = () => {
                 : "bg-main-bg dark:bg-main-dark-bg  w-full min-h-screen flex-2 "
             }
           >
-            <div className="fixed md:static bg-main-bg dark:bg-main-dark-bg navbar w-full ">
-              {AppPathName === "/" ||
-              AppPathName === "/login" ||
-              AppPathName === "/register" ||
-              AppPathName === "/forgot" ||
-              AppPathName === "/about" ||
-              AppPathName === "/dashboard" ||
-              AppPathName === "/private/AdminDashboard" ||
-              AppPathName === "/AdminDashboard/signUp" ||
-              AppPathName === "/AdminDashboard/signin" ||
-              AppPathName === "/private/AdminDashboard/UserProfile" ||
-              AppPathName === "/private/AdminDashboard/CompanyProfile" ||
-              AppPathName === "/contact" ? (
-                <></>
-              ) : (
-                <Navbar />
-              )}
+            <div className="fixed md:static bg-main-bg dark:bg-main-dark-bg navbar w-full">
+              {shouldShowSidebarAndNavbar() && <Navbar />}
             </div>
             <div>
               {AppPathName === "/private/dashboard" && (
@@ -175,16 +139,16 @@ const App = () => {
                     element={<AdminDashboardPage />}
                   />
 
-                <Route
-                  exact
-                  path="AdminDashboard/CompanyProfile"
-                  element={<CompanyProfile />}
-                />
-                <Route
-                  exact
-                  path="AdminDashboard/UserProfile"
-                  element={<UserProfile />}
-                />
+                  <Route
+                    exact
+                    path="AdminDashboard/CompanyProfile"
+                    element={<CompanyProfile />}
+                  />
+                  <Route
+                    exact
+                    path="AdminDashboard/UserProfile"
+                    element={<UserProfile />}
+                  />
 
                   <Route exact path="dashboard/staff" element={<Staff />} />
                   <Route
@@ -283,8 +247,6 @@ const App = () => {
                   element={<SignIn />}
                 />
                 {/* Admin Dashboard  */}
-
-
               </Routes>
             </div>
           </div>

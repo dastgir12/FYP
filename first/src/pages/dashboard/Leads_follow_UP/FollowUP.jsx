@@ -93,7 +93,8 @@ const FollowUP = () => {
           key: "action",
           render: (_, record) => {
             const isRowSelected = checkedItems.includes(record.key);
-            const blurClass = isRowSelected ? "opacity-0" : "";
+            const isAssigned = selectedUser && selectedUser.userID === record.userId;
+            const blurClass = isRowSelected ? "opacity-0" : isAssigned ? "blur" : "";
 
             return (
               <div className={`space-x-1 ${blurClass}`}>
@@ -170,7 +171,7 @@ const FollowUP = () => {
     };
 
     fetchData();
-  }, []);
+  }, [checkedItems, selectedUser]);
 
   const rowSelection = {
     onChange: (selectedRowKeys, selectedRows) => {
