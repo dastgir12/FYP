@@ -42,7 +42,7 @@ const AdminDashBoardPage = () => {
       // Clear the access token from local storage or state
       localStorage.removeItem("Token");
       // Redirect the user to the login page or any other desired page
-      nav("/AdminDashBoard/signin");
+      nav("/login");
     } catch (error) {
       console.log("Logout failed", error);
     }

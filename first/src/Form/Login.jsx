@@ -6,11 +6,11 @@ import { useNavigate } from "react-router-dom";
 const { Option } = Select;
 
 const Login = () => {
-  const nav = useNavigate();
+  const navigate = useNavigate();
   const [form] = Form.useForm();
   const [selectedRole, setSelectedRole] = useState("");
   const handleStatus = (value) => {
-    console.log("Selected value:", value);
+    setSelectedRole(value);
   };
 
   const postForm = async (values) => {
@@ -20,19 +20,33 @@ const Login = () => {
         role: values.role,
         password: values.password,
       };
-      // console.log(formData);
-      const data = await axios.post(
+      const response = await axios.post(
         "http://localhost:3001/v1/admin/loginA",
         formData
       );
-      console.log(data);
-      localStorage.setItem("Token", data.data.token);
-      nav("/private/AdminDashboard");
-    } catch (e) {
-      console.log(e);
+      localStorage.setItem("Token", response.data.token);
+
+      // Check the selected role and navigate accordingly
+      if (values.role === "Admin") {
+        navigate("/private/AdminDashboard");
+      } else {
+        navigate("/private/dashboard");
+      }
+
+      // Show success toast notification
+      toast.success("Login successful!", {
+        position: toast.POSITION.TOP_CENTER,
+        autoClose: 2000,
+      });
+    } catch (error) {
+      // Show error toast notification
+      toast.error("Login failed. Please try again.", {
+        position: toast.POSITION.TOP_CENTER,
+        autoClose: 2000,
+      });
+      console.log(error);
     }
   };
-
   return (
     <>
       <ToastContainer />
@@ -83,7 +97,7 @@ const Login = () => {
                 },
                 {
                   min: 8,
-                  message: "Password must contains 8 characters",
+                  message: "Password must contain at least 8 characters",
                 },
               ]}
             >

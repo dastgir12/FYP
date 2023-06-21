@@ -26,7 +26,7 @@ const FollowUP = () => {
         const payload = {
           leadInfoIds: selectedRowKeys,
           userId: selectedUser.userID,
-          companyID: "S920"
+          companyID: "S600"
         };
 
         const response = await axios.post(
@@ -64,7 +64,7 @@ const FollowUP = () => {
 
   useEffect(() => {
     const getData = async () => {
-      const response = await axios.get('http://localhost:3001/v1/leads/companies/S920/users');
+      const response = await axios.get('http://localhost:3001/v1/leads/companies/S600/users');
       console.log(response);
       setUsers(response.data.users);
     }
